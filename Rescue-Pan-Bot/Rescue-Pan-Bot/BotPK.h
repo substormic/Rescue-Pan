@@ -1,6 +1,8 @@
 #pragma once
 #include "InterfaceInventory.h"
 
+//RUN VISUAL STUDIO AS ADMIN if you want to block input when doing spells
+
 class BotPK
 {
 private:
@@ -76,19 +78,23 @@ public:
 			if (msg.wParam == 3) //3st hotkey
 			{
 				printf("================ F1 - Entangle Setup!  ==================\n");
+				BlockInput(true);
 				POINT prevPos = mouse.GetPosition();
 				if (!inv.PrepareSpell(ENTANGLE))
 					printf("ERROR - No runes for spell\n");
 				mouse.MouseMoveArea(prevPos.x - 2, prevPos.y - 2, prevPos.x + 2, prevPos.y + 2);
+				BlockInput(false);
 			}
 
 			if (msg.wParam == 4) //4st hotkey
 			{
 				printf("================ F2 - TeleBlock Setup  ==================\n");
+				BlockInput(true);
 				POINT prevPos = mouse.GetPosition();
 				if (!inv.PrepareSpell(TELEBLOCK))
 					printf("ERROR - No runes for spell\n");
 				mouse.MouseMoveArea(prevPos.x - 2, prevPos.y - 2, prevPos.x + 2, prevPos.y + 2);
+				BlockInput(false);
 			}
 
 			if (msg.wParam == 5) //5st hotkey
@@ -105,6 +111,9 @@ public:
 			if (msg.wParam == 7) //6st hotkey
 			{
 				printf("================ F5 - Eating a Shark! ==================\n");
+				BlockInput(true);
+				inv.AttemptToEat(shark);
+				BlockInput(false);
 			}
 
 			msg.message = 0; //reset the message so that it resume;

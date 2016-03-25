@@ -38,6 +38,7 @@ int main()
 	//pix.DEBUG();
 	InterfaceStats stat;
 	
+
 	/*while (1)
 	{
 		if (stat.VerifyCombat() == 1)
@@ -56,8 +57,8 @@ int main()
 	//BotThievingRogueChest me;
 	//BotMeleeCow me;
 	//BotRangeOgre me;
-	//BotPK me;
-	BotAgilityCanifis me;
+	BotPK me;
+	//BotAgilityCanifis me;
 
 
 	//me.run(me.Paladin1, me.Paladin1, me.cake);

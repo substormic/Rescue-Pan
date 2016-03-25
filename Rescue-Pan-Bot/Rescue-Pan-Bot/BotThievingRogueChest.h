@@ -67,6 +67,7 @@ public:
 
 	void LootChest()
 	{
+		BlockInput(true);
 		POINT menu;
 		//move mouse to cursor appointed area
 		mouse.MouseMoveArea(Curs.x - 2, Curs.y - 3, Curs.x + 3, Curs.y + 2);
@@ -90,8 +91,10 @@ public:
 				lootTimer--;
 				LootChest();
 			}
+			BlockInput(false);
 			return;
 		}
+		BlockInput(false);
 	}
 
 	//handles what hotkeys do

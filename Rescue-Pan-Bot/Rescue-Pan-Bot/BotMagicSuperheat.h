@@ -150,6 +150,7 @@ public:
 				printf("======= Ran out of Iron ========\n");
 				return false; //ran out of material
 			}
+			Sleep(30);
 			bank.CloseBank();
 			Sleep(80);
 			return true;
