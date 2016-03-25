@@ -13,10 +13,37 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Bots">
+      <UniqueIdentifier>{f73a245f-1002-4308-b012-49d92d116cbc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BotFiremaking.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotMagicCurse.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotMagicSuperheat.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotMagicTeleAlch.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotMeleeCow.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotRangeOgre.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotThievingPickpocket.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotThievingRogueChest.h">
+      <Filter>Bots</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

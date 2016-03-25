@@ -118,6 +118,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BotFiremaking.h" />
+    <ClInclude Include="BotMagicCurse.h" />
+    <ClInclude Include="BotMagicSuperheat.h" />
+    <ClInclude Include="BotMagicTeleAlch.h" />
+    <ClInclude Include="BotMeleeCow.h" />
+    <ClInclude Include="BotRangeOgre.h" />
+    <ClInclude Include="BotThievingPickpocket.h" />
+    <ClInclude Include="BotThievingRogueChest.h" />
     <ClInclude Include="Config.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
