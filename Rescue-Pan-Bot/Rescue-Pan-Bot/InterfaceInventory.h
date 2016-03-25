@@ -74,7 +74,9 @@ public:
 	bool SearchIndexForColor(int invindex, unsigned int color);
 
 	//given color, returns the item index of the item. returns -1 if no item.
-	int InterfaceInventory::SearchInventoryForItem(unsigned int color);
+	int SearchInventoryForItem(unsigned int color);
+
+	int SearchInventoryForItem(unsigned int color, int indexStart, int indexStop);
 
 	//attempts to eat an item of given color. returns false if thers is no such item
 	bool AttemptToEat(unsigned int color);

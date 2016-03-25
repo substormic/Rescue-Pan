@@ -6,6 +6,7 @@
 #include "BotMagicSuperheat.h"
 #include "BotRangeOgre.h"
 #include "BotMeleeCow.h"
+#include "BotPK.h"
 #include "InterfaceStats.h"
 #include <stdio.h>
 
@@ -37,16 +38,18 @@ int main()
 	InterfaceStats stat;
 	
 	//BotMagicCurse me;
-	BotMagicSuperheat me;
+	//BotMagicSuperheat me;
 	//BotThievingPickpocket me;
 	//BotThievingRogueChest me;
 	//BotMeleeCow me;
 	//BotRangeOgre me;
+	BotPK me;
+
 
 	//me.run(me.Paladin1, me.Paladin1, me.cake);
 	//me.run(me.AdroKnight1,me.AdroKnight2,me.PineapplePizza);
-	//me.run();
-	me.runIron();
+	me.run();
+	//me.runIron();
 	//me.run(0);
 	std::cin.ignore();
 	return 0;

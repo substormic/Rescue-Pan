@@ -238,7 +238,18 @@ bool InterfaceInventory::SearchIndexForColor(int invIndex, unsigned int color)
 int InterfaceInventory::SearchInventoryForItem(unsigned int color)
 {
 	int index = -1;
-	for (int i = 1; i <= 27; i++) //JERRY RIGGED FOR NOE
+	for (int i = 0; i <= 27; i++) //JERRY RIGGED FOR NOE
+	{
+		if (SearchIndexForColor(i, color))
+			return i;
+	}
+	return index;
+}
+
+int InterfaceInventory::SearchInventoryForItem(unsigned int color, int indexStart, int indexStop)
+{
+	int index = -1;
+	for (int i = indexStart; i <= indexStop; i++) //JERRY RIGGED FOR NOE
 	{
 		if (SearchIndexForColor(i, color))
 			return i;

@@ -198,7 +198,6 @@ void InterfaceGeneral::Logout()
 void InterfaceGeneral::LogoutQuick()
 {
 	mouse.ChangeSpeed(0.3);
-	int ClickTimer = 40;
 	Area doorButton(1509 + SCREEN, 1004, 1532 + SCREEN, 1033);
 	Area Logout(1459 + SCREEN, 942, 1584 + SCREEN, 965);
 	mouse.MouseMoveArea(doorButton);
@@ -208,11 +207,13 @@ void InterfaceGeneral::LogoutQuick()
 	mouse.MouseMoveArea(Logout);
 	Sleep(40);
 	mouse.LeftClick();
-	while (VerifyOSbuddy())
+	POINT logCurs = mouse.GetPosition(); //get logout button position
+	POINT curs = mouse.GetPosition();
+	while (VerifyOSbuddy() && (curs.x == logCurs.x) && (curs.y == logCurs.y)) //while not logged out yet OR mouse movement, keep clicking logout
 	{
-		if (ClickTimer <= 0)
-			break;
-		Sleep(40);
+		printf("Clicking Logout!\n");
+		curs= mouse.GetPosition();
+		Sleep(50);
 		mouse.LeftClick();
 	}
 	return;
