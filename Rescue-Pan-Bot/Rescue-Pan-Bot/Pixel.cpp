@@ -358,6 +358,11 @@ bool PixelHandler::VerifyPixelColor(Pixel pix)
 	return false;
 }
 
+// Searches just around a certain pixel with a tolerance of 10 for a certain pixel
+bool PixelHandler::VerifyRoughPixel(Pixel pix)
+{
+	return SearchPixelArea(pix._color, pix._x - 8, pix._y - 8, pix._x + 8, pix._y + 8, 10);
+}
 
 //USED to find pixels on screen and get informations
 unsigned int PixelHandler::DEBUG()

@@ -72,6 +72,9 @@
     <ClInclude Include="BotPK.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="BotAgilityCanifis.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">

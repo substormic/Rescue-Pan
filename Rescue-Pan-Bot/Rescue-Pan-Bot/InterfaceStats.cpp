@@ -41,19 +41,29 @@ int InterfaceStats::VerifyCombat(int mode)
 	unsigned int RedTL = 0x87332600;
 	unsigned int GreenTL = 0x38802600;
 	unsigned int taken = 0xd4d0be00;
+	unsigned int taken2 = 0xd49e3400;
+	unsigned int taken3 = 0x34180200;
 
+	if (CheckEnemyDead()) //check dead before
+		return 3;
 
 	//check that if monster targeted, that said monster is not taken
 	if ((pix.SearchPixelArea(RedTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)) || (pix.SearchPixelArea(GreenTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)))
 	{
 		if (pix.SearchPixelArea(taken, 10 + SCREEN, 87, 22 + SCREEN, 96, 25)) //checks if taken
-			return 2;
+		{
+			bool takenmob = true;
+			takenmob &= pix.SearchPixelArea(taken2, 10 + SCREEN, 87, 22 + SCREEN, 96, 25); //checks if taken for sure orange crossgaurs
+			takenmob &= pix.SearchPixelArea(taken3, 10 + SCREEN, 87, 22 + SCREEN, 96, 25); //checks if taken for sure brown hilt
+			if (takenmob) //if all pixels found, shits taken yo
+				return 2;
+		}
 	}
 
 	if (mode == 0) // LOOSE targeting
 	{
 		//check for red -- OR -- green in health bar at TopLeft!
-		if ((pix.SearchPixelArea(RedTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)) || (pix.SearchPixelArea(GreenTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)))
+		if ((pix.SearchPixelArea(RedTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)) || (pix.SearchPixelArea(GreenTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 18)))
 			return 1;
 
 	}
@@ -61,13 +71,11 @@ int InterfaceStats::VerifyCombat(int mode)
 	{
 
 		//check for red -- AND -- green in health bar at TopLeft!
-		if ((pix.SearchPixelArea(RedTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)) && (pix.SearchPixelArea(GreenTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)))
+		if ((pix.SearchPixelArea(RedTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 15)) && (pix.SearchPixelArea(GreenTL, 10 + SCREEN, 71, 131 + SCREEN, 86, 18)))
 			return 1;
 	}
 
 
-	if (CheckEnemyDead())
-		return 3;
 
 	//check the red heart xp gain
 	if (pix.VerifyPixelColor(0xdd4f0100, 843 + SCREEN, 63))

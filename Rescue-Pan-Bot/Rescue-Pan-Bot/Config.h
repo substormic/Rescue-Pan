@@ -61,6 +61,12 @@ struct Pixel {
 		_y = y;
 		_color = color;
 	}
+	void Set(unsigned int color, int x, int y)
+	{
+		_x = x;
+		_y = y;
+		_color = color;
+	}
 }; // ============= MAKE SURE THESE ARE VALID ===========
 // pixStats(0xf1f5f600,1483 + SCREEN,55), pixChat(0x4a5a6000,25 + SCREEN,877), pixInv(0xeaeafb00,1489 + SCREEN,720);
 static const Pixel pixStats(0xf6f5f100, 1483 + SCREEN, 55);

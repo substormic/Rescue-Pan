@@ -51,6 +51,10 @@ public:
 	//checks the color [HEX - RGBA] of a single pixel. (overloaded function for handling pixel struct)
 	bool VerifyPixelColor(Pixel pix);
 
+	// Searches a decent pixel area around a certain pixel with a tolerance of 10 for a certain pixel
+	// its large because the runescape world shifts over time
+	bool VerifyRoughPixel(Pixel pix);
+
 	//prints out color and (x,y) of mouse pointer. infinite while loop CTRL + C to leave.
 	unsigned int DEBUG();
 

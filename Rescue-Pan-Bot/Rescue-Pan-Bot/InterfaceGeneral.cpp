@@ -179,6 +179,17 @@ bool InterfaceGeneral::CheckLevelUp(int mode)
 	return check;
 }
 
+
+//Given three pixels, checks the environment to see if those pixels are where they should be
+bool InterfaceGeneral::CheckLocation(Pixel pix1, Pixel pix2, Pixel pix3)
+{
+	bool result = true;
+	result &= pix.VerifyRoughPixel(pix1);
+	result &= pix.VerifyRoughPixel(pix2);
+	result &= pix.VerifyRoughPixel(pix3);
+	return result;
+}
+
 //when all else fails. gtfo
 void InterfaceGeneral::Logout()
 {

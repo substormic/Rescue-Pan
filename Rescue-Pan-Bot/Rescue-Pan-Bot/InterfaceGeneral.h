@@ -53,6 +53,9 @@ public:
 	//modes ignore certain skill levels (like hp at mode 0)
 	bool CheckLevelUp(int mode);
 
+	//Given three pixels, checks the environment to see if those pixels are where they should be
+	bool CheckLocation(Pixel pix1, Pixel pix2, Pixel pix3);
+
 	//when all else fails. gtfo
 	void Logout();
 

@@ -4,6 +4,7 @@
 
 // START THIS BOT with nature rune in 1st, and money in 2nd
 // Start with fire staff equipped
+// start with camera north centered and zoom all the way in
 class BotMagicSuperheat
 {
 private:

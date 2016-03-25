@@ -7,6 +7,7 @@
 #include "BotRangeOgre.h"
 #include "BotMeleeCow.h"
 #include "BotPK.h"
+#include "BotAgilityCanifis.h"
 #include "InterfaceStats.h"
 #include <stdio.h>
 
@@ -37,13 +38,26 @@ int main()
 	//pix.DEBUG();
 	InterfaceStats stat;
 	
+	/*while (1)
+	{
+		if (stat.VerifyCombat() == 1)
+			printf("In Combat \n");
+		else if (stat.VerifyCombat() == 2)
+			printf("Target Taken \n");
+		else if (stat.VerifyCombat() == 3)
+			printf("Freshly Dead \n");
+		else
+			printf("No Combat\n");
+	}*/
+
 	//BotMagicCurse me;
 	//BotMagicSuperheat me;
 	//BotThievingPickpocket me;
 	//BotThievingRogueChest me;
 	//BotMeleeCow me;
 	//BotRangeOgre me;
-	BotPK me;
+	//BotPK me;
+	BotAgilityCanifis me;
 
 
 	//me.run(me.Paladin1, me.Paladin1, me.cake);

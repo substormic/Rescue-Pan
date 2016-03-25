@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BotAgilityCanifis.h" />
     <ClInclude Include="BotFiremaking.h" />
     <ClInclude Include="BotMagicCurse.h" />
     <ClInclude Include="BotMagicSuperheat.h" />
