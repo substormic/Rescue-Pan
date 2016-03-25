@@ -127,6 +127,14 @@
     <ClInclude Include="BotThievingPickpocket.h" />
     <ClInclude Include="BotThievingRogueChest.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="InterfaceBank.h" />
+    <ClInclude Include="InterfaceGeneral.h" />
+    <ClInclude Include="InterfaceInventory.h" />
+    <ClInclude Include="InterfaceStats.h" />
+    <ClInclude Include="Keyboard.h" />
+    <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Password.h" />
+    <ClInclude Include="Pixel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

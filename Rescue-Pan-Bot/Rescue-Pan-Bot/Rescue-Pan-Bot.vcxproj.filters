@@ -45,5 +45,29 @@
     <ClInclude Include="BotThievingRogueChest.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="InterfaceBank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceGeneral.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceInventory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InterfaceStats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Password.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pixel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
