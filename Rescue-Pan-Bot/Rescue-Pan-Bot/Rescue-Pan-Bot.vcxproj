@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp" />
     <ClCompile Include="InterfaceGeneral.cpp" />
+    <ClCompile Include="InterfaceInventory.cpp" />
     <ClCompile Include="InterfaceStats.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mouse.cpp" />
