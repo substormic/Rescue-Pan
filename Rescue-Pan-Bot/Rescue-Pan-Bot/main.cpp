@@ -40,7 +40,6 @@ int main()
 	//pix.DEBUG();
 	InterfaceStats stat;
 
-
 	/*while (1)
 	{
 		if (stat.VerifyCombat() == 1)

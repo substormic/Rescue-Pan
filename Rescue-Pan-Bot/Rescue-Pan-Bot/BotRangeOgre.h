@@ -15,6 +15,8 @@ public:
 		mouse.ChangeSpeed(0.4);
 		bool combat = true;
 		unsigned int OgreNew = 0x917b5600;
+		unsigned int Ogre = 0xc9b59500;
+		stat.alternateColor = Ogre;
 		while (combat)
 		{
 			stat.HandleAutoLogOut();

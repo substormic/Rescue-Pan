@@ -15,6 +15,7 @@ protected:
 	int mouseDeviation = 250;
 
 public:
+	unsigned int alternateColor = -1;
 	bool MouseMoved = false; // for mouse movement returning
 	//returns '0' if not in combat, '1' if in combat, and '2' if monster is already taken by someone else, and '3' if the monster is just dying
 	int VerifyCombat();
@@ -64,6 +65,9 @@ public:
 
 	//checks for health bar on a monster
 	bool CheckMonsterHealthBar(POINT monster);
+
+	//checks for a monsters second color, for more reliable finding
+	bool CheckMonster(POINT monster, unsigned int altColor);
 
 	//detects when you move in game
 	bool DetecMovement();
