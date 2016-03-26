@@ -6,13 +6,13 @@ InterfaceBank::InterfaceBank()
 	ActiveTab._x = 2;
 	ActiveTab._y = 2; //pixels from top left where color should be 
 
-	BankTab.x = 500+SCREEN;
+	BankTab.x = 500 + SCREEN;
 	BankTab.y = 92;
 
 	BankItem.x = 510 + SCREEN;
 	BankItem.y = 130;
 
-	BankClose.x = 912+SCREEN;
+	BankClose.x = 912 + SCREEN;
 	BankClose.y = 59;
 }
 
@@ -80,7 +80,7 @@ Area InterfaceBank::GetItemCoords(int indexX, int indexY)
 bool InterfaceBank::VerifyItem(unsigned int color, int indexX, int indexY)
 {
 	Area Region = GetItemCoords(indexX, indexY);
-	return pix.SearchPixelArea(color, Region.x1, Region.y1, Region.x2, Region.y2,5);
+	return pix.SearchPixelArea(color, Region.x1, Region.y1, Region.x2, Region.y2, 5);
 }
 
 //moves mouse to tab
@@ -118,25 +118,41 @@ bool InterfaceBank::Withdraw(int indexX, int indexY, int menuOption, int Xamount
 	return true;
 }
 
+void InterfaceBank::DepositBackpack() {
+	mouse.MouseMove(SCREEN + 2801 - 1920, 827);
+	mouse.LeftClick();
+	Sleep(50);
+}
 
+
+//opens bank lol
 bool InterfaceBank::OpenBank(Area region)
 {
-	while (bankTimeout < 5)
+	while (bankTimeout < 20)
 	{
-		printf("Time to open the bank!\n");
-		mouse.MouseMoveArea(region.x1 + SCREEN, region.y1, region.x2, region.y2 + SCREEN);
-		Sleep(130);
-		if (VerifyTopLeftText(HOVER_ACTION))
+		bool canFindBank = pix.SearchPixelArea(0x291B0000, region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2, 50);
+		if (canFindBank && bankTimeout < 5) {
+			POINT b = pix.SearchPixelAreaForPoint(0x291B0000, region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2, 50);
+			mouse.MouseMove(b);
+			printf("Found bank and moved mouse\n");
+		}
+		else {
+			printf("Didn't find the bank... moving to that area\n");
+			mouse.MouseMoveArea(region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2);
+		}
+		Sleep(200);
+
+		if (VerifyTopLeftText(0x00DDDD00))
 		{
 			mouse.RightClick();
 			Sleep(150);
-			ChooseMenuOptionColorCheck(0, HOVER_ACTION);
+			ChooseMenuOptionColorCheck(0, HOVER_ACTION); //todo: if this returns false, return.
 			Sleep(30);
 			mouse.LeftClick();
 			printf("Waiting on bank to open\n");
 			while (!VerifyBankOpen())
 			{
-				;
+				; //todo: throw error if timeout2 exceeds.
 			}
 			bankTimeout = 0;
 			return true;

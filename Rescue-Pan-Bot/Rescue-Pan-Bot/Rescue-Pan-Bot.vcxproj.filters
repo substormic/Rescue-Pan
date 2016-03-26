@@ -75,6 +75,9 @@
     <ClInclude Include="BotAgilityCanifis.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="BotWoodcuttingDraynor.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">
