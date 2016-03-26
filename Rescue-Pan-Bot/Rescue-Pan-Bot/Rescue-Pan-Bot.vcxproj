@@ -130,13 +130,13 @@
     <ClInclude Include="BotThievingRogueChest.h" />
     <ClInclude Include="BotWoodcuttingDraynor.h" />
     <ClInclude Include="Config.h" />
+    <ClInclude Include="Password.h" />
     <ClInclude Include="InterfaceBank.h" />
     <ClInclude Include="InterfaceGeneral.h" />
     <ClInclude Include="InterfaceInventory.h" />
     <ClInclude Include="InterfaceStats.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
-    <ClInclude Include="Password.h" />
     <ClInclude Include="Pixel.h" />
   </ItemGroup>
   <ItemGroup>
@@ -147,6 +147,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Pixel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

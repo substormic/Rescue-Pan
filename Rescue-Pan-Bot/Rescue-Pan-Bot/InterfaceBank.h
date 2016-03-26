@@ -46,6 +46,9 @@ public:
 	//withdraw an item given by menu option, gives an X amount to withdraw
 	bool Withdraw(int indexX, int indexY, int menuOption, int Xamount);
 
+	//empties backpack into current tab of bank.
+	void DepositBackpack();
+
 	//Closes bank
 	bool OpenBank(Area region);
 

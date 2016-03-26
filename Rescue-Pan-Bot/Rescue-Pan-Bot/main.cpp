@@ -65,7 +65,8 @@ int main()
 	//me.run(me.Paladin1, me.Paladin1, me.cake);
 	//me.run(me.AdroKnight1,me.AdroKnight2,me.PineapplePizza);
 	//me.run();
-	me.runIron();
+	me.run();
+	//me.runIron();
 	//me.run(0);
 	std::cin.ignore();
 	return 0;
