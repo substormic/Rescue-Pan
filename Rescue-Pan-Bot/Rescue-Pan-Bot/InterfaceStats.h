@@ -62,6 +62,9 @@ public:
 	//searches for an enemy using bloom sectoring
 	bool SearchEnemyBloom(unsigned int color, int x1, int y1, int x2, int y2);
 
+	//checks for health bar on a monster
+	bool CheckMonsterHealthBar(POINT monster);
+
 	//detects when you move in game
 	bool DetecMovement();
 

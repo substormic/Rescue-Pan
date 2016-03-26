@@ -10,7 +10,7 @@ class BotRangeOgre
 		Mouse mouse;
 
 public:
-	void run()
+	void run(int mode)
 	{
 		mouse.ChangeSpeed(0.4);
 		bool combat = true;
@@ -23,7 +23,7 @@ public:
 			POINT cursor = mouse.GetPosition();
 			combat = stat.Fight(OgreNew, 260 + SCREEN, 250, 1440 + SCREEN, 460);
 			stat.CheckLevelUp();
-			if (stat.MouseMoved == true)
+			if (stat.MouseMoved == true && mode == 1)
 				mouse.MouseMoveArea(cursor.x, cursor.y,cursor.x+3, cursor.y+3);
 			if (!combat)
 			{

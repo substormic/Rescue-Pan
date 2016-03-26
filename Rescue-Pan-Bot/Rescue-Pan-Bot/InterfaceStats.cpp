@@ -87,7 +87,7 @@ int InterfaceStats::VerifyCombat(int mode)
 bool InterfaceStats::CheckEnemyDead()
 {
 	//check for red in health bar at TopLeft!
-	if (pix.SearchPixelArea(0x87332600, 10 + SCREEN, 71, 11 + SCREEN, 86, 15))
+	if (pix.SearchPixelArea(0x87332600, 10 + SCREEN, 71, 11 + SCREEN, 86, 18))
 		return true;
 	return false;
 }
@@ -130,8 +130,8 @@ bool InterfaceStats::Attack()
 	if (ChooseMenuOptionColorCheck(attackMenuOption, HOVER_NPC)) //if the menu option is has npc colors
 	{
 		mouse.LeftClick();
-		//attackTimeout = 500;
-		Sleep(4500); //allow for new combat to update
+		attackTimeout = 500;
+		//Sleep(4500); //allow for new combat to update
 		return true;
 	}
 	return false;
@@ -178,6 +178,11 @@ bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 			sector = GetSectorCoords(region, i);
 			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
 			{
+				if (CheckMonsterHealthBar(mouse.GetPosition()))
+				{
+					printf("This monster seems to be taken, judging by its health bar\n");
+					continue;
+				}
 				if (Attack())
 				{
 					if (sectorTimeout > 0)
@@ -212,6 +217,11 @@ bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 			sector = GetSectorCoords(region, i);
 			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
 			{
+				if (CheckMonsterHealthBar(mouse.GetPosition()))
+				{
+					printf("This monster seems to be taken, judging by its health bar\n");
+					continue;
+				}
 				if (Attack())
 				{
 					printf("Attacked an enemy!\n");
@@ -232,6 +242,11 @@ bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 			sector = GetSectorCoords(region, i);
 			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
 			{
+				if (CheckMonsterHealthBar(mouse.GetPosition()))
+				{
+					printf("This monster seems to be taken, judging by its health bar\n");
+					continue;
+				}
 				if (Attack())
 				{
 					if (sectorTimeout > 0)
@@ -369,6 +384,14 @@ bool InterfaceStats::DetecMovement()
 
 }
 
+
+//checks for health bar on a monster, given ap oint of a monster, checks surrounding area for red in health bar
+bool InterfaceStats::CheckMonsterHealthBar(POINT monster)
+{
+	bool result = true;
+	result &= pix.SearchPixelArea(0xff000000, monster.x - 45, monster.y - 90, monster.x +45, monster.y + 30);
+	return result;
+}
 
 //Verifies that runescape is up
 bool InterfaceStats::VerifyRunescapeWindow()

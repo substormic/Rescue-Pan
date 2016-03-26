@@ -36,9 +36,10 @@ int main()
 	InterfaceInventory inv;
 	PixelHandler pix;
 	Keyboard key;
+	Mouse mouse;
 	//pix.DEBUG();
 	InterfaceStats stat;
-	
+
 
 	/*while (1)
 	{
@@ -57,17 +58,17 @@ int main()
 	//BotThievingPickpocket me;
 	//BotThievingRogueChest me;
 	//BotMeleeCow me;
-	//BotRangeOgre me;
+	BotRangeOgre me;
 	//BotPK me;
 	//BotAgilityCanifis me;
-	BotWoodcuttingDraynor me;
+	//BotWoodcuttingDraynor me;
 
 	//me.run(me.Paladin1, me.Paladin1, me.cake);
 	//me.run(me.AdroKnight1,me.AdroKnight2,me.PineapplePizza);
 	//me.run();
-	me.run();
+	//me.run();
 	//me.runIron();
-	//me.run(0);
+	me.run(0);
 	std::cin.ignore();
 	return 0;
 }
