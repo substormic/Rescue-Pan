@@ -88,6 +88,8 @@ public:
 				while (!inv.VerifyMagicOpen()) //wait for magic book to return
 				{
 					inv.HandleHotkeys();
+					if (inv.HandleAutoLogOut())
+						inv.VerifyActiveMagic();
 				} //null op for waiting
 				Sleep(150);
 				result = true; //if at least one time it was successful

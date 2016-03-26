@@ -67,6 +67,7 @@ public:
 
 	void LootChest()
 	{
+		POINT point = mouse.GetPosition();
 		BlockInput(true);
 		POINT menu;
 		//move mouse to cursor appointed area
@@ -91,9 +92,11 @@ public:
 				lootTimer--;
 				LootChest();
 			}
+			mouse.MouseMove(point);
 			BlockInput(false);
 			return;
 		}
+		mouse.MouseMove(point);
 		BlockInput(false);
 	}
 
