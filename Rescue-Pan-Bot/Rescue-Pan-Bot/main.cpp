@@ -9,6 +9,7 @@
 #include "BotPK.h"
 #include "BotAgilityCanifis.h"
 #include "InterfaceStats.h"
+#include "BotWoodcuttingDraynor.h"
 #include <stdio.h>
 
 int main()
@@ -52,14 +53,14 @@ int main()
 	}*/
 
 	//BotMagicCurse me;
-	BotMagicSuperheat me;
+	//BotMagicSuperheat me;
 	//BotThievingPickpocket me;
 	//BotThievingRogueChest me;
 	//BotMeleeCow me;
 	//BotRangeOgre me;
 	//BotPK me;
 	//BotAgilityCanifis me;
-
+	BotWoodcuttingDraynor me;
 
 	//me.run(me.Paladin1, me.Paladin1, me.cake);
 	//me.run(me.AdroKnight1,me.AdroKnight2,me.PineapplePizza);
