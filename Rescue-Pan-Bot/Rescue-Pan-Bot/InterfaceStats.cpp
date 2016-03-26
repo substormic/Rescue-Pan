@@ -412,7 +412,7 @@ bool InterfaceStats::CheckMonsterHealthBar(POINT monster)
 bool InterfaceStats::CheckMonster(POINT monster, unsigned int altColor)
 {
 	bool result = true;
-	result &= pix.SearchPixelArea(altColor, monster.x - 50, monster.y - 100, monster.x + 50, monster.y + 40);
+	result &= pix.SearchPixelArea(altColor, monster.x - 50, monster.y - 100, monster.x + 50, monster.y + 40, 5);
 	return result;
 }
 
