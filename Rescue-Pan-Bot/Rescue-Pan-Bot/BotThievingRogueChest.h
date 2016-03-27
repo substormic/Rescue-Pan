@@ -21,7 +21,7 @@ public:
 		printf("No Mouse position for chest set yet\nF1 - Logout\nF2 - Set Mouse\nF3 - Loot Once\nF4 - Auto Loot\n");
 
 		SleepTimer = 0;
-		lootTimer = 10;
+		lootTimer = 5;
 		autoLoot = false; //initialize
 		mouseSet = false;
 
@@ -56,7 +56,9 @@ public:
 			HandleMyHotkeys();
 			if (autoLoot && SleepTimer <= 0) //sleep has gone by
 			{
+				POINT point = mouse.GetPosition();
 				LootChest();
+				mouse.MouseMove(point);
 				SleepTimer = 18000;
 			}
 			Sleep(50);
@@ -67,7 +69,7 @@ public:
 
 	void LootChest()
 	{
-		POINT point = mouse.GetPosition();
+
 		BlockInput(true);
 		POINT menu;
 		//move mouse to cursor appointed area
@@ -92,11 +94,10 @@ public:
 				lootTimer--;
 				LootChest();
 			}
-			mouse.MouseMove(point);
+
 			BlockInput(false);
 			return;
 		}
-		mouse.MouseMove(point);
 		BlockInput(false);
 	}
 

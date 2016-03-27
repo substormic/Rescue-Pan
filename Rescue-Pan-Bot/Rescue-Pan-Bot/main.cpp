@@ -56,13 +56,13 @@ int main()
 	//BotMagicCurse me;
 	//BotMagicSuperheat me;
 	//BotThievingPickpocket me;
-	//BotThievingRogueChest me;
+	BotThievingRogueChest me;
 	//BotMeleeCow me;
 	//BotRangeOgre me;
 	//BotPK me;
 	//BotAgilityCanifis me;
 	//BotWoodcuttingDraynor me;
-	BotMiningDropAdro me;
+	//BotMiningDropAdro me;
 
 
 

@@ -78,6 +78,9 @@
     <ClInclude Include="Password.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BotMiningDropAdro.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">
