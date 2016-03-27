@@ -83,7 +83,7 @@ public:
 		if (pix.SearchPixelArea(HOVER_ACTION, menu.x, menu.y, menu.x + 3 * MENU_MINWIDTH, menu.y + MENU_OPTION))
 		{
 			mouse.LeftClick();
-			lootTimer = 10;
+			lootTimer = 5;
 		}
 		else
 		{
