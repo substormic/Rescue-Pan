@@ -2,7 +2,7 @@
 #include "InterfaceInventory.h"
 #include "InterfaceBank.h"
 
-// START THIS BOT with nature rune in 1st, and money in 2nd
+// START THIS BOT with nature rune in 1st
 // Start with fire staff equipped
 // start with camera north centered and zoom all the way in
 class BotMagicSuperheat

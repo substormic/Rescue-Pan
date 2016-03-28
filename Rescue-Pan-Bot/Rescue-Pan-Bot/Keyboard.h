@@ -12,13 +12,13 @@ private:
 public:
 
 	//Sets pressdown time
-	void SetPressTime(int ms)
+	void SetDelay(int ms)
 	{
 		pressTime = ms;
 	}
 
 	//generates a random key delay between range - INCLUDES BOTH ENDPOINTS
-	void SetPressTimeRandRange(int RangeStart, int RangeEnd)
+	void SetDelayRandRange(int RangeStart, int RangeEnd)
 	{
 		int range = RangeEnd - RangeStart;
 		pressTime = rand() % range + RangeStart + 1;
@@ -94,10 +94,37 @@ public:
 		return;
 	}
 
+	//	1 = left
+	//	2 = right
+	//	3 = up
+	//	4 = down
+	void Arrow(int arrow, int delay)
+	{
+		SetDelay(delay);
+		switch (arrow)
+		{
+				//left
+			case 1:	GenerateKey(VK_LEFT, false, false); break;
+				//left
+			case 2:	GenerateKey(VK_RIGHT, false, false); break;
+				//left
+			case 3:	GenerateKey(VK_UP, false, false); break;
+				//left
+			case 4:	GenerateKey(VK_DOWN, false, false); break;
+		}
+	}
+
+	void SendEnter()
+	{
+		GenerateKey(VK_RETURN, false, false); //send enter
+		return;
+	}
+
 	void TypeNum(int number)
 	{
 		char numBuffer[20];
 		sprintf_s(numBuffer, "%ld", number);
 		Type(numBuffer, 20);
+		SendEnter();
 	}
 };
