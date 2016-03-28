@@ -1,6 +1,7 @@
 #pragma once
 #include "Windows.h"
 #include <stdio.h>
+#include <iostream>
 
 
 class Keyboard
@@ -73,5 +74,12 @@ public:
 			Sleep(100);
 		}
 		return;
+	}
+
+	void TypeNum(int number)
+	{
+		char numBuffer[20];
+		sprintf_s(numBuffer, "%ld", number);
+		Type(numBuffer, 20);
 	}
 };
