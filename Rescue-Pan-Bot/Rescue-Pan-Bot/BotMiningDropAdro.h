@@ -46,19 +46,56 @@ class BotMiningDropAdro {
 	bool didGetOre() {
 		int startingOre = countInventory(inventoryColor);
 		int MiningTimeout = 0;
-		while (countInventory(inventoryColor) == startingOre) {
-			Sleep(10);
-			gen.HandleAutoLogOut();
+		while (!inv.SearchIndexForColor(startingOre + 1, inventoryColor))
+		{
 			MiningTimeout++;
-			if (MiningTimeout == 20) {
-				printf("You still haven't found ore, let's try clicking one more time\n");
+			Sleep(10);
+			if (MiningTimeout == 100) {
+				printf("Re-clicking.\n");
 				clickRock(RockRegion);
 			}
-			if (MiningTimeout > 100) {
-				return false;
+			if (MiningTimeout > 300) {
+				if (inv.VerifyInventoryOpen()) {
+					printf("Dropping everything, you might've gotten a non-ore\n");
+					inv.DropAllItems();
+					return true;
+				}
+				else {
+					printf("Inventory isn't open, gotta leave :/\n");
+					return false;
+				}
 			}
 		}
 		return true;
+
+		/*while (countInventory(inventoryColor) == startingOre) {
+			Sleep(100);
+			gen.HandleAutoLogOut();
+			MiningTimeout++;
+			if (MiningTimeout == 9) {
+				printf("You still haven't found ore, let's try clicking one more time\n");
+				clickRock(RockRegion);
+			}
+			if (MiningTimeout > 50) {
+				if (!hardCheckItem(startingOre)) {
+					printf("Mine timed out.\n");
+					return true; //todo: fix this; it should be "false," but I want bot to run forever. Risky.
+				}
+				else {
+					printf("you got something, not an ore!\n");
+					inv.DropAllItems();
+					return true;
+				}
+			}
+		}
+		return true; */
+	}
+	bool hardCheckItem(int loc) {
+		inv.MoveToItem(loc);
+		bool Item = inv.VerifyTopLeftText(HOVER_ITEM); //checks both hover and top left to see if item exists 
+		Item |= inv.VerifyHoverText(HOVER_ITEM);
+		return Item;
+
 	}
 	int countInventory(unsigned int itemColor) {
 		for (int i = 0; i < 28; i++) {
@@ -69,17 +106,23 @@ class BotMiningDropAdro {
 				return i;
 			}
 		}
-		return 27;
+		return 28;
 	}
 
 public:
 	void run() {
-		RockRegion.x1 = 2630 - 1920;
-		RockRegion.y1 = 422;
-		RockRegion.x2 = 2890 - 1920;
-		RockRegion.y2 = 653;
+		RockRegion.x1 = 2646 - 1920;
+		RockRegion.y1 = 529;
+		RockRegion.x2 = 2798 - 1920;
+		RockRegion.y2 = 619;
 
 		while (inv.VerifyInventoryOpen()) {
+			if (inv.SearchIndexForColor(27, inventoryColor)) {
+				printf("Inventory full. Dropping.");
+				inv.DropAllItems();
+				printf(" %d mined for %d XP.\n", totalMined, totalMined * 35);
+
+			}
 			if (!clickRock(RockRegion)) {
 				printf("Couldn't find ore \n");
 				return;
@@ -89,12 +132,7 @@ public:
 				return;
 			}
 			totalMined++;
-			if (inv.SearchIndexForColor(27, inventoryColor)) {
-				printf("Inventory full. Dropping.");
-				inv.DropAllItems();
-				printf(" %d mined for %d XP.\n", totalMined, totalMined * 35);
-				
-			}
+			
 		}
 	}
 	
