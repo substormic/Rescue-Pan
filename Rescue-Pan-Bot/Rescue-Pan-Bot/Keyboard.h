@@ -18,10 +18,12 @@ public:
 	}
 
 	//generates a random key delay between range - INCLUDES BOTH ENDPOINTS
-	void SetDelayRandRange(int RangeStart, int RangeEnd)
+	int SetDelayRandRange(int RangeStart, int RangeEnd)
 	{
 		int range = RangeEnd - RangeStart;
-		pressTime = rand() % range + RangeStart + 1;
+		int delay = rand() % range + RangeStart + 1;
+		pressTime = delay;
+		return delay;
 	}
 
 	//expects the key (as a capital letter), whether its held down, and whether to yield a capital letter. 
