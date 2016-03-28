@@ -56,9 +56,9 @@ int main()
 	//BotMagicCurse me;
 	//BotMagicSuperheat me;
 	//BotThievingPickpocket me;
-	BotThievingRogueChest me;
+	//BotThievingRogueChest me;
 	//BotMeleeCow me;
-	//BotRangeOgre me;
+	BotRangeOgre me;
 	//BotPK me;
 	//BotAgilityCanifis me;
 	//BotWoodcuttingDraynor me;
@@ -71,7 +71,7 @@ int main()
 	//me.run();
 	//me.run();
 	//me.runIron();
-	me.run();
+	me.run(0);
 
 	std::cin.ignore();
 	return 0;

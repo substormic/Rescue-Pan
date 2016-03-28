@@ -178,16 +178,17 @@ bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 			sector = GetSectorCoords(region, i);
 			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
 			{
-				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
-				{
-					printf("What is this? Not a valid monster thats for sure\n");
-					continue;
-				}
 				if (CheckMonsterHealthBar(mouse.GetPosition()))
 				{
 					printf("This monster seems to be taken, judging by its health bar\n");
 					continue;
 				}
+				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
+				{
+					printf("What is this? Not a valid monster thats for sure\n");
+					continue;
+				}
+
 				if (Attack())
 				{
 					if (sectorTimeout > 0)
@@ -222,16 +223,17 @@ bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 			sector = GetSectorCoords(region, i);
 			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
 			{
-				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
-				{
-					printf("What is this? Not a valid monster thats for sure\n");
-					continue;
-				}
 				if (CheckMonsterHealthBar(mouse.GetPosition()))
 				{
 					printf("This monster seems to be taken, judging by its health bar\n");
 					continue;
 				}
+				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
+				{
+					printf("What is this? Not a valid monster thats for sure\n");
+					continue;
+				}
+
 				if (Attack())
 				{
 					printf("Attacked an enemy!\n");
@@ -252,14 +254,15 @@ bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 			sector = GetSectorCoords(region, i);
 			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
 			{
-				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
-				{
-					printf("What is this? Not a valid monster thats for sure\n");
-					continue;
-				}
+
 				if (CheckMonsterHealthBar(mouse.GetPosition()))
 				{
 					printf("This monster seems to be taken, judging by its health bar\n");
+					continue;
+				}
+				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
+				{
+					printf("What is this? Not a valid monster thats for sure\n");
 					continue;
 				}
 				if (Attack())
@@ -404,7 +407,7 @@ bool InterfaceStats::DetecMovement()
 bool InterfaceStats::CheckMonsterHealthBar(POINT monster)
 {
 	bool result = true;
-	result &= pix.SearchPixelArea(0xff000000, monster.x - 45, monster.y - 90, monster.x +45, monster.y + 30);
+	result &= pix.SearchPixelArea(0xff000000, monster.x - 50, monster.y - 100, monster.x +50, monster.y + 30,2);
 	return result;
 }
 
