@@ -49,6 +49,10 @@ public:
 	//check if leveled up
 	bool CheckLevelUp();
 
+	//Does a super safe click. Scans region for color, tries a number of times.
+	//only clicks if the color is there and if the hover and ultimately right click matches. 
+	bool DefiniteClick(unsigned int itemColor, int tolerance, Area region, unsigned int hoverColor, unsigned int menuColor, int menuOption, int maxAttempts);
+
 	//check if leveled up
 	//modes ignore certain skill levels (like hp at mode 0)
 	bool CheckLevelUp(int mode);

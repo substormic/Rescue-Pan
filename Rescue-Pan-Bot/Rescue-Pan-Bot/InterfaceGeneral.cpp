@@ -159,6 +159,43 @@ bool InterfaceGeneral::CheckLevelUp()
 	return check;
 }
 
+bool InterfaceGeneral::DefiniteClick(unsigned int itemColor, int tolerance, Area region, unsigned int hoverColor, unsigned int menuColor, int menuOption, int maxAttempts)
+{
+	int tries = 0;
+	while (tries < maxAttempts) {
+		tries++;
+		if (pix.SearchPixelArea(itemColor, region.x1, region.y1, region.x2, region.y2,tolerance)) {
+			POINT p = pix.SearchPixelAreaForPoint(itemColor, region.x1, region.y1, region.x2, region.y2, tolerance);
+			mouse.MouseMove(p);
+			Sleep(120);
+			if (InterfaceGeneral::VerifyTopLeftText(hoverColor)) {
+				mouse.RightClick();
+				Sleep(30);
+				if (InterfaceGeneral::ChooseMenuOptionColorCheck(menuOption, menuColor)) {
+					mouse.LeftClick();
+					return true;
+				}
+			}
+		}
+	}
+
+	tries = 0;
+	while (tries < maxAttempts) {
+		tries++;
+		mouse.MouseMoveArea(region);
+		Sleep(120);
+		if (InterfaceGeneral::VerifyTopLeftText(hoverColor)) {
+			mouse.RightClick();
+			Sleep(30);
+			if (InterfaceGeneral::ChooseMenuOptionColorCheck(menuOption, menuColor)) {
+				mouse.LeftClick();
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 //Check if maybe a level up perhaps
 // mode '0' ignores hitpoints levels
 bool InterfaceGeneral::CheckLevelUp(int mode)
