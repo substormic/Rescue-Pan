@@ -3,9 +3,9 @@
 #include "InterfaceInventory.h"
 
 class BotMiningDropAdro {
-	unsigned int oreColor = 0x321A1100;
+	unsigned int oreColor = 0x3B1E1500;
 	unsigned int inventoryColor = 0x61492D00;
-	int tol = 5;
+	int tol = 2;
 	int totalMined = 0;
 	Area RockRegion;
 	InterfaceInventory inv;
@@ -46,15 +46,15 @@ class BotMiningDropAdro {
 	bool didGetOre() {
 		int startingOre = countInventory(inventoryColor);
 		int MiningTimeout = 0;
-		while (!inv.SearchIndexForColor(startingOre + 1, inventoryColor))
+		while (!inv.SearchIndexForColor(startingOre, inventoryColor))
 		{
 			MiningTimeout++;
 			Sleep(10);
-			if (MiningTimeout == 100) {
+			if (MiningTimeout == 75) {
 				printf("Re-clicking.\n");
 				clickRock(RockRegion);
 			}
-			if (MiningTimeout > 300) {
+			if (MiningTimeout > 320) {
 				if (inv.VerifyInventoryOpen()) {
 					printf("Dropping everything, you might've gotten a non-ore\n");
 					inv.DropAllItems();
@@ -119,7 +119,7 @@ public:
 		while (inv.VerifyInventoryOpen()) {
 			if (inv.SearchIndexForColor(27, inventoryColor)) {
 				printf("Inventory full. Dropping.");
-				inv.DropAllItems();
+				inv.DropAllItemsFast();
 				printf(" %d mined for %d XP.\n", totalMined, totalMined * 35);
 
 			}
