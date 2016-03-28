@@ -198,6 +198,26 @@ void  InterfaceInventory::DropAllItems()
 	DropItemRange(0, 27);
 }
 
+//drops every item in a fast, risky way. Works only with 4 option item drops.
+void InterfaceInventory::DropAllItemsFast()
+{
+	int dropOption = 1;
+	menu5Option = false;
+	mouse.ChangeSpeed(0.2); //quick move to item
+	mouse.SetDeviation(20);
+	
+	for (int i = 0; i < 28; i++) {
+		POINT loc = InterfaceInventory::GetItemCoords(i);
+		mouse.MouseMoveSLD(loc.x, loc.y);
+		MoveToItem(i);
+		mouse.RightClick();
+		ChooseMenuOption(dropOption);
+		mouse.LeftClick();
+		Sleep(10);
+	}
+
+}
+
 //drops every item of a certain color in inventory
 void  InterfaceInventory::DropItemsColored(unsigned int color)
 {

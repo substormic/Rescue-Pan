@@ -61,6 +61,9 @@ public:
 	//drops every item in inventory
 	void DropAllItems();
 
+	//drops every item in a fast, risky way
+	void DropAllItemsFast();
+
 	//given a color, drop all instances colored that
 	void DropItemsColored(unsigned int color);
 
