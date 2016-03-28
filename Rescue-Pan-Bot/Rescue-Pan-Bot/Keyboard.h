@@ -6,8 +6,24 @@
 
 class Keyboard
 {
+private:
+	int pressTime = 10; //how long key is pressed in miliseconds
 
 public:
+
+	//Sets pressdown time
+	void SetPressTime(int ms)
+	{
+		pressTime = ms;
+	}
+
+	//generates a random key delay between range - INCLUDES BOTH ENDPOINTS
+	void SetPressTimeRandRange(int RangeStart, int RangeEnd)
+	{
+		int range = RangeEnd - RangeStart;
+		pressTime = rand() % range + RangeStart + 1;
+	}
+
 	//expects the key (as a capital letter), whether its held down, and whether to yield a capital letter. 
 	// example sending ('A',false,false) yields 'a'
 	// to achieve 'A', send ('A',false,true)
@@ -33,6 +49,8 @@ public:
 		Input.type = INPUT_KEYBOARD;
 		Input.ki = kb;
 		SendInput(1, &Input, sizeof(Input));
+
+		Sleep(pressTime);
 
 		/* Generate a "key up" */
 		ZeroMemory(&kb, sizeof(KEYBDINPUT));
