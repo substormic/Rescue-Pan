@@ -137,7 +137,7 @@ bool InterfaceGeneral::ChooseMenuOptionColorCheck(int optionChoice, unsigned int
 {
 	POINT option = GetMenuOptionCoords(optionChoice);
 	//uses custom deviation as to not close the menu by moving mouse too far
-	if (!pix.SearchPixelArea(color, option.x, option.y + 5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3))
+	if (!pix.SearchPixelArea(color, option.x, option.y + 5, option.x + MENU_MINWIDTH+20, option.y + MENU_OPTION - 3))
 		return false;
 	mouse.SetDeviation(7);//smaller deviation going from menu to option
 	mouse.MouseMoveArea(option.x, option.y + 5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3); //the 3's are buffer to accouunt for error
@@ -172,6 +172,7 @@ bool InterfaceGeneral::DefiniteClick(unsigned int itemColor, int tolerance, Area
 				mouse.RightClick();
 				Sleep(30);
 				if (InterfaceGeneral::ChooseMenuOptionColorCheck(menuOption, menuColor)) {
+					Sleep(30);
 					mouse.LeftClick();
 					return true;
 				}
