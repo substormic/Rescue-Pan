@@ -418,6 +418,16 @@ bool InterfaceGeneral::HandleAutoLogOut()
 	return false;
 }
 
+//returns an Area struct including a box of radius R around x and y
+Area InterfaceGeneral::areaBox(int x, int y, int r) {
+	Area t;
+	t.x1 = x - r;
+	t.y1 = y - r;
+	t.x2 = x + r;
+	t.y2 = y + r;
+	return t;
+}
+
 bool InterfaceGeneral::pingMessage()
 {
 	if (progname) {
