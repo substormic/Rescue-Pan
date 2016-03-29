@@ -14,13 +14,7 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#define RIGHT_SCREEN 1920
-#define LEFT_SCREEN 0
 
-
-//==========SET ME!============
-const int SCREEN = LEFT_SCREEN;
-// sets the horizontal distance of coordinate systems
 
 //HOTKEY THINGS
 const int ESCAPE = 0x1b; //escape hotkey in hex  

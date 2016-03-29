@@ -2,8 +2,6 @@
 
 InterfaceInventory::InterfaceInventory()
 {
-	LastItem = GetItemCoords(27);
-
 	InvStart.x = pixInv._x - 46;
 	InvStart.y = pixInv._y + 28;
 
@@ -90,9 +88,9 @@ POINT InterfaceInventory::GetItemCoords(int itemIndex)
 //moves to any pixel on an item given its index
 void InterfaceInventory::MoveToSpell(int spellX, int spellY)
 {
-	SetMouseSpeed(0.5);
+	//SetMouseSpeed(0.5);
 	VerifyActiveMagic();
-	Sleep(200);
+	Sleep(130);
 	POINT spellIndex = GetSpellCoords(spellX, spellY);
 	//mouse.SetDeviation(25);
 	mouse.MouseMoveArea(spellIndex.x, spellIndex.y, spellIndex.x + INV_MAGIC_SPELL_WIDTH , spellIndex.y + INV_MAGIC_SPELL_HEIGHT ); //inset 8 pixels on all sides because hover text is slow on edges
@@ -103,7 +101,7 @@ void InterfaceInventory::MoveToSpell(int spellX, int spellY)
 void InterfaceInventory::MoveToItem(int itemIndex)
 {
 	//VerifyActiveInventory();
-	Sleep(200);
+	Sleep(130);
 	POINT InvIndex = GetItemCoords(itemIndex);
 	//mouse.SetDeviation(25);
 	mouse.MouseMoveArea(InvIndex.x, InvIndex.y, (InvIndex.x + 8) + (INV_ITEM_WIDTH - 16), (InvIndex.y + 8) + (INV_ITEM_HEIGHT - 16)); //inset 8 pixels on all sides because hover text is slow on edges
@@ -166,7 +164,7 @@ bool InterfaceInventory::DropItem(int itemIndex)
 	int dropOption = 1;
 	menu5Option = false;
 
-	mouse.ChangeSpeed(0.7); //slowishly move to item
+	//mouse.ChangeSpeed(0.7); //slowishly move to item
 	MoveToItem(itemIndex);
 	Sleep(300); //sleep to get accurate verifying in next command, 300 is safe for all
 	if (!VerifyTopLeftText(HOVER_ITEM)) //no item exists
@@ -177,7 +175,8 @@ bool InterfaceInventory::DropItem(int itemIndex)
 		dropOption = 2;
 	}
 	mouse.RightClick();
-	mouse.ChangeSpeed(1.0);
+	Sleep(20);
+	//mouse.ChangeSpeed(1.0);
 	ChooseMenuOption(dropOption);
 	mouse.LeftClick();
 	return true;
@@ -307,5 +306,5 @@ bool InterfaceInventory::AttemptToEatAtHp(unsigned int color, int HpAmount)
 //checks last item slot for a color
 bool InterfaceInventory::CheckLastItem(unsigned int color)
 {
-	return pix.SearchPixelArea(color, LastItem.x, LastItem.y, LastItem.x + INV_ITEM_WIDTH, LastItem.y + INV_ITEM_HEIGHT, 15);
+	return SearchIndexForColor(27,color);
 }

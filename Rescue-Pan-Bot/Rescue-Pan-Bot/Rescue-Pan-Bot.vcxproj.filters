@@ -18,6 +18,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="BotFiremaking.h">
       <Filter>Bots</Filter>
     </ClInclude>
@@ -81,10 +84,7 @@
     <ClInclude Include="BotCraftingGoldAmulet.h">
       <Filter>Bots</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BotConstructionCrudeChairs.h">
+    <ClInclude Include="BotMiningTriAd.h">
       <Filter>Bots</Filter>
     </ClInclude>
   </ItemGroup>
