@@ -6,6 +6,7 @@ class InterfaceInventory : public InterfaceGeneral
 protected:
 	 POINT InvStart; //inventory with relation to the relative inventory pixel
 	 POINT SpellStart; //where the spells start relative to inv pixel
+	 POINT LastItem; //Point where Last Item begins
 
 public:
 	InterfaceInventory(); //constructor
@@ -86,5 +87,8 @@ public:
 
 	//attempts to eat an item of given color after some HP marker has been hit. returns false if thers is no such food
 	bool AttemptToEatAtHp(unsigned int color, int HpAmount);
+
+	//checks last item slot for a color
+	bool CheckLastItem(unsigned int color);
 
 };

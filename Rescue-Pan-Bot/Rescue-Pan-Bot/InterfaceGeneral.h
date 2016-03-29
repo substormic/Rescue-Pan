@@ -88,20 +88,29 @@ public:
 
 	//after 6 hours it logs you out. this logs you back innnn
 	bool HandleAutoLogOut();
+
 	//returns an Area struct including a box of radius R around x and y
 	Area areaBox(int x, int y, int r);
+
+	//Overload
+	Area areaBox(POINT p, int r);
+
+	//returns an Area struct including a box with differing heights and widths around x and y
+	Area areaBox(int x, int y, int height, int width);
+
+	//returns an Area struct including a box with differing heights and widths around x and y
+	Area areaBox(POINT p, int height, int width);
 
 	//sends a message to connor or brandon, granted that one
 	//of them is specified in password.h as "progname"
 	bool pingMessage();
 
-
-	//computes the point on a circle given radius and degrees about pt (0,0)
+	//computes the point on a circle about pt (0,0), given radius and degrees
 	fPoint getCircleCoord(int radius, float degrees);
 
 	//Given a center point to rotate around
 	// A radius away from the center the pixel should rotate by
-	// and the degrees wished to rotate, compute the pixel coords
+	// and the degrees wished to rotate, computes the pixel coords
 	// returns pix coordinates
 	POINT rotatePixAboutCenter(POINT center, int radius, float degrees);
 	

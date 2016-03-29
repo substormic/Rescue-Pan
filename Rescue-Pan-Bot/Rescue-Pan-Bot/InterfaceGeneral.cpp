@@ -428,6 +428,27 @@ Area InterfaceGeneral::areaBox(int x, int y, int r) {
 	return t;
 }
 
+//returns an Area struct including a box of radius R around x and y
+Area InterfaceGeneral::areaBox(POINT p, int r) {
+	return areaBox(p.x, p.y, r);
+
+}
+
+//returns an Area struct including a box of radius R around x and y
+Area InterfaceGeneral::areaBox(int x, int y, int height, int width) {
+	Area t;
+	t.x1 = x - width;
+	t.y1 = y - height;
+	t.x2 = x + width;
+	t.y2 = y + height;
+	return t;
+}
+
+//returns an Area struct including a box of radius R around x and y
+Area InterfaceGeneral::areaBox(POINT p, int height, int width) {
+	return areaBox(p.x, p.y, height, width);
+}
+
 bool InterfaceGeneral::pingMessage()
 {
 	if (progname) {

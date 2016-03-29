@@ -2,6 +2,8 @@
 
 InterfaceInventory::InterfaceInventory()
 {
+	LastItem = GetItemCoords(27);
+
 	InvStart.x = pixInv._x - 46;
 	InvStart.y = pixInv._y + 28;
 
@@ -300,4 +302,10 @@ bool InterfaceInventory::AttemptToEatAtHp(unsigned int color, int HpAmount)
 	if (AttemptToEat(color)) //if successfully eat. return true
 		return true;
 	return false; // if not at health limit, and also no food to eat
+}
+
+//checks last item slot for a color
+bool InterfaceInventory::CheckLastItem(unsigned int color)
+{
+	return pix.SearchPixelArea(color, LastItem.x, LastItem.y, LastItem.x + INV_ITEM_WIDTH, LastItem.y + INV_ITEM_HEIGHT, 5);
 }
