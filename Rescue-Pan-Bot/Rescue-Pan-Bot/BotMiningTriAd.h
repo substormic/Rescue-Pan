@@ -14,6 +14,9 @@ private:
 	unsigned int IronOreAvail = 0x47241800;
 	unsigned int Oreless = 0x3d373700;
 	unsigned int Emerald = 0x067b0900;
+	unsigned int Saphire = 0x080b8500;
+	unsigned int Ruby = 0x690d0500;
+
 	POINT R1, R2, R3;
 
 	Area Rock1;
@@ -23,18 +26,18 @@ private:
 public:
 	BotMiningTriAd()
 	{
-		R1.x = 700 + SCREEN;
+		R1.x = 680 + SCREEN;
 		R1.y = 520;
 
 		R2.x = 795 + SCREEN;
-		R2.y = 610;
+		R2.y = 640;
 
-		R3.x = 955 + SCREEN;
+		R3.x = 970 + SCREEN;
 		R3.y = 520;
 
-		Rock1 = inv.areaBox(R1,40);
+		Rock1 = inv.areaBox(R1,50);
 		Rock2 = inv.areaBox(R2, 40);
-		Rock3 = inv.areaBox(R3, 40);
+		Rock3 = inv.areaBox(R3, 50);
 	}
 
 	void initialize()
@@ -102,7 +105,12 @@ public:
 		printf("Waiting for Rock to finish being mined before moving to next\n"); // wait till it has ore
 		while (!pix.SearchPixelArea(Oreless, rock.x1, rock.y1, rock.x2, rock.y2, 8))
 		{
-			;
+			if (MineTimeout <= 0)
+			{
+				printf("Rock was never really waiting i guess\n");
+				return false;
+			}
+			MineTimeout--;
 		}
 		return true;
 	}
@@ -113,12 +121,14 @@ public:
 		while (1)
 		{
 			inv.HandleHotkeys();
-			if (inv.CheckLastItem(ironOre) || inv.CheckLastItem(ironOre2) || inv.CheckLastItem(Emerald)) //if inventory full
+			if (inv.CheckLastItem(ironOre) || inv.CheckLastItem(ironOre2) || inv.CheckLastItem(Emerald) || inv.CheckLastItem(Saphire) || inv.CheckLastItem(Ruby)) //if inventory full
 			{
 				printf("Iron found in last spot\n");
 				//inv.DropAllItems();
 				inv.DropItemsColored(ironOre);
 				inv.DropItemsColored(Emerald);
+				inv.DropItemsColored(Saphire);
+				inv.DropItemsColored(Ruby);
 			}
 
 			MineTime();
