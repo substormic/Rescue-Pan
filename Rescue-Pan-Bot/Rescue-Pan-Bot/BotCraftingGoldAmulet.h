@@ -1,13 +1,36 @@
+/* ========================================================================= */
+/*
+BotCraftingGoldAmulet.h (no matching .cpp file)
+Authored by Brandon Wallace and Connor Rainen.
+
+For smelting gold bars into unstrung amulets at a furnace. 
+
+SKILL: Crafting
+HOURLY:		Money: + 2.5k		XP: + 35k
+Requirements:
+	- No minimum skill required
+	- Location:		Stand in front of the northeastern-most bank booth in edgeville
+	- Bank:			Have "Tab 7" contain a stack of gold bars in index (0,1)
+	- Inventory:	Hold an amulet mould in the top left of your inventory
+	- Map:			Map normalized to OSBuddy def. zoom, facing north, UP.
+
+Independence: Lazy Monitor (4/5)
+
+note: Independence scale:
+		Active play			(1/5)
+		Intermittent play	(2/5)
+		Frequent monitor	(3/5)
+		Lazy monitor		(4/5)
+		Perfect Automation	(5/5)
+*/
+/* ========================================================================= */
+
 #pragma once
 #include "InterfaceGeneral.h"
 #include "InterfaceBank.h"
 #include "InterfaceInventory.h"
 #include "Pixel.h"
 #include "Mouse.h"
-
-//this requires being zoomed to default (on OSRSbuddy)
-//stand in the edgeville bank, map facing north and up,
-//in the top right bank booth with bank CLOSED.
 
 class BotCraftingGoldAmulet {
 private:
@@ -32,7 +55,7 @@ private:
 		if (!gen.DefiniteClick(0x4D2E1B00, 10, backup, HOVER_ACTION, HOVER_ACTION, 0, 20)) {
 			return false;
 		}
-		Sleep(6000);
+		Sleep(6000); 
 		return true;
 	}
 
@@ -45,7 +68,20 @@ private:
 				printf("Interface never opened.\n");
 				inv.MoveToItem(27);
 				mouse.LeftClick();
-				mouse.MouseMove(2795 - 1920, 530);
+				mouse.MouseMove(2800 - 1920 + SCREEN, 440);
+				int my = 440;
+					while (!gen.VerifyTopLeftText(HOVER_ACTION) && my > 530) {
+						my--;
+						mouse.MouseMove(2795 - 1920 + SCREEN, my);
+						Sleep(100);
+					}
+					my = 547;
+					int mx = 2795;
+					while (!gen.VerifyTopLeftText(HOVER_ACTION) && mx < 2850) {
+						mx++;
+						mouse.MouseMove(mx - 1920 + SCREEN, my);
+						Sleep(75);
+					}
 				mouse.LeftClick();
 			}
 			if (to > 800){
@@ -55,16 +91,18 @@ private:
 		mouse.MouseMove(2467 - 1920 + SCREEN, 509);
 		Sleep(100);
 		mouse.RightClick();
-		gen.ChooseMenuOption(2);
+		gen.ChooseMenuOption(3);
 		mouse.LeftClick();
+		Sleep(800);
+		Keyboard().TypeNum(amt,2);
 		Sleep(1.8 * amt * 1000);
 		return true;
 	}
 
 	bool cFfromF() {
 		int timeout = 0;
-		Area b = box(2806 - 1920 + SCREEN, 530, 10);
-		while (timeout < 20) {
+		Area b = box(2810 - 1920 + SCREEN, 530, 14);
+		while (timeout < 24) {
 			timeout++;
 			mouse.MouseMoveArea(b);
 			Sleep(100);
@@ -94,7 +132,6 @@ public:
 		Area bRegA = box(2753 - 1920, 590, 40);
 
 		Area fReg = box(3334 - 1920 + SCREEN, 350, 60);
-		//fReg.x1 = 3090;
 
 		Area fReg2 = box(2820 - 1920 + SCREEN, 503, 10);
 		
@@ -144,6 +181,7 @@ public:
 
 			//wait for furnace to open up. get back to furnace if you clicked a tree you big stupid idiot.
 			int timeout = 0;
+			bool foundFurnaceThroughNormalMeans = true;
 			while (!pix.SearchPixelArea(goldColor, 2220 - 1920 + SCREEN, 940, 2235 - 1920 + SCREEN, 955, 5)) {
 				timeout++;
 				Sleep(10);
@@ -152,42 +190,28 @@ public:
 					if (!openFurnaceBackup()) {
 						return;
 					}
+					else {
+						foundFurnaceThroughNormalMeans = false;
+						break;
+					}
 				}
 			}
 
+			//this ensures clicktoFurnace accuracy.
+			Sleep(400);
+
 			//use gold bar on furnace
-			if (!cFfromF()) {
+			if (foundFurnaceThroughNormalMeans && !cFfromF()) {
 				printf("Lost furnace\n"); 
 				return; 
 			}
-			if (!craft(10)) {
-				return;
-			}
-
-			//use 11th gold bar on furnace
-			mouse.MouseMove(inv.GetItemCoords(11));
-			mouse.LeftClick();
-			if (!cFfromF()) { 
-				printf("Lost furnace\n"); 
-				return; 
-			}
-			if (!craft(10)) {
-				return;
-			}
-
-			//use 21st gold bar on furnace
-			mouse.MouseMove(inv.GetItemCoords(21));
-			mouse.LeftClick();
-			if (!cFfromF()) {
-				printf("Lost furnace\n");
-				return; 
-			}
-			if (!craft(7)) {
+			
+			if (!craft(27)) {
 				return;
 			}
 
 			//get back home to bank
-			gen.DefiniteClick(0x63605C00, 0, box(2159 - 1920 + SCREEN, 532, 55), HOVER_ACTION, HOVER_ACTION, 0, 50);
+			gen.DefiniteClick(0x63605C00, 0, box(2159 - 1920 + SCREEN, 532, 58), HOVER_ACTION, HOVER_ACTION, 0, 85);
 			Sleep(6000);
 
 
