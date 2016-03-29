@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BotAgilityCanifis.h" />
+    <ClInclude Include="BotCraftingGoldAmulet.h" />
     <ClInclude Include="BotFiremaking.h" />
     <ClInclude Include="BotMagicCurse.h" />
     <ClInclude Include="BotMagicSuperheat.h" />
@@ -151,6 +152,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="sendBrandon.exe" />
+    <None Include="sendConnor.exe" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

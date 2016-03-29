@@ -137,7 +137,7 @@ bool InterfaceGeneral::ChooseMenuOptionColorCheck(int optionChoice, unsigned int
 {
 	POINT option = GetMenuOptionCoords(optionChoice);
 	//uses custom deviation as to not close the menu by moving mouse too far
-	if (!pix.SearchPixelArea(color, option.x, option.y + 5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3))
+	if (!pix.SearchPixelArea(color, option.x, option.y + 5, option.x + MENU_MINWIDTH+20, option.y + MENU_OPTION - 3))
 		return false;
 	mouse.SetDeviation(7);//smaller deviation going from menu to option
 	mouse.MouseMoveArea(option.x, option.y + 5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3); //the 3's are buffer to accouunt for error
@@ -172,6 +172,7 @@ bool InterfaceGeneral::DefiniteClick(unsigned int itemColor, int tolerance, Area
 				mouse.RightClick();
 				Sleep(30);
 				if (InterfaceGeneral::ChooseMenuOptionColorCheck(menuOption, menuColor)) {
+					Sleep(30);
 					mouse.LeftClick();
 					return true;
 				}
@@ -414,6 +415,25 @@ bool InterfaceGeneral::HandleAutoLogOut()
 		}
 	}
 
+	return false;
+}
+
+//returns an Area struct including a box of radius R around x and y
+Area InterfaceGeneral::areaBox(int x, int y, int r) {
+	Area t;
+	t.x1 = x - r;
+	t.y1 = y - r;
+	t.x2 = x + r;
+	t.y2 = y + r;
+	return t;
+}
+
+bool InterfaceGeneral::pingMessage()
+{
+	if (progname) {
+		system(progname);
+		return true;
+	}
 	return false;
 }
 

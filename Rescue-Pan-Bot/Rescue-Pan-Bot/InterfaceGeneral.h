@@ -88,6 +88,12 @@ public:
 
 	//after 6 hours it logs you out. this logs you back innnn
 	bool HandleAutoLogOut();
+	//returns an Area struct including a box of radius R around x and y
+	Area areaBox(int x, int y, int r);
+
+	//sends a message to connor or brandon, granted that one
+	//of them is specified in password.h as "progname"
+	bool pingMessage();
 
 
 	//computes the point on a circle given radius and degrees about pt (0,0)

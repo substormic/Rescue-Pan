@@ -81,6 +81,9 @@
     <ClInclude Include="BotMiningDropAdro.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="BotCraftingGoldAmulet.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">
@@ -107,5 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="sendBrandon.exe">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="sendConnor.exe">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

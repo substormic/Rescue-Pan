@@ -128,16 +128,14 @@ void InterfaceBank::DepositBackpack() {
 //opens bank lol
 bool InterfaceBank::OpenBank(Area region)
 {
-	while (bankTimeout < 20)
+	while (bankTimeout < 40)
 	{
 		bool canFindBank = pix.SearchPixelArea(0x291B0000, region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2, 50);
 		if (canFindBank && bankTimeout < 5) {
 			POINT b = pix.SearchPixelAreaForPoint(0x291B0000, region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2, 50);
 			mouse.MouseMove(b);
-			printf("Found bank and moved mouse\n");
 		}
 		else {
-			printf("Didn't find the bank... moving to that area\n");
 			mouse.MouseMoveArea(region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2);
 		}
 		Sleep(200);
@@ -149,10 +147,14 @@ bool InterfaceBank::OpenBank(Area region)
 			ChooseMenuOptionColorCheck(0, HOVER_ACTION); //todo: if this returns false, return.
 			Sleep(30);
 			mouse.LeftClick();
-			printf("Waiting on bank to open\n");
+			int btime = 0;
 			while (!VerifyBankOpen())
 			{
-				; //todo: throw error if timeout2 exceeds.
+				btime++;
+				Sleep(100);
+				if (btime > 200) {
+					return false;
+				}
 			}
 			bankTimeout = 0;
 			return true;
@@ -164,17 +166,21 @@ bool InterfaceBank::OpenBank(Area region)
 			ChooseMenuOption(1);
 			Sleep(30);
 			mouse.LeftClick();
-			printf("Waiting on bank to open\n");
+			int btime = 0;
 			while (!VerifyBankOpen())
 			{
-				;
+				btime++;
+				Sleep(100);
+				if (btime > 200) {
+					return false;
+				}
 			}
 			bankTimeout = 0;
 			return true;
 		}
 		bankTimeout++;
-		printf("Error opening bank, trying again: %i\n", bankTimeout);
 	}
+	printf("Can't find or open the bank\n");
 	return false;
 }
 
