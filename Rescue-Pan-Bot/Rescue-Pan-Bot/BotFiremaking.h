@@ -1,9 +1,33 @@
+/* ========================================================================= */
+/*
+BotFiremaking.h (no matching .cpp file)
+Authored by Connor Rainen and Brandon Wallace.
+
+For automating the firemaking process by burning all logs in inventory.
+
+SKILL: Firemaking
+HOURLY:		Money: - (variable)		XP: + (variable)
+Requirements:
+- No minimum skill required
+- Location:		Anywhere near a  bank.
+- Bank:			N/A
+- Inventory:	Hold tinderbox in first inventory spot.
+- Map:			Map normalized to OSBuddy def. zoom, facing north, UP.
+- Other:		Set the logtype and logicon variables
+
+Independence: Intermittend Play (2/5)
+
+note: Independence scale:
+Active play			(1/5)
+Intermittent play	(2/5)
+Frequent monitor	(3/5)
+Lazy monitor		(4/5)
+Perfect Automation	(5/5)
+*/
+/* ========================================================================= */
 #pragma once
 #include "InterfaceInventory.h"
 #include "InterfaceStats.h"
-
-
-//Assumes Tinderbox is in First Slot
 
 class BotFiremaking
 {
