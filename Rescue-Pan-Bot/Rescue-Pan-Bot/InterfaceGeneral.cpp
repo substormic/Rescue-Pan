@@ -320,10 +320,15 @@ void InterfaceGeneral::NormalizeCompass(int mode)
 	mouse.MouseMoveArea(1470+SCREEN,40,1495+SCREEN,70);
 	Sleep(30);
 	mouse.LeftClick();
+	Sleep(40);
 
-	if (mode == 1) //also do a move up of camera
+	switch (mode)
 	{
-		;//TODO
+	case 1: key.Arrow(LEFT, key.SetDelayRandRange(50,400)); break; //Normalize and random LEFT the camera
+	case 2: key.Arrow(RIGHT, key.SetDelayRandRange(50, 400)); break; //Normalize and RIGHT the camera
+	case 3: key.Arrow(UP, 1500); break; //Normalize and UP the camera
+	case 4: key.Arrow(DOWN, 1500); break; //Normalize and DOWN the camera
+	default: break;
 	}
 
 }

@@ -1,12 +1,31 @@
 #pragma once
 #include "Windows.h"
 #include <stdio.h>
+#include <iostream>
 
 
 class Keyboard
 {
+private:
+	int pressTime = 10; //how long key is pressed in miliseconds
 
 public:
+
+	//Sets pressdown time
+	void SetDelay(int ms)
+	{
+		pressTime = ms;
+	}
+
+	//generates a random key delay between range - INCLUDES BOTH ENDPOINTS
+	int SetDelayRandRange(int RangeStart, int RangeEnd)
+	{
+		int range = RangeEnd - RangeStart;
+		int delay = rand() % range + RangeStart + 1;
+		pressTime = delay;
+		return delay;
+	}
+
 	//expects the key (as a capital letter), whether its held down, and whether to yield a capital letter. 
 	// example sending ('A',false,false) yields 'a'
 	// to achieve 'A', send ('A',false,true)
@@ -32,6 +51,8 @@ public:
 		Input.type = INPUT_KEYBOARD;
 		Input.ki = kb;
 		SendInput(1, &Input, sizeof(Input));
+
+		Sleep(pressTime);
 
 		/* Generate a "key up" */
 		ZeroMemory(&kb, sizeof(KEYBDINPUT));
@@ -73,5 +94,39 @@ public:
 			Sleep(100);
 		}
 		return;
+	}
+
+	//	1 = left
+	//	2 = right
+	//	3 = up
+	//	4 = down
+	void Arrow(int arrow, int delay)
+	{
+		SetDelay(delay);
+		switch (arrow)
+		{
+				//left
+			case 1:	GenerateKey(VK_LEFT, false, false); break;
+				//left
+			case 2:	GenerateKey(VK_RIGHT, false, false); break;
+				//left
+			case 3:	GenerateKey(VK_UP, false, false); break;
+				//left
+			case 4:	GenerateKey(VK_DOWN, false, false); break;
+		}
+	}
+
+	void SendEnter()
+	{
+		GenerateKey(VK_RETURN, false, false); //send enter
+		return;
+	}
+
+	void TypeNum(int number)
+	{
+		char numBuffer[20];
+		sprintf_s(numBuffer, "%ld", number);
+		Type(numBuffer, 20);
+		SendEnter();
 	}
 };

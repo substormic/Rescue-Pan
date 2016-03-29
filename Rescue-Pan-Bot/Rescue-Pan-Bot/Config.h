@@ -117,6 +117,11 @@ static const Pixel pixInv(0xfbeaea00, 1489 + SCREEN, 720);
 #define WITHDRAW_ALL 5 //withdraw all item menu option 5
 #define WITHDRAW_ALLBUTONE 6 //withdraw all but 1 item menu option 6
 
+#define LEFT 1		//arrow keys for the keyboard arrow function
+#define RIGHT 2		//arrow keys for the keyboard arrow function
+#define UP 3		//arrow keys for the keyboard arrow function
+#define DOWN 4		//arrow keys for the keyboard arrow function
+
 static const Pixel SUPERHEAT(MAGIC_HEAT, 4, 3); //creates the spell using its active color as well as its spellbook coords
 static const Pixel TELEBLOCK(MAGIC_TELE, 5, 8); //creates a spell for teleblock
 static const Pixel ENTANGLE(MAGIC_ENTANGLE, 1, 8); //create a spell entangle
