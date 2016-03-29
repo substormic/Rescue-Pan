@@ -16,6 +16,7 @@ private:
 	unsigned int Emerald = 0x067b0900;
 	unsigned int Saphire = 0x080b8500;
 	unsigned int Ruby = 0x690d0500;
+	int fail = 20;
 
 	POINT R1, R2, R3;
 
@@ -27,17 +28,17 @@ public:
 	BotMiningTriAd()
 	{
 		R1.x = 680 + SCREEN;
-		R1.y = 520;
+		R1.y = 560;
 
 		R2.x = 795 + SCREEN;
-		R2.y = 640;
+		R2.y = 650;
 
-		R3.x = 970 + SCREEN;
-		R3.y = 520;
+		R3.x = 950 + SCREEN;
+		R3.y = 560;
 
-		Rock1 = inv.areaBox(R1,50);
-		Rock2 = inv.areaBox(R2, 40);
-		Rock3 = inv.areaBox(R3, 50);
+		Rock1 = inv.areaBox(R1,40,65);
+		Rock2 = inv.areaBox(R2, 25,65);
+		Rock3 = inv.areaBox(R3, 40,65);
 	}
 
 	void initialize()
@@ -82,37 +83,43 @@ public:
 			Area Ore = inv.areaBox(Iron, 8);
 			mouse.MouseMoveArea(Ore);
 			Sleep(250);
-		}
-		while (!inv.VerifyTopLeftText(HOVER_ACTION)) //while not on a rock
-		{
-			if (MineTimeout <= 0)
+
+			while (!inv.VerifyTopLeftText(HOVER_ACTION)) //while not on a rock
 			{
-				printf("Rock could not be found to mine\n");
-				return false;
+				if (MineTimeout <= 0)
+				{
+					printf("Rock could not be found to mine\n");
+					return false;
+				}
+				POINT Iron = pix.SearchPixelAreaForPoint(IronOreAvail, rock.x1, rock.y1, rock.x2, rock.y2, 15);
+				if (Iron.x != -1)
+				{
+					Area Ore = inv.areaBox(Iron, 8);
+					mouse.MouseMoveArea(Ore);
+					Sleep(250);
+				}
+				MineTimeout--;
 			}
-			POINT Iron = pix.SearchPixelAreaForPoint(IronOreAvail, rock.x1, rock.y1, rock.x2, rock.y2, 15);
-			if (Iron.x != -1)
+			Sleep(250);
+			mouse.LeftClick();
+			Sleep(1500);
+			printf("Waiting for Rock to finish being mined before moving to next\n"); // wait till it has ore
+			MineTimeout = 7;
+			while (!pix.SearchPixelArea(Oreless, rock.x1, rock.y1, rock.x2, rock.y2, 8))
 			{
-				Area Ore = inv.areaBox(Iron, 8);
-				mouse.MouseMoveArea(Ore);
-				Sleep(250);
+				if (MineTimeout <= 0)
+				{
+					printf("Rock was never really waiting i guess\n");
+					fail--;
+					return false;
+				}
+				MineTimeout--;
 			}
-			MineTimeout--;
+			fail = 15;
+			return true;
 		}
-		Sleep(250);
-		mouse.LeftClick();
-		Sleep(1500);
-		printf("Waiting for Rock to finish being mined before moving to next\n"); // wait till it has ore
-		while (!pix.SearchPixelArea(Oreless, rock.x1, rock.y1, rock.x2, rock.y2, 8))
-		{
-			if (MineTimeout <= 0)
-			{
-				printf("Rock was never really waiting i guess\n");
-				return false;
-			}
-			MineTimeout--;
-		}
-		return true;
+		fail--;
+		return false;
 	}
 
 	void run()
@@ -120,6 +127,11 @@ public:
 		initialize();
 		while (1)
 		{
+			if (fail <= 0)
+			{	
+				inv.Logout();
+				return;
+			}
 			inv.HandleHotkeys();
 			if (inv.CheckLastItem(ironOre) || inv.CheckLastItem(ironOre2) || inv.CheckLastItem(Emerald) || inv.CheckLastItem(Saphire) || inv.CheckLastItem(Ruby)) //if inventory full
 			{
