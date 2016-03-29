@@ -48,6 +48,8 @@ public:
 	unsigned int OakIcon = 0x916e4500;
 	unsigned int WillowIcon = 0x554b2700;
 	unsigned int WillowLog = 0x3c340f00;
+	unsigned int MapleIcon = 0x724c1c00;
+	unsigned int MapleLog = 0x51300500;
 
 	BotFiremaking() //defaults
 	{

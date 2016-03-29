@@ -117,7 +117,7 @@ bool InterfaceInventory::MoveToItem(unsigned int color)
 	for (int i = 0; i <= 27; i++)
 	{
 		item = GetItemCoords(i);
-		if (pix.SearchPixelArea(color, item.x, item.y, item.x + INV_ITEM_WIDTH, item.y + INV_ITEM_HEIGHT)) //check if item is in this slot
+		if (pix.SearchPixelArea(color, item.x, item.y, item.x + INV_ITEM_WIDTH, item.y + INV_ITEM_HEIGHT, 10)) //check if item is in this slot
 		{
 			MoveToItem(i);
 			return true;
@@ -227,7 +227,7 @@ void  InterfaceInventory::DropItemsColored(unsigned int color)
 	for (int i = 0; i <= 27; i++)
 	{
 		item = GetItemCoords(i);
-		if (pix.SearchPixelArea(color, item.x, item.y, item.x + INV_ITEM_WIDTH, item.y + INV_ITEM_HEIGHT)) //check if item is in this slot
+		if (pix.SearchPixelArea(color, item.x, item.y, item.x + INV_ITEM_WIDTH, item.y + INV_ITEM_HEIGHT, 10)) //check if item is in this slot
 			DropItem(i);
 	}
 }
@@ -307,5 +307,5 @@ bool InterfaceInventory::AttemptToEatAtHp(unsigned int color, int HpAmount)
 //checks last item slot for a color
 bool InterfaceInventory::CheckLastItem(unsigned int color)
 {
-	return pix.SearchPixelArea(color, LastItem.x, LastItem.y, LastItem.x + INV_ITEM_WIDTH, LastItem.y + INV_ITEM_HEIGHT, 5);
+	return pix.SearchPixelArea(color, LastItem.x, LastItem.y, LastItem.x + INV_ITEM_WIDTH, LastItem.y + INV_ITEM_HEIGHT, 15);
 }
