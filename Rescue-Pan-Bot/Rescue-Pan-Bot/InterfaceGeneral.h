@@ -89,4 +89,8 @@ public:
 	//after 6 hours it logs you out. this logs you back innnn
 	bool HandleAutoLogOut();
 
+	//sends a message to connor or brandon, granted that one
+	//of them is specified in password.h as "progname"
+	bool pingMessage();
+
 };

@@ -417,3 +417,12 @@ bool InterfaceGeneral::HandleAutoLogOut()
 
 	return false;
 }
+
+bool InterfaceGeneral::pingMessage()
+{
+	if (progname) {
+		system(progname);
+		return true;
+	}
+	return false;
+}

@@ -11,6 +11,7 @@
 #include "InterfaceStats.h"
 #include "BotWoodcuttingDraynor.h"
 #include "BotMiningDropAdro.h"
+#include "BotCraftingGoldAmulet.h"
 #include <stdio.h>
 
 int main()
@@ -58,12 +59,12 @@ int main()
 	//BotThievingPickpocket me;
 	//BotThievingRogueChest me;
 	//BotMeleeCow me;
-	BotRangeOgre me;
+	//BotRangeOgre me;
 	//BotPK me;
 	//BotAgilityCanifis me;
 	//BotWoodcuttingDraynor me;
 	//BotMiningDropAdro me;
-
+	BotCraftingGoldAmulet me;
 
 
 	//me.run(me.Paladin1, me.Paladin1, me.cake);
@@ -71,8 +72,8 @@ int main()
 	//me.run();
 	//me.run();
 	//me.runIron();
-	me.run(0);
-
+	me.run();
+	InterfaceGeneral().pingMessage();
 	std::cin.ignore();
 	return 0;
 }
