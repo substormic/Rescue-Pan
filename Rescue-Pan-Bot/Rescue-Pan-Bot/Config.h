@@ -27,6 +27,11 @@ const int ESCAPE = 0x1b; //escape hotkey in hex
 #define PAUSE_PROGRAM 1
 #define EXIT_PROGRAM 2
 
+struct fPoint {
+	float x;
+	float y;
+};
+
 struct Area {
 	int x1;
 	int x2;
@@ -72,11 +77,15 @@ struct Pixel {
 static const Pixel pixStats(0xf6f5f100, 1483 + SCREEN, 55);
 static const Pixel pixChat(0x605a4a00, 25 + SCREEN, 877); 
 static const Pixel pixInv(0xfbeaea00, 1489 + SCREEN, 720);
+static const Pixel compass(0x9f0c0e00, 1483 + SCREEN, 55); //color of furthermost red pixel on arm, and the pixel coords of center of compass
 
 
 //Create STATS pixel to verify window (uses center white pixel on compass)
 //Create INVENTORY pixel to verify inv. (uses center whtie pixel on quests icon)
 //Create CHAT pixel to verify chat window (uses dark pixel on stud in top left corner arrow on chat window - hard to see)
+
+#define PI 3.14159265
+#define COMPASS_ARM 6 //length of the compass arm to furthermost red pixel
 
 #define HOVER_NPC  0xffff0000//monster hover text color - YELLOW
 #define HOVER_ITEM 0xff904000 //item hover text color - ORANGE

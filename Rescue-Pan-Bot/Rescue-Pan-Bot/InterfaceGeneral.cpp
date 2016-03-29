@@ -416,3 +416,54 @@ bool InterfaceGeneral::HandleAutoLogOut()
 
 	return false;
 }
+
+//computes the point on a circle given radius and degrees about pt (0,0)
+fPoint InterfaceGeneral::getCircleCoord(int radius, float degrees)
+{
+	fPoint coord;
+	coord.x = radius*(cos(degrees*PI / 180));
+	coord.y = radius*(sin(degrees*PI / 180));
+	return coord;
+}
+
+//Given a center point to rotate around
+// A radius away from the center the pixel should rotate by
+// and the degrees wished to rotate, compute the pixel coords
+// returns pix coordinates
+POINT InterfaceGeneral::rotatePixAboutCenter(POINT center, int radius, float degrees)
+{
+	fPoint circlePt = getCircleCoord(radius, degrees);
+	circlePt.y *= -1; // reverse Y, as up is negative in pixels, and down is positive in pixels
+	POINT amount;
+	POINT coord;
+	amount.x = (int)circlePt.x;
+	amount.y = (int)circlePt.y;
+	coord.x = amount.x + center.x;
+	coord.y = amount.y + center.y;
+	return coord;
+}
+
+POINT InterfaceGeneral::rotatePixAboutCenter(Pixel center, int radius, float degrees)
+{
+	POINT cent, result;
+	cent.x = center._x;
+	cent.y = center._y;
+	
+	result = rotatePixAboutCenter(cent, radius, degrees);
+	return result;
+}
+
+//changes the compass to a set degree
+bool InterfaceGeneral::ChangeCompassDegrees(int degrees)
+{
+	POINT tip = rotatePixAboutCenter(compass, COMPASS_ARM, degrees);
+	int Timeout = 100;
+	while (!pix.VerifyPixelColor(compass._color, tip.x, tip.y) && (Timeout > 0))
+	{
+		Timeout--;
+		key.Arrow(LEFT, 100);
+	}
+	if (Timeout == 0)
+		printf("=========== Somethings gone wrong, Compass couldnt be set to %i degrees!", degrees);
+	return true;
+}

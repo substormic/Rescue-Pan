@@ -89,4 +89,20 @@ public:
 	//after 6 hours it logs you out. this logs you back innnn
 	bool HandleAutoLogOut();
 
+
+	//computes the point on a circle given radius and degrees about pt (0,0)
+	fPoint getCircleCoord(int radius, float degrees);
+
+	//Given a center point to rotate around
+	// A radius away from the center the pixel should rotate by
+	// and the degrees wished to rotate, compute the pixel coords
+	// returns pix coordinates
+	POINT rotatePixAboutCenter(POINT center, int radius, float degrees);
+	
+	// overload of same thing
+	POINT rotatePixAboutCenter(Pixel center, int radius, float degrees);
+
+	//changes the compass to a set degree
+	bool ChangeCompassDegrees(int degree);
+
 };
