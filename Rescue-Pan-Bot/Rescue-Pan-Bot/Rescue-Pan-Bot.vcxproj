@@ -126,6 +126,7 @@
     <ClInclude Include="BotMagicTeleAlch.h" />
     <ClInclude Include="BotMeleeCow.h" />
     <ClInclude Include="BotMiningDropAdro.h" />
+    <ClInclude Include="BotMiningTriAd.h" />
     <ClInclude Include="BotPK.h" />
     <ClInclude Include="BotRangeOgre.h" />
     <ClInclude Include="BotThievingPickpocket.h" />
