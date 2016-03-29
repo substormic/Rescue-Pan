@@ -91,7 +91,7 @@ public:
 			letter = phrase[i];
 
 			GenerateKey(toupper(letter), false, Uppercase);
-			Sleep(100);
+			Sleep(50 + (rand() % 50));
 		}
 		return;
 	}
@@ -122,11 +122,21 @@ public:
 		return;
 	}
 
+	//types a given number & presses enter.
 	void TypeNum(int number)
 	{
 		char numBuffer[20];
 		sprintf_s(numBuffer, "%ld", number);
 		Type(numBuffer, 20);
+		SendEnter();
+	}
+
+	//overload which types a number of a given lenght and sends enter. Speeds up the process.
+	void TypeNum(int number, int length)
+	{
+		char numBuffer[20];
+		sprintf_s(numBuffer, "%ld", number);
+		Type(numBuffer, length);
 		SendEnter();
 	}
 };
