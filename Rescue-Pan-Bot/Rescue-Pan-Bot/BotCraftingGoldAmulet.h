@@ -68,9 +68,9 @@ private:
 				printf("Interface never opened.\n");
 				inv.MoveToItem(27);
 				mouse.LeftClick();
-				mouse.MouseMove(2795 - 1920 + SCREEN, 540);
-				int my = 540;
-					while (!gen.VerifyTopLeftText(HOVER_ACTION) && my > 520) {
+				mouse.MouseMove(2800 - 1920 + SCREEN, 440);
+				int my = 440;
+					while (!gen.VerifyTopLeftText(HOVER_ACTION) && my > 530) {
 						my--;
 						mouse.MouseMove(2795 - 1920 + SCREEN, my);
 						Sleep(100);
@@ -94,7 +94,7 @@ private:
 		gen.ChooseMenuOption(3);
 		mouse.LeftClick();
 		Sleep(800);
-		Keyboard().TypeNum(amt);
+		Keyboard().TypeNum(amt,2);
 		Sleep(1.8 * amt * 1000);
 		return true;
 	}
