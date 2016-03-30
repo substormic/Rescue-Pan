@@ -6,7 +6,7 @@ Authored by Brandon Wallace and Connor Rainen.
 For creating oak larders at POH
 
 SKILL: Construction
-HOURLY:		Money: - ???		XP: + ???
+HOURLY:		Money: - 1.19M/hr		XP: + 115k/hr
 Requirements:
 - No minimum skill required
 - Location:		Begin anywhere.
@@ -97,7 +97,7 @@ private:
 				printf("Can't find the second tree outside cammy tele.");
 				return false;
 			}
-			Sleep(4000);
+			Sleep(5250 + (rand() % 250));
 			gen.NormalizeCompass(0);
 			if (!bank.OpenBank(bankSearch1)) {
 				printf("bank didn't open or something\n");
@@ -171,7 +171,7 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110);
+		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110,70);
 		POINT moveLard = pix.SearchPixelAreaForPoint(ghostLarder, lardClick.x1, lardClick.y1, lardClick.x2, lardClick.y2, 5);
 		if (moveLard.x != -1)
 		{
