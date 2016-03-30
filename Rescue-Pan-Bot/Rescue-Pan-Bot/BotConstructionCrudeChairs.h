@@ -187,6 +187,65 @@ private:
 		}
 		return true;
 	}
+	bool waitForChairBuild(Area cb, unsigned int color) {
+		int timeout = 0;
+		while (!pix.SearchPixelArea(color, cb.x1, cb.y1, cb.x2, cb.y2, 3)){
+			timeout++;
+			Sleep(5);
+			if (timeout > 2000) {
+				printf("Chair didn't ever build :(\n");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	bool confirmChairAvail() {
+		unsigned int red = 0xFF000000;
+		return true;
+	}
+
+	void handleDialogBox(int optionNum) {
+		while (!pix.VerifyPixelColor(0x1C928E00, 2338, 903, 1)) {
+			Sleep(5);
+		}
+		Keyboard().TypeNum(optionNum + 1);
+	}
+
+	//note: assumes chair menu is started open
+	bool buildChairLoop() {
+		inv.VerifyActiveInventory();
+		Area chair = gen.areaBox(2410 - 1920 + SCREEN, 363, 3);
+		Area chairBuildA = gen.areaBox(2747 - 1920 + SCREEN, 478, 3); //from below, first time 
+		Area chairBuildB = gen.areaBox(2737 - 1920 + SCREEN, 606, 3); //from above
+		unsigned int chairBuildColor = 0x392D0900;
+		unsigned int chairUnbuildColor = 0x776F6700;
+		int counter = 0;
+		while (confirmChairAvail()) {
+			Area cb = counter ? chairBuildB : chairBuildA;
+			//select the shit chair
+			mouse.MouseMoveArea(chair);
+			mouse.RightClick();
+			Sleep(30 + (rand() % 20));
+			gen.ChooseMenuOption(0);
+			//build it
+			mouse.LeftClick();
+			
+			waitForChairBuild(cb, chairBuildColor);
+			
+			//now remove it
+			gen.DefiniteClick(chairBuildColor, 3, cb, HOVER_ACTION, HOVER_ACTION, 3, 10);
+			//yes really you dumb shit.
+			handleDialogBox(0);
+
+			counter++;
+			cb = counter ? chairBuildB : chairBuildA;
+			
+			//finally, click on the goddamn chair to build again.
+			gen.DefiniteClick(chairUnbuildColor, 3, cb, HOVER_ACTION, HOVER_ACTION, 2, 10);
+		}
+		return true;
+	}
 
 
 	bool Teleport(Pixel tele)
