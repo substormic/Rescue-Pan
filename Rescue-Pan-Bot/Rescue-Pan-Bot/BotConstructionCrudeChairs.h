@@ -14,7 +14,10 @@ Requirements:
 - Inventory:	Law runes (0) Air runes (1) Hammer (2) Saw (3) Nails (4) Planks (rest)
 - Map:			Map normalized to OSBuddy def. zoom, facing north, UP.
 
-Independence: ???
+Independence: Frequent monitor (3/5)
+
+note: Expects parlor north of portal.
+note: Remove "right click high scores" from OSBuddy settings
 
 note: Independence scale:
 Active play			(1/5)
@@ -41,7 +44,9 @@ private:
 
 	Pixel House;
 	Pixel Camelot;
-	unsigned int GhostChair = 0xcbc6c200;
+	unsigned int GhostChair2 = 0xcbc6c200; //connor's ultra white.
+	unsigned int GhostChair = 0xC1BCB300;
+	int chairs = 0;
 	
 	bool verifyInventorySetup() {
 		inv.VerifyActiveInventory();
@@ -80,13 +85,13 @@ private:
 			Area treeSearch1;
 			treeSearch1.x1 = 2207 - 1920 + SCREEN;
 			treeSearch1.y1 = 245;
-			treeSearch1.x2 = 2358 - 1920 + SCREEN;
+			treeSearch1.x2 = 2414 - 1920 + SCREEN;
 			treeSearch1.y2 = 521;
 			Area treeSearch2 = gen.areaBox(2262 - 1920 + SCREEN, 409, 35);
 			Area bankSearch1 = gen.areaBox(2077 - 1920, 154, 15,30);
 			unsigned int treeColor = 0x73522900;
 			unsigned int treeColor2 = 0x77542A00;
-			if (!gen.DefiniteClick(treeColor, 10, treeSearch1, HOVER_ACTION, HOVER_ACTION, 0, 30)) {
+			if (!gen.DefiniteClick(treeColor, 10, treeSearch1, HOVER_ACTION, HOVER_ACTION, 0, 70)) {
 				printf("Can't find the first tree outside cammy tele.");
 				return false;
 			}
@@ -164,11 +169,11 @@ private:
 		
 		houseLoaded();
 		gen.NormalizeCompass(UP);
-		inv.VerifyActiveOptions();
 		inv.ActivateBuildingMode();
 		houseLoaded();
+		Sleep(100);
 
-		Area ChairClick = inv.areaBox(817 + SCREEN, 274, 25);
+		Area ChairClick = inv.areaBox(2704 - 1920 + SCREEN, 215, 15);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
 		if (MoveChair.x != -1)
 		{
@@ -189,19 +194,33 @@ private:
 	}
 	bool waitForChairBuild(Area cb, unsigned int color) {
 		int timeout = 0;
-		while (!pix.SearchPixelArea(color, cb.x1, cb.y1, cb.x2, cb.y2, 3)){
+		while (!pix.SearchPixelArea(color, cb.x1, cb.y1, cb.x2, cb.y2, 5)){
 			timeout++;
 			Sleep(5);
-			if (timeout > 2000) {
+			if (timeout > 500) {
 				printf("Chair didn't ever build :(\n");
 				return false;
 			}
 		}
+		printf("Chair built!\n");
 		return true;
 	}
 
 	bool confirmChairAvail() {
 		unsigned int red = 0xFF000000;
+		return (!pix.VerifyPixelColor(red, 2401 - 1920 + SCREEN, 356));
+	}
+
+	bool waitForMenu() {
+		unsigned int col = 0xFF981F00;
+		int timeout = 0;
+		while (!pix.VerifyPixelColor(col, 2557 - 1920 + SCREEN, 327)) {
+			Sleep(5);
+			timeout++;
+			if (timeout > 1000) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -216,12 +235,14 @@ private:
 	bool buildChairLoop() {
 		inv.VerifyActiveInventory();
 		Area chair = gen.areaBox(2410 - 1920 + SCREEN, 363, 3);
-		Area chairBuildA = gen.areaBox(2747 - 1920 + SCREEN, 478, 3); //from below, first time 
-		Area chairBuildB = gen.areaBox(2737 - 1920 + SCREEN, 606, 3); //from above
-		unsigned int chairBuildColor = 0x392D0900;
-		unsigned int chairUnbuildColor = 0x776F6700;
+		Area chairBuildA = gen.areaBox(2745 - 1920 + SCREEN, 488, 25); //from below, first time 
+		Area chairBuildB = gen.areaBox(2735 - 1920 + SCREEN, 578, 30); //from above
+		unsigned int chairBuildColor = 0x271E0500;
+		unsigned int chairUnbuildColor = 0xBDB7AF00;
 		int counter = 0;
 		while (confirmChairAvail()) {
+			gen.HandleHotkeys();
+			waitForMenu();
 			Area cb = counter ? chairBuildB : chairBuildA;
 			//select the shit chair
 			mouse.MouseMoveArea(chair);
@@ -234,7 +255,7 @@ private:
 			waitForChairBuild(cb, chairBuildColor);
 			
 			//now remove it
-			gen.DefiniteClick(chairBuildColor, 3, cb, HOVER_ACTION, HOVER_ACTION, 3, 10);
+			gen.DefiniteClick(chairBuildColor, 3, cb, HOVER_ACTION, HOVER_ACTION, 3, 20);
 			//yes really you dumb shit.
 			handleDialogBox(0);
 
@@ -242,8 +263,11 @@ private:
 			cb = counter ? chairBuildB : chairBuildA;
 			
 			//finally, click on the goddamn chair to build again.
-			gen.DefiniteClick(chairUnbuildColor, 3, cb, HOVER_ACTION, HOVER_ACTION, 2, 10);
+			gen.DefiniteClick(chairUnbuildColor, 3, cb, 0xFFFFFF00, HOVER_ACTION, 2, 20);
+			waitForMenu();
 		}
+		printf("Out of wood\n");
+		chairs += counter;
 		return true;
 	}
 
@@ -274,6 +298,8 @@ public:
 	void run() {
 		while (gen.VerifyOSbuddy())
 		{
+			gen.HandleHotkeys();
+			gen.HandleAutoLogOut();
 
 			if (!openCammyBank()) { return; }
 
@@ -281,7 +307,10 @@ public:
 
 			if (!teleportToHouse()) { return; }
 
-			return;
+			if (!buildChairLoop()) { return; }
+
+			printf("You've made %d chairs for %d XP\n",chairs, chairs * 58);
+
 		}
 
 
