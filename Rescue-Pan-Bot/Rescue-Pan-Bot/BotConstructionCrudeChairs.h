@@ -247,7 +247,7 @@ private:
 			//select the shit chair
 			mouse.MouseMoveArea(chair);
 			mouse.RightClick();
-			Sleep(30 + (rand() % 20));
+			Sleep(50 + (rand() % 20));
 			gen.ChooseMenuOption(0);
 			//build it
 			mouse.LeftClick();
