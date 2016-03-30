@@ -128,6 +128,9 @@ private:
 	bool teleportToHouse() {
 		if (!Teleport(House))
 			return false; // could not teleport to house
+
+
+
 		Area ChairClick = inv.areaBox(817, 274, 25);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
 		if (MoveChair.x != -1)
@@ -141,7 +144,10 @@ private:
 			mouse.LeftClick();
 		}
 		else
+		{
 			printf("Couldnt find chair\n");
+			return false;
+		}
 		return true;
 	}
 
@@ -153,6 +159,7 @@ private:
 		{
 			printf("=========== ERROR: No Runes to cast teleport! ===============\n");
 		}
+		Sleep(1650);
 		return result;
 	}
 
