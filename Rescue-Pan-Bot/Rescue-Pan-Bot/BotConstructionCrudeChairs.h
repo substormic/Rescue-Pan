@@ -82,8 +82,8 @@ private:
 			treeSearch1.y1 = 245;
 			treeSearch1.x2 = 2358 - 1920 + SCREEN;
 			treeSearch1.y2 = 521;
-			Area treeSearch2 = gen.areaBox(2257 - 1920 + SCREEN, 409, 10);
-			Area bankSearch1 = gen.areaBox(1973 - 1920, 170, 10,30);
+			Area treeSearch2 = gen.areaBox(2262 - 1920 + SCREEN, 409, 35);
+			Area bankSearch1 = gen.areaBox(2077 - 1920, 154, 15,30);
 			unsigned int treeColor = 0x73522900;
 			unsigned int treeColor2 = 0x77542A00;
 			if (!gen.DefiniteClick(treeColor, 10, treeSearch1, HOVER_ACTION, HOVER_ACTION, 0, 30)) {
@@ -95,7 +95,7 @@ private:
 				printf("Can't find the second tree outside cammy tele.");
 				return false;
 			}
-			Sleep(3000);
+			Sleep(4000);
 			gen.NormalizeCompass(0);
 			if (!bank.OpenBank(bankSearch1)) {
 				printf("bank didn't open or something\n");
@@ -104,8 +104,7 @@ private:
 			return true;
 		}
 		else {
-			openCammyBank();
-			return true;
+			return openCammyBank();
 		}
 	}
 
@@ -124,12 +123,50 @@ private:
 		bank.CloseBank();
 	}
 
+	bool houseLoaded() {
+		POINT p1;
+		POINT p2;
+		POINT p3;
+		unsigned int color = 0x00000000;
+		p1.x = 2196 - 1920 + SCREEN;
+		p1.y = 212;
+
+		p2.x = 2420 - 1920 + SCREEN;
+		p2.y = 850;
+
+		p3.x = 2768 - 1920 + SCREEN;
+		p3.y = 350;
+		int timeout = 0;
+		while (!pix.VerifyPixelColor(color, p1.x, p1.y) && !pix.VerifyPixelColor(color, p2.x, p2.y) && !pix.VerifyPixelColor(color, p3.x, p3.y)) {
+			timeout++;
+			Sleep(5);
+			if (timeout > 1000) {
+				printf("House loading menu never arrived\n");
+				return false;
+			}
+		}
+		timeout = 0;
+		while (pix.VerifyPixelColor(color,p1.x,p1.y) && pix.VerifyPixelColor(color, p2.x, p2.y) && pix.VerifyPixelColor(color, p3.x, p3.y)){
+			timeout++;
+			Sleep(5);
+			if (timeout > 1000) {
+				printf("House didn't load\n");
+				return false;
+			}
+		}
+		return true;
+	}
+
 	//Teleports to house; enables build mode; clicks "build" on the left chair spot.
 	bool teleportToHouse() {
 		if (!Teleport(House))
 			return false; // could not teleport to house
-
-
+		
+		houseLoaded();
+		gen.NormalizeCompass(UP);
+		inv.VerifyActiveOptions();
+		inv.ActivateBuildingMode();
+		houseLoaded();
 
 		Area ChairClick = inv.areaBox(817, 274, 25);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
@@ -159,7 +196,7 @@ private:
 		{
 			printf("=========== ERROR: No Runes to cast teleport! ===============\n");
 		}
-		Sleep(1650);
+		Sleep(2000);
 		return result;
 	}
 
@@ -178,6 +215,7 @@ public:
 	void run() {
 		while (gen.VerifyOSbuddy())
 		{
+
 			if (!openCammyBank()) { return; }
 
 			if (!withdrawHouseSupplies()) { return; }
