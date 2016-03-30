@@ -26,15 +26,26 @@ public:
 	//searches a given area for a color [HEX - RGBA] - returns true or false if found
 	bool SearchPixelArea(unsigned int color, int UpperLeftX, int UpperLeftY, int BottomRightX, int BottomRightY);
 
+	//searches a given area for a color [HEX - RGBA] - returns true or false if found
+	bool SearchPixelArea(unsigned int color, Area region);
+
 	//searches a given area for a color [HEX - RGBA] - returns true or false if found, within shade tolerance
 	bool SearchPixelArea(unsigned int color, int UpperLeftX, int UpperLeftY, int BottomRightX, int BottomRightY, int tolerance);
+
+	//searches a given area for a color [HEX - RGBA] - returns true or false if found, within shade tolerance
+	bool SearchPixelArea(unsigned int color, Area region, int tolerance);
 
 	//searches a given area for a color [HEX - RGBA] - returns Point where color found
 	POINT SearchPixelAreaForPoint(unsigned int color, int UpperLeftX, int UpperLeftY, int BottomRightX, int BottomRightY, int tolerance);
 
+	//searches a given area for a color [HEX - RGBA] - returns Point where color found
+	POINT SearchPixelAreaForPoint(unsigned int color, Area region, int tolerance);
 
 	//searches a given area for a color [HEX - RGBA] - returns Point where color found
 	POINT SearchPixelAreaForPoint(unsigned int color, int UpperLeftX, int UpperLeftY, int BottomRightX, int BottomRightY);
+
+	//searches a given area for a color [HEX - RGBA] - returns Point where color found
+	POINT SearchPixelAreaForPoint(unsigned int color, Area region);
 
 	//returns pixel color of a coordinate on screen
 	unsigned int GetPixelColor(int x, int y);
