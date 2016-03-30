@@ -91,4 +91,7 @@ public:
 	//checks last item slot for a color
 	bool CheckLastItem(unsigned int color);
 
+	//verifies options tab is open
+	bool VerifyActiveOptions();
+
 };

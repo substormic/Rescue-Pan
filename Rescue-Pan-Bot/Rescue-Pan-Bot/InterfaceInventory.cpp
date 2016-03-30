@@ -308,3 +308,16 @@ bool InterfaceInventory::CheckLastItem(unsigned int color)
 {
 	return SearchIndexForColor(27,color);
 }
+
+bool InterfaceInventory::VerifyActiveOptions()
+{
+	Pixel option(0x75281e00, 1547 + SCREEN, 1009);
+	if (!pix.VerifyPixelColor(option))
+		 {
+		mouse.MouseMoveArea(1544 + SCREEN, 1004, 1567 + SCREEN, 1029);
+		Sleep(20);
+		mouse.LeftClick();
+		}
+	Sleep(50);
+	return true;
+}

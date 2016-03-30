@@ -38,6 +38,9 @@ private:
 	InterfaceInventory inv;
 	PixelHandler pix;
 	Mouse mouse;
+
+	Pixel House;
+	Pixel Camelot;
 	
 	bool verifyInventorySetup() {
 		inv.VerifyActiveInventory();
@@ -110,7 +113,27 @@ private:
 	}
 
 
+	bool Teleport(Pixel tele)
+	{
+		bool result = inv.PrepareSpell(tele);
+		if (!result)
+		{
+			printf("=========== ERROR: No Runes to cast teleport! ===============\n");
+		}
+		return result;
+	}
+
 public:
+
+	BotConstructionCrudeChairs()
+	{
+		Camelot._x = 5;
+		Camelot._y = 3;
+		Camelot._color = TELEBLOCK._color;
+		House._x = 2;
+		House._y = 3;
+		House._color = TELEBLOCK._color;
+	}
 
 	void run() {
 		openCammyBank(false);
