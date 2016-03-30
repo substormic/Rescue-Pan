@@ -171,8 +171,8 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110,85);
-		POINT moveLard = pix.SearchPixelAreaForPoint(ghostLarder, lardClick.x1, lardClick.y1, lardClick.x2, lardClick.y2, 5);
+		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110,40);
+		POINT moveLard = pix.SearchPixelAreaForPoint(ghostLarder, lardClick.x1, lardClick.y1, lardClick.x2, lardClick.y2, 6);
 		if (moveLard.x != -1)
 		{
 			mouse.MouseMove(moveLard);
@@ -321,13 +321,14 @@ public:
 			gen.HandleHotkeys();
 			gen.HandleAutoLogOut();
 			handleRunEnergy();
-			if (!openCammyBank()) { return; }
+
+			openCammyBank();
 
 			if (!withdrawHouseSupplies()) { return; }
 
-			if (!teleportToHouse()) { return; }
+			teleportToHouse();
 
-			if (!buildChairLoop()) { return; }
+			buildChairLoop();
 
 			printf("You've made %d larders for %d XP\n", chairs, chairs * 480);
 
