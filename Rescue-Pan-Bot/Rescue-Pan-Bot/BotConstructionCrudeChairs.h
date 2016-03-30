@@ -83,7 +83,7 @@ private:
 		if (!teleport) {
 			gen.NormalizeCompass(UP);
 			Area treeSearch1;
-			treeSearch1.x1 = 2169 - 1920 + SCREEN;
+			treeSearch1.x1 = 2128 - 1920 + SCREEN;
 			treeSearch1.y1 = 245;
 			treeSearch1.x2 = 2414 - 1920 + SCREEN;
 			treeSearch1.y2 = 569;
@@ -173,7 +173,7 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area ChairClick = inv.areaBox(2704 - 1920 + SCREEN, 215, 25);
+		Area ChairClick = inv.areaBox(2680 - 1920 + SCREEN, 215, 35);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
 		if (MoveChair.x != -1)
 		{
