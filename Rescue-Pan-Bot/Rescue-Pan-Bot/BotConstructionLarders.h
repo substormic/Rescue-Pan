@@ -171,7 +171,7 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110,70);
+		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110,85);
 		POINT moveLard = pix.SearchPixelAreaForPoint(ghostLarder, lardClick.x1, lardClick.y1, lardClick.x2, lardClick.y2, 5);
 		if (moveLard.x != -1)
 		{
