@@ -171,7 +171,7 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110,40);
+		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 143, 110, 35);
 		POINT moveLard = pix.SearchPixelAreaForPoint(ghostLarder, lardClick.x1, lardClick.y1, lardClick.x2, lardClick.y2, 6);
 		if (moveLard.x != -1)
 		{
@@ -183,12 +183,8 @@ private:
 			Sleep(50);
 			mouse.LeftClick();
 		}
-		else
-		{
-			printf("Couldnt find larder\n");
-			return false;
-		}
-		return true;
+		Sleep(5000000);
+		return;
 	}
 
 	bool waitForChairBuild(Area cb, unsigned int color) {
