@@ -8,6 +8,7 @@ private:
 	int lootTimer;
 	bool autoLoot;
 	bool mouseSet;
+	bool gamePlay;
 	POINT Curs;
 	MSG msg;
 
@@ -24,6 +25,7 @@ public:
 		lootTimer = 5;
 		autoLoot = false; //initialize
 		mouseSet = false;
+		gamePlay = false;
 
 		mouse.SetDeviation(50);
 		mouse.ChangeSpeed(0.4);
@@ -36,6 +38,8 @@ public:
 		RegisterHotKey(NULL, 4, 0, VK_F2);
 		RegisterHotKey(NULL, 5, 0, VK_F3);
 		RegisterHotKey(NULL, 6, 0, VK_F4);
+		RegisterHotKey(NULL, 7, 0, VK_F5);
+		RegisterHotKey(NULL, 8, 0, VK_F6);
 
 	}
 
@@ -47,6 +51,8 @@ public:
 		UnregisterHotKey(NULL, 4);
 		UnregisterHotKey(NULL, 5);
 		UnregisterHotKey(NULL, 6);
+		UnregisterHotKey(NULL, 7);
+		UnregisterHotKey(NULL, 8);
 	}
 
 	void run()
@@ -59,6 +65,8 @@ public:
 				POINT point = mouse.GetPosition();
 				LootChest();
 				mouse.MouseMove(point);
+				if (gamePlay)
+					mouse.LeftClick();
 				SleepTimer = 18000;
 			}
 			Sleep(50);
@@ -154,7 +162,19 @@ public:
 				SleepTimer = 0;
 				printf("================ F4 - Auto Looting ==================\n");
 			}
-
+			if (msg.wParam == 7) //6st hotkey
+			{
+				autoLoot = false;
+				gamePlay = false;
+				SleepTimer = 0;
+				printf("================ F4 - Auto Loot Diasbled ==================\n");
+			}
+			if (msg.wParam == 8) //6st hotkey
+			{
+				gamePlay = true;
+				SleepTimer = 0;
+				printf("================ F4 - GamePlay Mode ==================\n");
+			}
 			msg.message = 0; //reset the message so that it resume;
 			return;
 		}

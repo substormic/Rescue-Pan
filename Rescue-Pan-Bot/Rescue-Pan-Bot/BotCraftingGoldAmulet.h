@@ -93,7 +93,7 @@ private:
 		mouse.RightClick();
 		gen.ChooseMenuOption(3);
 		mouse.LeftClick();
-		Sleep(800);
+		Sleep(1400);
 		Keyboard().TypeNum(amt,2);
 		Sleep(1.8 * amt * 1000);
 		return true;
