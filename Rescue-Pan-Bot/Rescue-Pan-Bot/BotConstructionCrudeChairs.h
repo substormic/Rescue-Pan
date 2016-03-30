@@ -173,7 +173,7 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area ChairClick = inv.areaBox(2680 - 1920 + SCREEN, 215, 50);
+		Area ChairClick = inv.areaBox(2690 - 1920 + SCREEN, 215, 53);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
 		if (MoveChair.x != -1)
 		{
