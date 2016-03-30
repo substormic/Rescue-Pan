@@ -102,14 +102,17 @@ private:
 			gen.NormalizeCompass(0);
 			Area bankSearch2 = gen.areaBox(2007, 163, 30, 60);
 			Area bankSearch3 = gen.areaBox(1966, 168, 30, 60);
+			Area bankSearch4 = gen.areaBox(1942, 169, 20);
 			if (!bank.OpenBank(bankSearch1)) {
 				printf("bank didn't open on the first try or something\n");
 				if (!bank.OpenBank(bankSearch2)) {
 					printf("bank didn't open on the second try\n");
-					return false;
 					if (!bank.OpenBank(bankSearch3)) {
 						printf("bank didn't open on the third try\n");
-						return false;
+						if (!bank.OpenBank(bankSearch4)) {
+							printf("bank didn't open on the fourth try\n");
+							return false;
+						}
 					}
 				}
 			}
@@ -183,6 +186,8 @@ private:
 		Sleep(800);
 
 		unsigned int ghostLarder3 = 0xD2CDCC00;
+		unsigned int ghostLarder4 = 0xDAD6D500;
+		unsigned int ghostLarder5 = 0xD5D0CF00;
 
 		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 143, 110, 35);
 		Area bLard= inv.areaBox(2861 - 1920 + SCREEN, 121, 50, 20);
@@ -206,6 +211,16 @@ private:
 			printf("Using backup coords 4\n");
 			Sleep(1000);
 			moveLard = pix.SearchPixelAreaForPoint(ghostLarder3, bLard, 15);
+		}
+		if (moveLard.x == -1) {
+			printf("Using backup coords 5\n");
+			Sleep(1000);
+			moveLard = pix.SearchPixelAreaForPoint(ghostLarder4, bLard, 15);
+		}
+		if (moveLard.x == -1) {
+			printf("Using backup coords 6\n");
+			Sleep(1000);
+			moveLard = pix.SearchPixelAreaForPoint(ghostLarder5, bLard, 15);
 		}
 		if (moveLard.x != -1)
 		{
@@ -255,8 +270,8 @@ private:
 			mouse.LeftClick();
 			Sleep(100);
 		}
-		//if run is off and energy < 50:
-		if (pix.VerifyPixelColor(runOff) && pix.VerifyPixelColor(pixeltowatch)) {
+		//if run is off and energy < 50: //deactivated temporarily.
+		if ( false && pix.VerifyPixelColor(runOff) && pix.VerifyPixelColor(pixeltowatch)) {
 			printf("run depleted, waiting\n");
 			Sleep(90 * 1000);
 			//mouse.MouseMove(pixeltowatch._x, pixeltowatch._y);
