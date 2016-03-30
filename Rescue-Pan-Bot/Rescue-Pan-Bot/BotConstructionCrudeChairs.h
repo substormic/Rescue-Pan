@@ -9,12 +9,12 @@ SKILL: Construction
 HOURLY:		Money: - ???		XP: + ???
 Requirements:
 - No minimum skill required
-- Location:		Begin in Varrock square.
-- Bank:			Have "Tab 7" contain a stack of gold bars in index (0,1)
-- Inventory:	Hold an amulet mould in the top left of your inventory
+- Location:		Begin anywhere.
+- Bank:			Have "Tab 7" contain a stack of planks (1,1) (2nd row, 2nd col)
+- Inventory:	Law runes (0) Air runes (1) Hammer (2) Saw (3) Nails (4) Planks (rest)
 - Map:			Map normalized to OSBuddy def. zoom, facing north, UP.
 
-Independence: Lazy Monitor (4/5)
+Independence: ???
 
 note: Independence scale:
 Active play			(1/5)
@@ -65,9 +65,11 @@ private:
 
 	//Teleports to camelot, opens bank
 	bool openCammyBank() {
-		inv.VerifyActiveMagic();
-		return true;
-
+		if (!Teleport(Camelot)) {
+			printf("Teleport failed, lacked runes\n");
+			return false;
+		}
+		openCammyBank(false);
 	}
 
 	//Overload which allows you not to waste a rune if you just teleported.
@@ -106,6 +108,20 @@ private:
 		}
 	}
 
+	bool withdrawHouseSupplies() {
+		if (!bank.VerifyBankOpen()) {
+			printf("Bank should've been open\n");
+			return false;
+		}
+		bank.OpenTab(7);
+		if (!bank.VerifyItem(0x5A482A00, 1, 1)) {
+			printf("No planks are at index 1,1 in tab 7\n");
+			return false;
+		}
+		bank.Withdraw(1, 1, 6);
+		bank.CloseBank();
+	}
+
 	//Teleports to house; enables build mode; clicks "build" on the left chair spot.
 	bool teleportToHouse() {
 
@@ -136,7 +152,16 @@ public:
 	}
 
 	void run() {
-		openCammyBank(false);
+		while (gen.VerifyOSbuddy())
+		{
+			if (!openCammyBank()) { return; }
+
+			if (!withdrawHouseSupplies()) { return; }
+
+			if (!teleportToHouse()) { return; }
+
+			return;
+		}
 
 
 	}
