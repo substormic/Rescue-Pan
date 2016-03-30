@@ -121,7 +121,7 @@ private:
 			printf("No oak planks are at index 1,1 in tab 7\n");
 			return false;
 		}
-		bank.Withdraw(2, 1, 6);
+		bank.Withdraw(2, 1, 5); //withdraw all, so we can run out
 		bank.CloseBank();
 	}
 
@@ -203,6 +203,20 @@ private:
 		printf("Chair built!\n");
 		return true;
 	}
+
+	void handleRunEnergy() {
+		Pixel pixeltowatch;
+		pixeltowatch.Set(0x131313, 3408 - 1920 + SCREEN, 176);
+		Pixel b = pixeltowatch;
+		b._color = 0xA2A39500;
+		if ( pix.VerifyPixelColor(b)) {
+			mouse.MouseMove(pixeltowatch._x, pixeltowatch._y);
+			mouse.LeftClick();
+			Sleep(100);
+		}
+
+	}
+
 
 	bool confirmChairAvail() {
 		unsigned int red = 0xFF000000;
@@ -305,7 +319,7 @@ public:
 		{
 			gen.HandleHotkeys();
 			gen.HandleAutoLogOut();
-
+			handleRunEnergy();
 			if (!openCammyBank()) { return; }
 
 			if (!withdrawHouseSupplies()) { return; }
@@ -315,6 +329,12 @@ public:
 			if (!buildChairLoop()) { return; }
 
 			printf("You've made %d larders for %d XP\n", chairs, chairs * 480);
+
+			if (chairs / 3 >= 300 && chairs / 3 < 302) {
+				gen.Logout();
+				Sleep(10000);
+				gen.HandleAutoLogOut();
+			}
 
 		}
 
