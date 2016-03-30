@@ -225,8 +225,13 @@ private:
 	}
 
 	void handleDialogBox(int optionNum) {
+		int timeout = 0;
 		while (!pix.VerifyPixelColor(0x1C928E00, 2338-1920+SCREEN, 903, 1)) {
 			Sleep(5);
+			timeout++;
+			if (timeout > 1000) {
+				return;
+			}
 		}
 		Keyboard().TypeNum(optionNum + 1);
 	}
@@ -234,7 +239,7 @@ private:
 	//note: assumes chair menu is started open
 	bool buildChairLoop() {
 		inv.VerifyActiveInventory();
-		Area chair = gen.areaBox(2410 - 1920 + SCREEN, 363, 2);
+		Area chair = gen.areaBox(2408 - 1920 + SCREEN, 363, 2);
 		Area chairBuildA = gen.areaBox(2745 - 1920 + SCREEN, 488, 25); //from below, first time 
 		Area chairBuildB = gen.areaBox(2735 - 1920 + SCREEN, 560, 45); //from above
 		unsigned int chairBuildColor = 0x271E0500;
@@ -247,7 +252,7 @@ private:
 			//select the shit chair
 			mouse.MouseMoveArea(chair);
 			mouse.RightClick();
-			Sleep(120 + (rand() % 10));
+			Sleep(130 + (rand() % 10));
 			gen.ChooseMenuOption(0);
 			Sleep(10 + (rand() % 20));
 			//build it
