@@ -63,17 +63,43 @@ private:
 	//Teleports to camelot, opens bank
 	bool openCammyBank() {
 		inv.VerifyActiveMagic();
+		return true;
 
 	}
 
 	//Overload which allows you not to waste a rune if you just teleported.
 	bool openCammyBank(bool teleport) {
 		if (!teleport) {
-
-
+			gen.NormalizeCompass(UP);
+			Area treeSearch1;
+			treeSearch1.x1 = 2207 - 1920 + SCREEN;
+			treeSearch1.y1 = 245;
+			treeSearch1.x2 = 2358 - 1920 + SCREEN;
+			treeSearch1.y2 = 521;
+			Area treeSearch2 = gen.areaBox(2257 - 1920 + SCREEN, 409, 10);
+			Area bankSearch1 = gen.areaBox(1973 - 1920, 170, 10,30);
+			unsigned int treeColor = 0x73522900;
+			unsigned int treeColor2 = 0x77542A00;
+			if (!gen.DefiniteClick(treeColor, 10, treeSearch1, HOVER_ACTION, HOVER_ACTION, 0, 30)) {
+				printf("Can't find the first tree outside cammy tele.");
+				return false;
+			}
+			Sleep(4000);
+			if (!gen.DefiniteClick(treeColor2, 10, treeSearch2, HOVER_ACTION, HOVER_ACTION, 0, 30)) {
+				printf("Can't find the second tree outside cammy tele.");
+				return false;
+			}
+			Sleep(3000);
+			gen.NormalizeCompass(0);
+			if (!bank.OpenBank(bankSearch1)) {
+				printf("bank didn't open or something\n");
+				return false;
+			}
+			return true;
 		}
 		else {
 			openCammyBank();
+			return true;
 		}
 	}
 
@@ -87,7 +113,7 @@ private:
 public:
 
 	void run() {
-
+		openCammyBank(false);
 
 
 	}
