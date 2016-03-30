@@ -82,7 +82,8 @@ private:
 
 	//Teleports to house; enables build mode; clicks "build" on the left chair spot.
 	bool teleportToHouse() {
-
+		if (!Teleport(House))
+			return false; //couldnt teleport
 
 	}
 
@@ -111,7 +112,6 @@ public:
 
 	void run() {
 
-		Teleport(Camelot);
 
 	}
 
