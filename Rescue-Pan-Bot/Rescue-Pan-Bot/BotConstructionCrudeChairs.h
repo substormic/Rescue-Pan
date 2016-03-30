@@ -41,6 +41,8 @@ private:
 
 	Pixel House;
 	Pixel Camelot;
+
+	unsigned int GhostChair = 0xcbc6c200;
 	
 	bool verifyInventorySetup() {
 		inv.VerifyActiveInventory();
@@ -108,9 +110,23 @@ private:
 
 	//Teleports to house; enables build mode; clicks "build" on the left chair spot.
 	bool teleportToHouse() {
-		if (!Teleport(House))
-			return false; // could not teleport to house
-
+		//if (!Teleport(House))
+		//	return false; // could not teleport to house
+		Area ChairClick = inv.areaBox(817,274, 25);
+		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
+		if (MoveChair.x != -1)
+		{
+			mouse.MouseMove(MoveChair);
+			Sleep(150);
+			mouse.RightClick();
+			Sleep(60);
+			inv.ChooseMenuOption(2);
+			Sleep(50);
+			mouse.LeftClick();
+		}
+		else
+			printf("Couldnt find chair\n");
+		return true;
 	}
 
 
@@ -137,7 +153,7 @@ public:
 	}
 
 	void run() {
-		openCammyBank(false);
+		teleportToHouse();
 
 
 	}
