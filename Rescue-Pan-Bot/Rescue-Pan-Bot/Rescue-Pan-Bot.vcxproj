@@ -120,6 +120,7 @@
   <ItemGroup>
     <ClInclude Include="BotAgilityCanifis.h" />
     <ClInclude Include="BotConstructionCrudeChairs.h" />
+    <ClInclude Include="BotConstructionLarders.h" />
     <ClInclude Include="BotCraftingGoldAmulet.h" />
     <ClInclude Include="BotFiremaking.h" />
     <ClInclude Include="BotMagicCurse.h" />
