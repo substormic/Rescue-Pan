@@ -78,6 +78,12 @@ bool PixelHandler::SearchPixelArea(unsigned int color, int UpperLeftX, int Upper
 }
 
 
+//searches a given area for a color [HEX - RGBA] - returns true or false if found
+bool PixelHandler::SearchPixelArea(unsigned int color, Area region)
+{
+	return SearchPixelArea(color, region.x1, region.y1, region.x2, region.y2);
+}
+
 /* INPUT: color - HEX (RGBA) color to be searched
 upper left boundary of search box
 bottom right boundary of search box
@@ -132,6 +138,11 @@ bool PixelHandler::SearchPixelArea(unsigned int color, int UpperLeftX, int Upper
 	DeleteDC(hdcTemp);
 	DeleteObject(hBitmap2);
 	return false;
+}
+
+bool PixelHandler::SearchPixelArea(unsigned int color, Area region, int tolerance)
+{
+	return SearchPixelArea(color, region.x1, region.y1, region.x2, region.y2, tolerance);
 }
 
 
@@ -205,6 +216,11 @@ POINT PixelHandler::SearchPixelAreaForPoint(unsigned int color, int UpperLeftX, 
 	return pix;
 }
 
+POINT PixelHandler::SearchPixelAreaForPoint(unsigned int color, Area region, int tolerance)
+{
+	return SearchPixelAreaForPoint(color, region.x1, region.y1, region.x2, region.y2, tolerance);
+}
+
 //returns coordinates by value not reference. Values = -1 if not found
 POINT PixelHandler::SearchPixelAreaForPoint(unsigned int color, int UpperLeftX, int UpperLeftY, int BottomRightX, int BottomRightY)
 {
@@ -267,6 +283,11 @@ POINT PixelHandler::SearchPixelAreaForPoint(unsigned int color, int UpperLeftX, 
 	pix.x = -1;
 	pix.y = -1;
 	return pix;
+}
+
+POINT PixelHandler::SearchPixelAreaForPoint(unsigned int color, Area region)
+{
+	return SearchPixelAreaForPoint(color, region.x1, region.y1, region.x2, region.y2);
 }
 
 /* INPUT:	(x,y) coordinates of pixel to be checked
