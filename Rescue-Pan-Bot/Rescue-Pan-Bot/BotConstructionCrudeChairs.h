@@ -124,7 +124,8 @@ private:
 
 	//Teleports to house; enables build mode; clicks "build" on the left chair spot.
 	bool teleportToHouse() {
-
+		if (!Teleport(House))
+			return false; // could not teleport to house
 
 	}
 
