@@ -83,7 +83,7 @@ private:
 		if (!teleport) {
 			gen.NormalizeCompass(UP);
 			Area treeSearch1;
-			treeSearch1.x1 = 2207 - 1920 + SCREEN;
+			treeSearch1.x1 = 2180 - 1920 + SCREEN;
 			treeSearch1.y1 = 245;
 			treeSearch1.x2 = 2414 - 1920 + SCREEN;
 			treeSearch1.y2 = 521;
@@ -296,7 +296,7 @@ public:
 	}
 
 	void run() {
-		
+
 		while (gen.VerifyOSbuddy())
 		{
 			gen.HandleHotkeys();
