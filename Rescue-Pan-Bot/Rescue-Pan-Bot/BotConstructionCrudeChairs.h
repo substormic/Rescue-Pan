@@ -87,7 +87,7 @@ private:
 			treeSearch1.y1 = 245;
 			treeSearch1.x2 = 2414 - 1920 + SCREEN;
 			treeSearch1.y2 = 569;
-			Area treeSearch2 = gen.areaBox(2262 - 1920 + SCREEN, 409, 35);
+			Area treeSearch2 = gen.areaBox(2262 - 1920 + SCREEN, 409, 55);
 			Area bankSearch1 = gen.areaBox(2077 - 1920, 154, 15,30);
 			unsigned int treeColor = 0x73522900;
 			unsigned int treeColor2 = 0x77542A00;
@@ -96,7 +96,7 @@ private:
 				return false;
 			}
 			Sleep(4000);
-			if (!gen.DefiniteClick(treeColor2, 10, treeSearch2, HOVER_ACTION, HOVER_ACTION, 0, 30)) {
+			if (!gen.DefiniteClick(treeColor2, 10, treeSearch2, HOVER_ACTION, HOVER_ACTION, 0, 70)) {
 				printf("Can't find the second tree outside cammy tele.");
 				return false;
 			}
@@ -173,7 +173,7 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area ChairClick = inv.areaBox(2680 - 1920 + SCREEN, 215, 35);
+		Area ChairClick = inv.areaBox(2690 - 1920 + SCREEN, 215, 53);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
 		if (MoveChair.x != -1)
 		{
@@ -247,9 +247,9 @@ private:
 			//select the shit chair
 			mouse.MouseMoveArea(chair);
 			mouse.RightClick();
-			Sleep(50 + (rand() % 20));
+			Sleep(120 + (rand() % 10));
 			gen.ChooseMenuOption(0);
-			Sleep(30 + (rand() % 20));
+			Sleep(10 + (rand() % 20));
 			//build it
 			mouse.LeftClick();
 			
