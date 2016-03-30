@@ -126,7 +126,7 @@ void InterfaceGeneral::ChooseMenuOption(int optionChoice)
 {
 	POINT option = GetMenuOptionCoords(optionChoice);
 	//uses custom deviation as to not close the menu by moving mouse too far
-	mouse.SetDeviation(25);//smaller deviation going from menu to option
+	mouse.SetDeviation(15);//smaller deviation going from menu to option
 	mouse.MouseMoveArea(option.x, option.y+5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3); //the 3's are buffer to accouunt for error
 	mouse.SetDeviation(250); //reset deviation
 	return;
