@@ -168,7 +168,7 @@ private:
 		inv.ActivateBuildingMode();
 		houseLoaded();
 
-		Area ChairClick = inv.areaBox(817, 274, 25);
+		Area ChairClick = inv.areaBox(817 + SCREEN, 274, 25);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
 		if (MoveChair.x != -1)
 		{
