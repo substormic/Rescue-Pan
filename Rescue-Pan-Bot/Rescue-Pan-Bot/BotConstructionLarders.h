@@ -122,6 +122,7 @@ private:
 			return false;
 		}
 		bank.Withdraw(2, 1, 6);
+		Sleep(50);
 		bank.CloseBank();
 	}
 
