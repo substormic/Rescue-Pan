@@ -173,7 +173,7 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area ChairClick = inv.areaBox(2704 - 1920 + SCREEN, 215, 15);
+		Area ChairClick = inv.areaBox(2704 - 1920 + SCREEN, 215, 25);
 		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
 		if (MoveChair.x != -1)
 		{
@@ -296,6 +296,7 @@ public:
 	}
 
 	void run() {
+		
 		while (gen.VerifyOSbuddy())
 		{
 			gen.HandleHotkeys();
