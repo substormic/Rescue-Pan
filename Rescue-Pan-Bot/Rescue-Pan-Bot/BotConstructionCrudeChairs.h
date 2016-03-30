@@ -225,7 +225,7 @@ private:
 	}
 
 	void handleDialogBox(int optionNum) {
-		while (!pix.VerifyPixelColor(0x1C928E00, 2338, 903, 1)) {
+		while (!pix.VerifyPixelColor(0x1C928E00, 2338-1920+SCREEN, 903, 1)) {
 			Sleep(5);
 		}
 		Keyboard().TypeNum(optionNum + 1);
@@ -236,7 +236,7 @@ private:
 		inv.VerifyActiveInventory();
 		Area chair = gen.areaBox(2410 - 1920 + SCREEN, 363, 3);
 		Area chairBuildA = gen.areaBox(2745 - 1920 + SCREEN, 488, 25); //from below, first time 
-		Area chairBuildB = gen.areaBox(2735 - 1920 + SCREEN, 578, 30); //from above
+		Area chairBuildB = gen.areaBox(2735 - 1920 + SCREEN, 578, 40); //from above
 		unsigned int chairBuildColor = 0x271E0500;
 		unsigned int chairUnbuildColor = 0xBDB7AF00;
 		int counter = 0;
