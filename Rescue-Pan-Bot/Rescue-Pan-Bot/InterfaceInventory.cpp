@@ -309,6 +309,7 @@ bool InterfaceInventory::CheckLastItem(unsigned int color)
 	return SearchIndexForColor(27,color);
 }
 
+//verifies options tab is open
 bool InterfaceInventory::VerifyActiveOptions()
 {
 	Pixel option(0x75281e00, 1547 + SCREEN, 1009);
@@ -320,4 +321,35 @@ bool InterfaceInventory::VerifyActiveOptions()
 		}
 	Sleep(50);
 	return true;
+}
+
+//opens house tab
+bool InterfaceInventory::OpenHouseTab()
+{
+	int Timeout = 50;
+	VerifyActiveOptions();
+	Sleep(200);
+	mouse.MouseMoveArea(1530 + SCREEN, 967, 1560 + SCREEN, 994);
+	Sleep(40);
+	mouse.LeftClick();
+	Pixel option(0x75281e00, 1547 + SCREEN, 1009);
+	while (pix.VerifyPixelColor(option))
+	{
+		if (Timeout <= 0)
+		{
+			printf("Couldnt open House tab\n");
+			return false;
+		}
+		Timeout--; //wait until the house tab is open
+	}
+	return true;
+}
+
+void InterfaceInventory::ActivateBuildingMode()
+{
+	OpenHouseTab();
+	Sleep(200);
+	mouse.MouseMoveArea(1570 + SCREEN, 789, 1577 + SCREEN, 796);
+	Sleep(40);
+	mouse.LeftClick();
 }

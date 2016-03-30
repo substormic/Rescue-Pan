@@ -94,4 +94,9 @@ public:
 	//verifies options tab is open
 	bool VerifyActiveOptions();
 
+	//opens the house tab
+	bool OpenHouseTab();
+
+	//Activates house building mode
+	void ActivateBuildingMode();
 };
