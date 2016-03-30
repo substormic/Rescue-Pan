@@ -83,10 +83,10 @@ private:
 		if (!teleport) {
 			gen.NormalizeCompass(UP);
 			Area treeSearch1;
-			treeSearch1.x1 = 2180 - 1920 + SCREEN;
+			treeSearch1.x1 = 2169 - 1920 + SCREEN;
 			treeSearch1.y1 = 245;
 			treeSearch1.x2 = 2414 - 1920 + SCREEN;
-			treeSearch1.y2 = 521;
+			treeSearch1.y2 = 569;
 			Area treeSearch2 = gen.areaBox(2262 - 1920 + SCREEN, 409, 35);
 			Area bankSearch1 = gen.areaBox(2077 - 1920, 154, 15,30);
 			unsigned int treeColor = 0x73522900;
