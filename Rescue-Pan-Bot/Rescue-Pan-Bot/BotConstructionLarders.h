@@ -46,6 +46,7 @@ private:
 	Pixel Camelot;
 	unsigned int GhostChair2 = 0xcbc6c200; //connor's ultra white.
 	unsigned int ghostLarder = 0xD9D5D400;
+	unsigned int ghostLarder2 = 0xD4D0CF00; //from an angle? this isn't used yet.
 	int chairs = 0;
 
 	bool verifyInventorySetup() {
@@ -99,10 +100,20 @@ private:
 			}
 			Sleep(5250 + (rand() % 250));
 			gen.NormalizeCompass(0);
+			Area bankSearch2 = gen.areaBox(2007, 163, 30, 60);
+			Area bankSearch3 = gen.areaBox(1966, 168, 30, 60);
 			if (!bank.OpenBank(bankSearch1)) {
-				printf("bank didn't open or something\n");
-				return false;
+				printf("bank didn't open on the first try or something\n");
+				if (!bank.OpenBank(bankSearch2)) {
+					printf("bank didn't open on the second try\n");
+					return false;
+					if (!bank.OpenBank(bankSearch3)) {
+						printf("bank didn't open on the third try\n");
+						return false;
+					}
+				}
 			}
+
 			return true;
 		}
 		else {
@@ -111,7 +122,7 @@ private:
 	}
 
 	bool withdrawHouseSupplies() {
-		if (!bank.VerifyBankOpen()) {
+		if (!bank.VerifyBankOpen() && gen.VerifyOSbuddy()) {
 			printf("Bank should've been open\n");
 			return false;
 		}
@@ -169,10 +180,33 @@ private:
 		gen.NormalizeCompass(UP);
 		inv.ActivateBuildingMode();
 		houseLoaded();
-		Sleep(100);
+		Sleep(800);
+
+		unsigned int ghostLarder3 = 0xD2CDCC00;
 
 		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 143, 110, 35);
+		Area bLard= inv.areaBox(2861 - 1920 + SCREEN, 121, 50, 20);
 		POINT moveLard = pix.SearchPixelAreaForPoint(ghostLarder, lardClick.x1, lardClick.y1, lardClick.x2, lardClick.y2, 6);
+		if (moveLard.x == -1) {
+			printf("Using backup coords\n");
+			Sleep(1000);
+			moveLard = pix.SearchPixelAreaForPoint(ghostLarder, bLard,8);
+		}
+		if (moveLard.x == -1) {
+			printf("Using backup coords 2\n");
+			Sleep(1000);
+			moveLard = pix.SearchPixelAreaForPoint(ghostLarder2, bLard,10);
+		}
+		if (moveLard.x == -1) {
+			printf("Using backup coords 3\n");
+			Sleep(1000);
+			moveLard = pix.SearchPixelAreaForPoint(ghostLarder3, bLard, 10);
+		}
+		if (moveLard.x == -1) {
+			printf("Using backup coords 4\n");
+			Sleep(1000);
+			moveLard = pix.SearchPixelAreaForPoint(ghostLarder3, bLard, 15);
+		}
 		if (moveLard.x != -1)
 		{
 			mouse.MouseMove(moveLard);
@@ -183,7 +217,13 @@ private:
 			Sleep(50);
 			mouse.LeftClick();
 		}
+		else
+		{
+			printf("Couldnt find larder\n");
+			return false;
+		}
 		return true;
+
 	}
 
 	bool waitForChairBuild(Area cb, unsigned int color) {
@@ -202,12 +242,26 @@ private:
 
 	void handleRunEnergy() {
 		Pixel pixeltowatch;
-		pixeltowatch.Set(0x131313, 3408 - 1920 + SCREEN, 176);
+		pixeltowatch.Set(0x13131300, 3408 - 1920 + SCREEN, 176);
 		Pixel b = pixeltowatch;
 		b._color = 0xA2A39500;
+
+		Pixel runOff;
+		runOff.Set(0x9C6F4700, 3417 - 1920 + SCREEN, 178);
+
 		if ( pix.VerifyPixelColor(b)) {
+			printf("Activating run");
 			mouse.MouseMove(pixeltowatch._x, pixeltowatch._y);
 			mouse.LeftClick();
+			Sleep(100);
+		}
+		//if run is off and energy < 50:
+		if (pix.VerifyPixelColor(runOff) && pix.VerifyPixelColor(pixeltowatch)) {
+			printf("run depleted, waiting\n");
+			Sleep(90 * 1000);
+			//mouse.MouseMove(pixeltowatch._x, pixeltowatch._y);
+			//mouse.LeftClick();
+			handleRunEnergy();
 			Sleep(100);
 		}
 
@@ -241,7 +295,7 @@ private:
 				return;
 			}
 		}
-		Keyboard().TypeNum(optionNum + 1);
+		Keyboard().TypeNum(optionNum + 1,1);
 	}
 
 	//note: assumes chair menu is started open
@@ -317,13 +371,16 @@ public:
 			gen.HandleAutoLogOut();
 			handleRunEnergy();
 
-			openCammyBank();
+			if (!openCammyBank())
+				return;
 
 			if (!withdrawHouseSupplies()) { return; }
 
-			teleportToHouse();
+			if (!teleportToHouse())
+				return;
 
-			buildChairLoop();
+			if (!buildChairLoop())
+				return;
 
 			printf("You've made %d larders for %d XP\n", chairs, chairs * 480);
 
