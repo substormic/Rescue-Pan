@@ -3,20 +3,20 @@
 BotConstructionCrudeChairs.h (no matching .cpp file)
 Authored by Brandon Wallace and Connor Rainen.
 
-For creating crude wooden chairs at a POH
+For creating oak larders at POH
 
 SKILL: Construction
 HOURLY:		Money: - ???		XP: + ???
 Requirements:
 - No minimum skill required
 - Location:		Begin anywhere.
-- Bank:			Have "Tab 7" contain a stack of planks (1,1) (2nd row, 2nd col)
+- Bank:			Have "Tab 7" contain a stack of oak planks (2,1) (2nd row, 3rd col)
 - Inventory:	Law runes (0) Air runes (1) Hammer (2) Saw (3) Nails (4) Planks (rest)
 - Map:			Map normalized to OSBuddy def. zoom, facing north, UP.
 
-Independence: Frequent monitor (3/5)
+Independence: Lazy monitor (4/5)
 
-note: Expects parlor north of portal.
+note: Expects kitchen north of portal.
 note: Remove "right click high scores" from OSBuddy settings
 
 note: Independence scale:
@@ -34,7 +34,7 @@ Perfect Automation	(5/5)
 #include "Pixel.h"
 #include "Mouse.h"
 
-class BotConstructionCrudeChairs {
+class BotConstructionOakLarders {
 private:
 	InterfaceBank bank;
 	InterfaceGeneral gen;
@@ -45,7 +45,7 @@ private:
 	Pixel House;
 	Pixel Camelot;
 	unsigned int GhostChair2 = 0xcbc6c200; //connor's ultra white.
-	unsigned int GhostChair = 0xC1BCB300;
+	unsigned int ghostLarder = 0xD9D5D400;
 	int chairs = 0;
 
 	bool verifyInventorySetup() {
@@ -54,10 +54,7 @@ private:
 			printf("Must have law runes in index 0 (top left)");
 			return false;
 		}
-		if (!inv.SearchIndexForColor(1, 0xDCD8D800)) {
-			printf("Must have air runes in index 1");
-			return false;
-		}
+		
 		if (!inv.SearchIndexForColor(1, 0x38210300)) {
 			printf("Must have hammer in index 2");
 			return false;
@@ -120,11 +117,11 @@ private:
 		}
 		bank.OpenTab(7);
 		Sleep(100 + (rand() % 40));
-		if (!bank.VerifyItem(0x5A482A00, 1, 1)) {
-			printf("No planks are at index 1,1 in tab 7\n");
+		if (!bank.VerifyItem(0x6A503100, 2, 1)) {
+			printf("No oak planks are at index 1,1 in tab 7\n");
 			return false;
 		}
-		bank.Withdraw(1, 1, 6);
+		bank.Withdraw(2, 1, 6);
 		bank.CloseBank();
 	}
 
@@ -173,11 +170,11 @@ private:
 		houseLoaded();
 		Sleep(100);
 
-		Area ChairClick = inv.areaBox(2690 - 1920 + SCREEN, 215, 53);
-		POINT MoveChair = pix.SearchPixelAreaForPoint(GhostChair, ChairClick.x1, ChairClick.y1, ChairClick.x2, ChairClick.y2, 5);
-		if (MoveChair.x != -1)
+		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 133, 110);
+		POINT moveLard = pix.SearchPixelAreaForPoint(ghostLarder, lardClick.x1, lardClick.y1, lardClick.x2, lardClick.y2, 5);
+		if (moveLard.x != -1)
 		{
-			mouse.MouseMove(MoveChair);
+			mouse.MouseMove(moveLard);
 			Sleep(150);
 			mouse.RightClick();
 			Sleep(60);
@@ -187,11 +184,12 @@ private:
 		}
 		else
 		{
-			printf("Couldnt find chair\n");
+			printf("Couldnt find larder\n");
 			return false;
 		}
 		return true;
 	}
+
 	bool waitForChairBuild(Area cb, unsigned int color) {
 		int timeout = 0;
 		while (!pix.SearchPixelArea(color, cb.x1, cb.y1, cb.x2, cb.y2, 5)) {
@@ -208,13 +206,13 @@ private:
 
 	bool confirmChairAvail() {
 		unsigned int red = 0xFF000000;
-		return (!pix.VerifyPixelColor(red, 2401 - 1920 + SCREEN, 356));
+		return (!pix.VerifyPixelColor(red, 2400 - 1920 + SCREEN, 465));
 	}
 
 	bool waitForMenu() {
 		unsigned int col = 0xFF981F00;
 		int timeout = 0;
-		while (!pix.VerifyPixelColor(col, 2557 - 1920 + SCREEN, 327)) {
+		while (!pix.VerifyPixelColor(col, 2538 - 1920 + SCREEN, 319)) {
 			Sleep(5);
 			timeout++;
 			if (timeout > 1000) {
@@ -239,18 +237,16 @@ private:
 	//note: assumes chair menu is started open
 	bool buildChairLoop() {
 		inv.VerifyActiveInventory();
-		Area chair = gen.areaBox(2408 - 1920 + SCREEN, 363, 2);
-		Area chairBuildA = gen.areaBox(2745 - 1920 + SCREEN, 488, 25); //from below, first time 
-		Area chairBuildB = gen.areaBox(2735 - 1920 + SCREEN, 578, 40); //from above
-		unsigned int chairBuildColor = 0x271E0500;
-		unsigned int chairUnbuildColor = 0xBDB7AF00;
+		Area larderOnMenu = gen.areaBox(2404 - 1920 + SCREEN, 474, 2);
+		Area larderOnScreen = gen.areaBox(2783 - 1920 + SCREEN, 455, 40); 
+		unsigned int chairBuildColor = 0x8E8E8000;
+		unsigned int chairUnbuildColor = 0xD3CFCE00;
 		int counter = 0;
 		while (confirmChairAvail()) {
 			gen.HandleHotkeys();
 			waitForMenu();
-			Area cb = counter ? chairBuildB : chairBuildA;
 			//select the shit chair
-			mouse.MouseMoveArea(chair);
+			mouse.MouseMoveArea(larderOnMenu);
 			mouse.RightClick();
 			Sleep(130 + (rand() % 10));
 			gen.ChooseMenuOption(0);
@@ -258,18 +254,17 @@ private:
 			//build it
 			mouse.LeftClick();
 
-			waitForChairBuild(cb, chairBuildColor);
+			waitForChairBuild(larderOnScreen, chairBuildColor);
 
 			//now remove it
-			gen.DefiniteClick(chairBuildColor, 3, cb, HOVER_ACTION, HOVER_ACTION, 3, 20);
+			gen.DefiniteClick(chairBuildColor, 3, larderOnScreen, HOVER_ACTION, HOVER_ACTION, 3, 20);
 			//yes really you dumb shit.
 			handleDialogBox(0);
 
 			counter++;
-			cb = counter ? chairBuildB : chairBuildA;
 
 			//finally, click on the goddamn chair to build again.
-			gen.DefiniteClick(chairUnbuildColor, 3, cb, 0xFFFFFF00, HOVER_ACTION, 2, 20);
+			gen.DefiniteClick(chairUnbuildColor, 3, larderOnScreen, 0xFFFFFF00, HOVER_ACTION, 2, 20);
 			waitForMenu();
 		}
 		printf("Out of wood\n");
@@ -291,7 +286,7 @@ private:
 
 public:
 
-	BotConstructionCrudeChairs()
+	BotConstructionOakLarders()
 	{
 		Camelot._x = 5;
 		Camelot._y = 3;
@@ -316,7 +311,7 @@ public:
 
 			if (!buildChairLoop()) { return; }
 
-			printf("You've made %d chairs for %d XP\n", chairs, chairs * 58);
+			printf("You've made %d larders for %d XP\n", chairs, chairs * 480);
 
 		}
 
