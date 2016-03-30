@@ -183,8 +183,7 @@ private:
 			Sleep(50);
 			mouse.LeftClick();
 		}
-		Sleep(5000000);
-		return;
+		return true;
 	}
 
 	bool waitForChairBuild(Area cb, unsigned int color) {
