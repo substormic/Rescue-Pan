@@ -241,7 +241,7 @@ private:
 		inv.VerifyActiveInventory();
 		Area chair = gen.areaBox(2408 - 1920 + SCREEN, 363, 2);
 		Area chairBuildA = gen.areaBox(2745 - 1920 + SCREEN, 488, 25); //from below, first time 
-		Area chairBuildB = gen.areaBox(2735 - 1920 + SCREEN, 578, 40); //from above
+		Area chairBuildB = gen.areaBox(2735 - 1920 + SCREEN, 560, 45); //from above
 		unsigned int chairBuildColor = 0x271E0500;
 		unsigned int chairUnbuildColor = 0xBDB7AF00;
 		int counter = 0;
