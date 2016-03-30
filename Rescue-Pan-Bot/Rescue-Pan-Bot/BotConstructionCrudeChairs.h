@@ -96,7 +96,7 @@ private:
 				return false;
 			}
 			Sleep(4000);
-			if (!gen.DefiniteClick(treeColor2, 10, treeSearch2, HOVER_ACTION, HOVER_ACTION, 0, 30)) {
+			if (!gen.DefiniteClick(treeColor2, 10, treeSearch2, HOVER_ACTION, HOVER_ACTION, 0, 70)) {
 				printf("Can't find the second tree outside cammy tele.");
 				return false;
 			}
