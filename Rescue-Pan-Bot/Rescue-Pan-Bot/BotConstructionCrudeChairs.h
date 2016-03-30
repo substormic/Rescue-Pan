@@ -114,6 +114,7 @@ private:
 			return false;
 		}
 		bank.OpenTab(7);
+		Sleep(100 + (rand() % 40));
 		if (!bank.VerifyItem(0x5A482A00, 1, 1)) {
 			printf("No planks are at index 1,1 in tab 7\n");
 			return false;
