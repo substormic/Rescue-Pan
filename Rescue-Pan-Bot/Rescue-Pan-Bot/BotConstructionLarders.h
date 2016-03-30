@@ -239,10 +239,11 @@ private:
 		inv.VerifyActiveInventory();
 		Area larderOnMenu = gen.areaBox(2404 - 1920 + SCREEN, 474, 2);
 		Area larderOnScreen = gen.areaBox(2783 - 1920 + SCREEN, 455, 40); 
+		Area emptyLarderOS = gen.areaBox(2739 - 1920 + SCREEN, 426, 40);
 		unsigned int chairBuildColor = 0x8E8E8000;
 		unsigned int chairUnbuildColor = 0xD3CFCE00;
 		int counter = 0;
-		while (confirmChairAvail()) {
+		while (counter < 3 && confirmChairAvail()) {
 			gen.HandleHotkeys();
 			waitForMenu();
 			//select the shit chair
@@ -262,10 +263,12 @@ private:
 			handleDialogBox(0);
 
 			counter++;
-
-			//finally, click on the goddamn chair to build again.
-			gen.DefiniteClick(chairUnbuildColor, 3, larderOnScreen, 0xFFFFFF00, HOVER_ACTION, 2, 20);
-			waitForMenu();
+			if (counter < 3)
+			{
+				//finally, click on the goddamn chair to build again.
+				gen.DefiniteClick(chairUnbuildColor, 3, emptyLarderOS, 0xFFFFFF00, HOVER_ACTION, 2, 20);
+				waitForMenu();
+			}
 		}
 		printf("Out of wood\n");
 		chairs += counter;
