@@ -1,19 +1,23 @@
 #pragma once
 #include "InterfaceInventory.h"
+#include "InterfaceStats.h"
 
 class BotThievingRogueChest
 {
 private:
+	unsigned int MyBaldHead = 0xc2895b00;
 	int SleepTimer;
 	int lootTimer;
 	bool autoLoot;
 	bool mouseSet;
 	bool gamePlay;
 	POINT Curs;
+	POINT chest;
 	MSG msg;
 
 public: 
 	InterfaceInventory inv;
+	InterfaceStats stat;
 	Mouse mouse;
 	PixelHandler pix;
 
@@ -60,6 +64,11 @@ public:
 		while (1)
 		{
 			HandleMyHotkeys();
+			if (autoLoot && stat.MiniMapDot(DOT_PLAYER)) //only autologs if autoloot is on
+			{
+				stat.LogoutQuick();
+				return;
+			}
 			if (autoLoot && SleepTimer <= 0) //sleep has gone by
 			{
 				POINT point = mouse.GetPosition();
@@ -75,13 +84,35 @@ public:
 
 	}
 
+	POINT findChest()
+	{
+		Area Region(610+SCREEN,450,879+SCREEN, 587);
+		POINT chest = pix.SearchPixelAreaForPoint(MyBaldHead, Region, 20);
+		return chest;
+	}
+
 	void LootChest()
 	{
 
 		BlockInput(true);
 		POINT menu;
 		//move mouse to cursor appointed area
-		mouse.MouseMoveArea(Curs.x - 2, Curs.y - 3, Curs.x + 3, Curs.y + 2);
+		if (lootTimer == 5)
+			mouse.MouseMoveArea(Curs.x - 2, Curs.y - 3, Curs.x + 3, Curs.y + 2);
+		else
+		{
+			chest = findChest();
+			if (chest.x != -1)
+			{
+			//	printf("Bald Head time\n");
+				mouse.MouseMoveArea(chest.x - 2, chest.y - 3, chest.x + 3, chest.y + 2); //use bald found coord
+			}
+			else
+			{
+				//try again with old coord, couldnt find me own head
+				mouse.MouseMoveArea(Curs.x - 2, Curs.y - 3, Curs.x + 3, Curs.y + 2);
+			}
+		}
 		Sleep(30);
 		mouse.RightClick();
 		Sleep(30);
@@ -90,15 +121,21 @@ public:
 		Sleep(30);
 		if (pix.SearchPixelArea(HOVER_ACTION, menu.x, menu.y, menu.x + 3 * MENU_MINWIDTH, menu.y + MENU_OPTION))
 		{
+			if (lootTimer < 5) //if found using color searching, replace old coords with new colorfound version
+			{
+				Curs.x = chest.x;
+				Curs.y = chest.y;
+			}
 			mouse.LeftClick();
 			lootTimer = 5;
+
 		}
 		else
 		{
 			if (lootTimer > 0)
 			{
 				POINT Cursor = mouse.GetPosition();
-				mouse.MouseMove(Cursor.x - 300, Cursor.y - 300);
+				mouse.MouseMove(Cursor.x - 300, Cursor.y - 300); //moves far so that the menu thats open disappears
 				lootTimer--;
 				LootChest();
 			}

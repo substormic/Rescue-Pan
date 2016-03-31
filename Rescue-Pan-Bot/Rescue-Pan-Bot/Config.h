@@ -72,6 +72,7 @@ static const Pixel pixStats(0xf6f5f100, 1483 + SCREEN, 55);
 static const Pixel pixChat(0x605a4a00, 25 + SCREEN, 877); 
 static const Pixel pixInv(0xfbeaea00, 1489 + SCREEN, 720);
 static const Pixel compass(0x9f0c0e00, 1483 + SCREEN, 55); //color of furthermost red pixel on arm, and the pixel coords of center of compass
+static const Pixel MiniMapCenter(0xffffff00, 1561+SCREEN, 117);
 
 
 //Create STATS pixel to verify window (uses center white pixel on compass)
@@ -125,11 +126,15 @@ static const Pixel compass(0x9f0c0e00, 1483 + SCREEN, 55); //color of furthermos
 #define UP 3		//arrow keys for the keyboard arrow function
 #define DOWN 4		//arrow keys for the keyboard arrow function
 
+#define DOT_PLAYER 0xececec00 //color of player dot in minimap
+
 static const Pixel SUPERHEAT(MAGIC_HEAT, 4, 3); //creates the spell using its active color as well as its spellbook coords
 static const Pixel TELEBLOCK(MAGIC_TELE, 5, 8); //creates a spell for teleblock
 static const Pixel ENTANGLE(MAGIC_ENTANGLE, 1, 8); //create a spell entangle
 
 const int GAME_CENTER_X = 821 + SCREEN; //center of gameplay window X coord
 const int GAME_CENTER_Y = 504 + SCREEN; //center of gameplay window Y coord
+
+static const Area MiniMap(1484 + SCREEN, 40, 1637 + SCREEN, 194);
 
 #endif

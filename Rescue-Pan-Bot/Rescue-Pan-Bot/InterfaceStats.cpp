@@ -430,3 +430,50 @@ bool InterfaceStats::VerifyRunescapeWindow()
 
 	return Check;
 }
+
+
+bool InterfaceStats::MiniMapDot(unsigned int color)
+{
+	//int Counter = 1;
+	//POINT checkme;
+	POINT person = pix.SearchPixelAreaForPoint(color, MiniMap);
+	if (person.x != -1) //suspected person found
+	{
+		printf("Suspected Person at: (%4i, %4i)\n", person.x, person.y);
+		/*
+		POINT Center;
+		Center.x = person.x - 1;
+		Center.y = person.y - 1;
+		checkme = CheckBorderingPixels(color, Center, Counter);
+		printf("Counter: %i\n", Counter);
+		if (Counter >= 4)
+		{
+			printf("Person Found at: (%4i, %4i)\n", person.x, person.y);
+			return true;
+		}
+		*/
+		return true;
+	}
+	return false;
+}
+
+bool InterfaceStats::CheckBorderingPixels(unsigned int color, POINT point, int& Counter )
+{
+	if (pix.VerifyPixelColor(color, point.x - 1, point.y - 1)) //Upper Left
+		Counter++;
+	if (pix.VerifyPixelColor(color, point.x - 1, point.y)) // Left
+		Counter++;
+	if (pix.VerifyPixelColor(color, point.x - 1, point.y + 1)) //Lower Left
+		Counter++;
+	if (pix.VerifyPixelColor(color, point.x, point.y - 1)) // Lower
+		Counter++;
+	if (pix.VerifyPixelColor(color, point.x, point.y + 1)) // Upper
+		Counter++;
+	if (pix.VerifyPixelColor(color, point.x + 1, point.y - 1)) // Upper Right
+		Counter++; 
+	if (pix.VerifyPixelColor(color, point.x + 1, point.y))  // Right
+		Counter++;
+	if (pix.VerifyPixelColor(color, point.x + 1, point.y + 1)) // Lower Right
+		Counter++;
+	return false;
+}
