@@ -226,8 +226,10 @@ void  InterfaceInventory::DropItemsColored(unsigned int color)
 	for (int i = 0; i <= 27; i++)
 	{
 		item = GetItemCoords(i);
-		if (pix.SearchPixelArea(color, item.x, item.y, item.x + INV_ITEM_WIDTH, item.y + INV_ITEM_HEIGHT, 10)) //check if item is in this slot
+		if (pix.SearchPixelArea(color, item.x, item.y, item.x + INV_ITEM_WIDTH, item.y + INV_ITEM_HEIGHT, 10)) { //check if item is in this slot
 			DropItem(i);
+			Sleep(120); // wait before you search for the next color.
+		}
 	}
 }
 
