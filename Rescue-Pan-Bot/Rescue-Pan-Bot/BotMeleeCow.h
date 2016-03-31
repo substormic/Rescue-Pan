@@ -19,6 +19,7 @@ public:
 	// if mode is 0, doesnt swith styles
 	void run(int mode)
 	{
+		stat.fightme = 1;
 		while (1)
 		{
 			inv.HandleHotkeys();

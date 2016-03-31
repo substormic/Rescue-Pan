@@ -15,6 +15,7 @@ protected:
 	int mouseDeviation = 250;
 
 public:
+	bool fightme = 0; //if im set to 1, logns sleep for gobbys
 	unsigned int alternateColor = -1;
 	bool MouseMoved = false; // for mouse movement returning
 	//returns '0' if not in combat, '1' if in combat, and '2' if monster is already taken by someone else, and '3' if the monster is just dying
