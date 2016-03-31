@@ -132,9 +132,9 @@ public:
 	}
 
 	void run() {
+		gen.NormalizeCompass(UP);
 		laySnare();
 		while (true) {
-			gen.NormalizeCompass(UP);
 			gen.HandleHotkeys();
 			inv.DropItemsColored(birdMeatColor);
 			prayBones();
