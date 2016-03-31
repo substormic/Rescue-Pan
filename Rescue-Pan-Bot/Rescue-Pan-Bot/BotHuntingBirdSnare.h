@@ -77,7 +77,7 @@ private:
 				continue;
 			}
 			Sleep(1200);//walk time
-			gen.DefiniteClick(redC2, 0, b, HOVER_ACTION, HOVER_ACTION, 0, 50); //collect
+			gen.DefiniteClick(0x0000FF00, 0, b, HOVER_ACTION, HOVER_ACTION, 0, 50); //collect
 			Sleep(snareLayTime);
 			if (!laySnare())
 				printf("no snares available\n");
@@ -107,18 +107,20 @@ private:
 			POINT p = pix.SearchPixelAreaForPoint(greenC2, trapArea, tol); //trap on screen
 			POINT q; //where you'll be when you walk to the trap.
 			q.x = p.x - 45;
-			q.y = p.y-10;
+			q.y = p.y-7;
 			Area a = generateTrapArea(p);
 			Area b = generateTrapArea(q);
 			gen.DefiniteClick(greenC2, tol, a, HOVER_ACTION, 0xFFFFFF00, 1, 10);
 			Sleep(1200);//walk time
-			gen.DefiniteClick(greenC2, 0, b, HOVER_ACTION, HOVER_ACTION, 0, 50);
+			gen.DefiniteClick(0x0000FF00, 0, b, HOVER_ACTION, HOVER_ACTION, 0, 50);
 			Sleep(snareLayTime);
 			if (!laySnare())
 				printf("no snares available\n");
 			greenSnare = pix.SearchPixelArea(greenC2, trapArea, tol);
 			successfulSnares++;
 			printf("Successful snares: %d\n", successfulSnares);
+			inv.DropItemsColored(birdMeatColor);
+			prayBones();
 		}
 	}
 
@@ -136,8 +138,6 @@ public:
 		laySnare();
 		while (true) {
 			gen.HandleHotkeys();
-			inv.DropItemsColored(birdMeatColor);
-			prayBones();
 			collectGoodSnares();
 			fixDeadSnares();
 		}
