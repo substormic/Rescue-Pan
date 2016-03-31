@@ -130,8 +130,8 @@ bool InterfaceStats::Attack()
 	if (ChooseMenuOptionColorCheck(attackMenuOption, HOVER_NPC)) //if the menu option is has npc colors
 	{
 		mouse.LeftClick();
-		attackTimeout = 500;
-		//Sleep(4500); //allow for new combat to update
+		//attackTimeout = 500;
+		Sleep(4500); //allow for new combat to update
 		return true;
 	}
 	return false;
