@@ -25,7 +25,7 @@ private:
 	unsigned int snareDeadColor = 0x533B1E00;
 	unsigned int boneColor = 0xB8AFAF00;
 	unsigned int birdMeatColor = 0x9A747200;
-	int snareLayTime = 3100;
+	int snareLayTime = 3600;
 
 	int failedSnares=0;
 	int successfulSnares=0;
@@ -70,12 +70,12 @@ private:
 			POINT q; //where you'll be when you walk to the trap.
 			POINT qq; //where you'll be when you walk to the trap if you found it too high.
 			POINT qqq; //where you'll be when you walk to the trap if you found it too low.
-			q.x = p.x - 45;
-			q.y = p.y - 10;
+			q.x = p.x - 43;
+			q.y = p.y - 5;
 			qq.x = q.x + 8;
 			qq.y = q.y + 28;
-			qqq.x = q.x;
-			qqq.y = q.y - 25;
+			qqq.x = p.x - 45;
+			qqq.y = p.y - 50;
 			Area a = generateTrapArea(p);
 			Area b = generateTrapArea(q);
 			Area c = generateTrapArea(qq);
@@ -86,12 +86,13 @@ private:
 			}
 			Sleep(1200);//walk time
 			if (!gen.DefiniteClick(0x0000FF00, 0, b, HOVER_ACTION, HOVER_ACTION, 0, 7))
-				if (!gen.DefiniteClick(0x0000FF00, 0, c, HOVER_ACTION, HOVER_ACTION, 0, 7))
-					if (!gen.DefiniteClick(0x0000FF00, 0, d, HOVER_ACTION, HOVER_ACTION, 0, 7))
+				if (!gen.DefiniteClick(0x0000FF00, 0, c, HOVER_ACTION, HOVER_ACTION, 0, 9))
+					if (!gen.DefiniteClick(0x0000FF00, 0, d, HOVER_ACTION, HOVER_ACTION, 0, 9))
 						return false;
 			Sleep(snareLayTime);
 			if (!laySnare())
 				printf("no snares available\n");
+			Sleep(1100);
 			snaresDown = pix.SearchPixelAreaForPoint(redC2, trapArea, tol);
 			failedSnares++;
 			printf("Failed snares: %d\n", failedSnares);
@@ -120,12 +121,12 @@ private:
 			POINT q; //where you'll be when you walk to the trap.
 			POINT qq; //where you'll be when you walk to the trap if you found it too high.
 			POINT qqq; //where you'll be when you walk to the trap if you found it too low.
-			q.x = p.x - 45;
-			q.y = p.y - 10;
+			q.x = p.x - 43;
+			q.y = p.y - 5;
 			qq.x = q.x + 8;
 			qq.y = q.y + 28;
-			qqq.x = q.x;
-			qqq.y = q.y - 25;
+			qqq.x = p.x - 45;
+			qqq.y = p.y - 50;
 			Area a = generateTrapArea(p);
 			Area b = generateTrapArea(q);
 			Area c = generateTrapArea(qq);
@@ -136,12 +137,13 @@ private:
 			}
 			Sleep(1200);//walk time
 			if (!gen.DefiniteClick(0x0000FF00, 0, b, HOVER_ACTION, HOVER_ACTION, 0, 7))
-				if (!gen.DefiniteClick(0x0000FF00, 0, c, HOVER_ACTION, HOVER_ACTION, 0, 7))
-					if (!gen.DefiniteClick(0x0000FF00, 0, d, HOVER_ACTION, HOVER_ACTION, 0, 7))
+				if (!gen.DefiniteClick(0x0000FF00, 0, c, HOVER_ACTION, HOVER_ACTION, 0, 9))
+					if (!gen.DefiniteClick(0x0000FF00, 0, d, HOVER_ACTION, HOVER_ACTION, 0, 9))
 						return false;
 			Sleep(snareLayTime);
 			if (!laySnare())
 				printf("no snares available\n");
+			Sleep(1100);
 			greenSnare = pix.SearchPixelAreaForPoint(greenC2, trapArea, tol);
 			successfulSnares++;
 			printf("Successful snares: %d\n", successfulSnares);
