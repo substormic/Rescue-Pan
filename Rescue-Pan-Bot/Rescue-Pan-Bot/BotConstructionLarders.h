@@ -42,6 +42,8 @@ private:
 	PixelHandler pix;
 	Mouse mouse;
 
+	bool firstRetry = false;
+
 	Pixel House;
 	Pixel Camelot;
 	unsigned int GhostChair2 = 0xcbc6c200; //connor's ultra white.
@@ -129,6 +131,7 @@ private:
 			printf("Bank should've been open\n");
 			return false;
 		}
+		firstRetry = false;
 		bank.OpenTab(7);
 		Sleep(100 + (rand() % 40));
 		if (!bank.VerifyItem(0x6A503100, 2, 1)) {
@@ -188,6 +191,7 @@ private:
 		unsigned int ghostLarder3 = 0xD2CDCC00;
 		unsigned int ghostLarder4 = 0xDAD6D500;
 		unsigned int ghostLarder5 = 0xD5D0CF00;
+		unsigned int ghostLarder6 = 0xD9D5D400;
 
 		Area lardClick = inv.areaBox(2907 - 1920 + SCREEN, 143, 110, 35);
 		Area bLard= inv.areaBox(2861 - 1920 + SCREEN, 121, 50, 20);
@@ -221,6 +225,11 @@ private:
 			printf("Using backup coords 6\n");
 			Sleep(1000);
 			moveLard = pix.SearchPixelAreaForPoint(ghostLarder5, bLard, 15);
+		}
+		if (moveLard.x == -1) {
+			printf("Using backup coords 7\n");
+			Sleep(1000);
+			moveLard = pix.SearchPixelAreaForPoint(ghostLarder6, bLard, 20);
 		}
 		if (moveLard.x != -1)
 		{
@@ -386,9 +395,14 @@ public:
 			gen.HandleAutoLogOut();
 			handleRunEnergy();
 
-			if (!openCammyBank())
-				return;
-
+			if (!openCammyBank()) {
+				if (!firstRetry) {
+					firstRetry = true;
+					if (!openCammyBank())
+						return;
+				}
+			}
+				
 			if (!withdrawHouseSupplies()) { return; }
 
 			if (!teleportToHouse())
