@@ -75,4 +75,12 @@ public:
 	//Verifies that runescape is up
 	bool VerifyRunescapeWindow();
 
+	//given a color, returns true if a dot of said color is on the minimap
+	// red = item, yellow=npc, white = player
+	// NEEDS WORK
+	bool MiniMapDot(unsigned int color);
+
+	//DONT USE ME IM BAD
+	bool CheckBorderingPixels(unsigned int color, POINT point, int& counter);
+
 };
