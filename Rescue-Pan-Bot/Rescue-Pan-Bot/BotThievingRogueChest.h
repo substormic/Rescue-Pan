@@ -64,10 +64,11 @@ public:
 		while (1)
 		{
 			HandleMyHotkeys();
-			if (autoLoot && stat.MiniMapDot(DOT_PLAYER)) //only autologs if autoloot is on
+			if (stat.MiniMapDot(DOT_PLAYER)) //only autologs if autoloot is on
 			{
+				autoLoot = false;
 				stat.LogoutQuick();
-				return;
+				//return;
 			}
 			if (autoLoot && SleepTimer <= 0) //sleep has gone by
 			{
@@ -76,7 +77,7 @@ public:
 				mouse.MouseMove(point);
 				if (gamePlay)
 					mouse.LeftClick();
-				SleepTimer = 18000;
+				SleepTimer = 12000;
 			}
 			Sleep(50);
 			SleepTimer -= 50;
@@ -209,7 +210,7 @@ public:
 			if (msg.wParam == 8) //6st hotkey
 			{
 				gamePlay = true;
-				SleepTimer = 0;
+				//SleepTimer = 0;
 				printf("================ F4 - GamePlay Mode ==================\n");
 			}
 			msg.message = 0; //reset the message so that it resume;

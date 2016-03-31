@@ -93,6 +93,9 @@
     <ClInclude Include="BotConstructionLarders.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="BotHunterLayTrap.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">
