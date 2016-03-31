@@ -123,6 +123,7 @@
     <ClInclude Include="BotConstructionLarders.h" />
     <ClInclude Include="BotCraftingGoldAmulet.h" />
     <ClInclude Include="BotFiremaking.h" />
+    <ClInclude Include="BotHuntingBirdSnare.h" />
     <ClInclude Include="BotMagicCurse.h" />
     <ClInclude Include="BotMagicSuperheat.h" />
     <ClInclude Include="BotMagicTeleAlch.h" />
