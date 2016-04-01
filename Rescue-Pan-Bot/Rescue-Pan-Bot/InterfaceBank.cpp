@@ -126,7 +126,12 @@ void InterfaceBank::DepositBackpack() {
 
 
 //opens bank lol
-bool InterfaceBank::OpenBank(Area region)
+bool InterfaceBank::OpenBank(Area region) {
+	return InterfaceBank::OpenBank(region, false);
+}
+
+//opens bank lol
+bool InterfaceBank::OpenBank(Area region, bool onlyNPC)
 {
 	while (bankTimeout < 40)
 	{
@@ -140,7 +145,7 @@ bool InterfaceBank::OpenBank(Area region)
 		}
 		Sleep(200);
 
-		if (VerifyTopLeftText(0x00DDDD00))
+		if (VerifyTopLeftText(0x00DDDD00) && !onlyNPC)
 		{
 			mouse.RightClick();
 			Sleep(150);

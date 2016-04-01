@@ -163,8 +163,8 @@ public:
 	}
 
 	void run() {
-		gen.NormalizeCompass(UP);
-		laySnare();
+		//gen.NormalizeCompass(UP);
+		//laySnare();
 		while (true) {
 			gen.HandleHotkeys();
 			if (!collectGoodSnares()) {

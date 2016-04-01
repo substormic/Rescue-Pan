@@ -49,8 +49,11 @@ public:
 	//empties backpack into current tab of bank.
 	void DepositBackpack();
 
-	//Closes bank
+	//opens bank lol
 	bool OpenBank(Area region);
+
+	//opens bank lol
+	bool InterfaceBank::OpenBank(Area region, bool onlyNPC);
 
 	//Closes bank
 	bool CloseBank();
