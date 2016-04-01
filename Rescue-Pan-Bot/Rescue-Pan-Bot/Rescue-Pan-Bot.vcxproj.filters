@@ -87,13 +87,13 @@
     <ClInclude Include="BotConstructionCrudeChairs.h">
       <Filter>Bots</Filter>
     </ClInclude>
-    <ClInclude Include="BotMiningTriAd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BotConstructionLarders.h">
       <Filter>Bots</Filter>
     </ClInclude>
     <ClInclude Include="BotHuntingBirdSnare.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotMiningTriAd.h">
       <Filter>Bots</Filter>
     </ClInclude>
   </ItemGroup>

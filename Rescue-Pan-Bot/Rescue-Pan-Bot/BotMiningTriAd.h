@@ -1,7 +1,34 @@
 #pragma once
 #include "InterfaceInventory.h"
 
-//starts in the tri iron mine next to adro, with zoom all the way in
+/* ========================================================================= */
+/*
+BotConstructionCrudeChairs.h (no matching .cpp file)
+Authored by Connor Rainen.
+
+For creating crude wooden chairs at a POH
+
+SKILL: Mining
+HOURLY:		Money: - 0		XP: + 25k
+Requirements:
+- No minimum skill required
+- Location:		Begin In the Mine next to Adrogune, in the 3 iron spot
+- Bank:			N/a
+- Inventory:	Empty
+- Map:			OSBuddy ZOOM all the way in
+
+Independence: Frequent monitor (4/5)
+
+note: Does not autoLogout handle yet
+
+note: Independence scale:
+Active play			(1/5)
+Intermittent play	(2/5)
+Frequent monitor	(3/5)
+Lazy monitor		(4/5)
+Perfect Automation	(5/5)
+*/
+/* ========================================================================= */
 class BotMiningTriAd
 {
 private:
