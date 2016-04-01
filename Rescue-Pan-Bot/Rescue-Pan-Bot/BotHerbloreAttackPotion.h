@@ -106,7 +106,7 @@ private:
 			if (pix.VerifyPixelColor(p._color,p._x,p._y,2)) {
 				return true;
 			}
-			if (pix.VerifyPixelColor(levelUpPixel) || tt > timeout) {
+			if (pix.VerifyPixelColor(levelUpPixel._color,levelUpPixel._x,levelUpPixel._y,2) || tt > timeout) {
 				printf("Timeout :(\n");
 				return false;
 			}
@@ -170,7 +170,7 @@ public:
 	}
 
 	void run() {
-		//setX();
+		setX();
 		while (true) {
 			gen.HandleHotkeys();
 			gen.HandleAutoLogOut();
