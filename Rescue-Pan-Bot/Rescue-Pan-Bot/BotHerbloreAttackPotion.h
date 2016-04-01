@@ -67,7 +67,11 @@ private:
 	}
 
 	bool bankPart() {
-		bank.OpenBank(bankCoords);
+		if (!bank.OpenBank(bankCoords)) {
+			gen.NormalizeCompass(UP);
+			if (!bank.OpenBank(bankCoords))
+				return false;
+		}
 		if (!bank.VerifyItem(guamBankColor, 5, 1))
 			return false;
 		if (!bank.VerifyItem(eyeBankColor, 4, 1))
@@ -83,10 +87,10 @@ private:
 
 	bool handleDialog(Pixel pp) {
 		int timeout = 0;
-		while (!pix.VerifyPixelColor(pp._color,pp._x,pp._y,4)) {
+		while (!pix.VerifyPixelColor(pp._color,pp._x,pp._y,5)) {
 			timeout++;
 			Sleep(10);
-			if (timeout > 90) {
+			if (timeout > 1100) {
 				printf("dialog never came\n");
 				return false;
 			}
@@ -175,8 +179,14 @@ public:
 			gen.HandleHotkeys();
 			gen.HandleAutoLogOut();
 			if (!bankPart()) {
-				printf("Out of guam\n");
-				return;
+				if (gen.HandleAutoLogOut()) {
+					printf("ya re-logged\n");
+					continue;
+				}
+				else {
+					printf("Out of guam\n");
+					return;
+				}
 			}
 			if (!herbPart())
 				return;
