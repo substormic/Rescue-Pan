@@ -12,7 +12,7 @@ InterfaceInventory::InterfaceInventory()
 //Check inventory open
 bool InterfaceInventory::VerifyInventoryOpen()
 {
-	return pix.VerifyPixelColor(0x71261d00, pixInv._x + 25, pixInv._y - 11);
+	return pix.VerifyPixelColor(0x71261d00, pixInv._x + 25, pixInv._y - 11,2);
 }
 
 void InterfaceInventory::VerifyActiveInventory()
