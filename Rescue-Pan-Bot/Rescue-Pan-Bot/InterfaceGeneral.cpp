@@ -246,6 +246,7 @@ void InterfaceGeneral::Logout()
 //when all else fails. gtfo. quick
 void InterfaceGeneral::LogoutQuick()
 {
+	BlockInput(true);
 	mouse.ChangeSpeed(0.3);
 	Area doorButton(1509 + SCREEN, 1004, 1532 + SCREEN, 1033);
 	Area Logout(1459 + SCREEN, 942, 1584 + SCREEN, 965);
@@ -256,6 +257,9 @@ void InterfaceGeneral::LogoutQuick()
 	mouse.MouseMoveArea(Logout);
 	Sleep(40);
 	mouse.LeftClick();
+	Sleep(50);
+	mouse.LeftClick();
+	BlockInput(false);
 	POINT logCurs = mouse.GetPosition(); //get logout button position
 	POINT curs = mouse.GetPosition();
 	while (VerifyOSbuddy() && (curs.x == logCurs.x) && (curs.y == logCurs.y)) //while not logged out yet OR mouse movement, keep clicking logout
