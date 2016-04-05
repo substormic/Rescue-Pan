@@ -119,10 +119,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BotAgilityCanifis.h" />
+    <ClInclude Include="BotAgilityVarrock.h" />
     <ClInclude Include="BotConstructionCrudeChairs.h" />
     <ClInclude Include="BotConstructionLarders.h" />
+    <ClInclude Include="BotCookingRoguesDen.h" />
     <ClInclude Include="BotCraftingGoldAmulet.h" />
     <ClInclude Include="BotFiremaking.h" />
+    <ClInclude Include="BotFletching.h" />
     <ClInclude Include="BotHerbloreAttackPotion.h" />
     <ClInclude Include="BotHuntingBirdSnare.h" />
     <ClInclude Include="BotMagicCurse.h" />

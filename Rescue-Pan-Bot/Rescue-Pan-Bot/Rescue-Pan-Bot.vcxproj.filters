@@ -99,6 +99,15 @@
     <ClInclude Include="BotHerbloreAttackPotion.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="BotAgilityVarrock.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotFletching.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotCookingRoguesDen.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">
