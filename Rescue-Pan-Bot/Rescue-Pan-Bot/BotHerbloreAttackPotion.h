@@ -49,6 +49,8 @@ private:
 	Pixel attackPotionInv;
 	Pixel levelUpPixel;
 
+	int pots = 0;
+
 
 	void setX() {
 		bank.OpenBank(bankCoords);
@@ -103,10 +105,10 @@ private:
 		int tt = 0;
 		while (inv.VerifyInventoryOpen()) {
 			tt++;
-			if (pix.VerifyPixelColor(p._color,p._x,p._y,2)) {
+			if (pix.VerifyPixelColor(p._color,p._x,p._y,3)) {
 				return true;
 			}
-			if (pix.VerifyPixelColor(levelUpPixel._color,levelUpPixel._x,levelUpPixel._y,2) || tt > timeout) {
+			if (pix.VerifyPixelColor(levelUpPixel._color,levelUpPixel._x,levelUpPixel._y,3) || tt > timeout) {
 				printf("Timeout :(\n");
 				return false;
 			}
@@ -181,6 +183,8 @@ public:
 			}
 			if (!herbPart())
 				return;
+			pots += 9;
+			printf("Made %d potions for %d XP \n", pots, pots * 25);
 		}
 
 
