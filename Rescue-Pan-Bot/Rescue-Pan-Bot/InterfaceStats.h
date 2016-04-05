@@ -84,4 +84,9 @@ public:
 	//DONT USE ME IM BAD
 	bool CheckBorderingPixels(unsigned int color, POINT point, int& counter);
 
+	//returns true if run is on.
+	bool checkRunOn() {
+		return PixelHandler().VerifyPixelColor(0xD9B43B00, 3418 - 1920 + SCREEN, 177, 2);
+	}
+
 };
