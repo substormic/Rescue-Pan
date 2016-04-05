@@ -137,7 +137,7 @@ bool InterfaceGeneral::ChooseMenuOptionColorCheck(int optionChoice, unsigned int
 {
 	POINT option = GetMenuOptionCoords(optionChoice);
 	//uses custom deviation as to not close the menu by moving mouse too far
-	if (!pix.SearchPixelArea(color, option.x, option.y + 5, option.x + MENU_MINWIDTH+20, option.y + MENU_OPTION - 3))
+	if (!pix.SearchPixelArea(color, option.x, option.y + 5, option.x + MENU_MINWIDTH+64, option.y + MENU_OPTION - 3))
 		return false;
 	mouse.SetDeviation(7);//smaller deviation going from menu to option
 	mouse.MouseMoveArea(option.x, option.y + 5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3); //the 3's are buffer to accouunt for error
@@ -161,8 +161,10 @@ bool InterfaceGeneral::CheckLevelUp()
 
 bool InterfaceGeneral::DefiniteClick(unsigned int itemColor, int tolerance, Area region, unsigned int hoverColor, unsigned int menuColor, int menuOption, int maxAttempts)
 {
+	
 	int tries = 0;
 	while (tries < maxAttempts) {
+		InterfaceGeneral::HandleHotkeys();
 		tries++;
 		if (pix.SearchPixelArea(itemColor, region.x1, region.y1, region.x2, region.y2,tolerance)) {
 			POINT p = pix.SearchPixelAreaForPoint(itemColor, region.x1, region.y1, region.x2, region.y2, tolerance);
@@ -182,6 +184,7 @@ bool InterfaceGeneral::DefiniteClick(unsigned int itemColor, int tolerance, Area
 
 	tries = 0;
 	while (tries < maxAttempts) {
+		InterfaceGeneral::HandleHotkeys();
 		tries++;
 		mouse.MouseMoveArea(region);
 		Sleep(120);
@@ -279,30 +282,30 @@ bool InterfaceGeneral::CheckHealthAmount(int amount)
 
 	if (amount >= 90)
 	{
-		if ((pix.VerifyPixelColor(HealthBGBlack1, 1471, 85)) || (pix.VerifyPixelColor(HealthBGBlack2, 1471, 85))) //90 % pixel
+		if ((pix.VerifyPixelColor(HealthBGBlack1, 1471 + SCREEN, 85)) || (pix.VerifyPixelColor(HealthBGBlack2, 1471 + SCREEN, 85))) //90 % pixel
 			result = false;
 	}
 
 	else if (amount >= 70 && amount < 90)
 	{
-		if ((pix.VerifyPixelColor(HealthBGBlack1, 1462, 90)) || (pix.VerifyPixelColor(HealthBGBlack2, 1462, 90)))
+		if ((pix.VerifyPixelColor(HealthBGBlack1, 1462 + SCREEN, 90)) || (pix.VerifyPixelColor(HealthBGBlack2, 1462 + SCREEN, 90)))
 			result = false;
 	}
 
 	else if (amount >= 50 && amount < 70)
 	{
-		if ((pix.VerifyPixelColor(HealthBGBlack1, 1462, 95)) || (pix.VerifyPixelColor(HealthBGBlack2, 1462, 95)))
+		if ((pix.VerifyPixelColor(HealthBGBlack1, 1462 + SCREEN, 95)) || (pix.VerifyPixelColor(HealthBGBlack2, 1462 + SCREEN, 95)))
 			result = false;
 	}
 
 	else if (amount >= 35 && amount < 50)
 	{
-		if ((pix.VerifyPixelColor(HealthBGBlack1, 1464, 100)) || (pix.VerifyPixelColor(HealthBGBlack2, 1464, 100)))
+		if ((pix.VerifyPixelColor(HealthBGBlack1, 1464 + SCREEN, 100)) || (pix.VerifyPixelColor(HealthBGBlack2, 1464 + SCREEN, 100)))
 			result = false;
 	}
 	else if (amount >= 25 && amount < 35)
 	{
-		if ((pix.VerifyPixelColor(HealthBGBlack1, 1464, 103)) || (pix.VerifyPixelColor(HealthBGBlack2, 1464, 103)))
+		if ((pix.VerifyPixelColor(HealthBGBlack1, 1464 + SCREEN, 103)) || (pix.VerifyPixelColor(HealthBGBlack2, 1464 + SCREEN, 103)))
 			result = false;
 	}
 
