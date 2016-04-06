@@ -334,7 +334,7 @@ private:
 		while (counter < 3 && confirmChairAvail()) {
 			gen.HandleHotkeys();
 			waitForMenu();
-			//select the shit chair
+			//select the  chair
 			mouse.MouseMoveArea(larderOnMenu);
 			mouse.RightClick();
 			Sleep(130 + (rand() % 10));
@@ -347,7 +347,7 @@ private:
 
 			//now remove it
 			gen.DefiniteClick(chairBuildColor, 3, larderOnScreen, HOVER_ACTION, HOVER_ACTION, 3, 20);
-			//yes really you dumb shit.
+			//yes really you dummy.
 			handleDialogBox(0);
 
 			counter++;

@@ -2,6 +2,11 @@
 #include "InterfaceStats.h"
 #include "InterfaceInventory.h"
 
+//Run this with an empty inventory
+//use run(color1, color2, foodColor)
+//wield a bow with no arrows so you can't attack!
+
+
 class BotThievingPickpocket
 {
 protected:
@@ -34,14 +39,14 @@ public:
 	int timeout = 350; //timeout fro getting exp
 	int respawnTimeout = 45;
 	int findTimeout = 35;
-
+	 
 
 	BotThievingPickpocket()
 	{
 		// Default search region and mouse speeds
-		defaultRegion.x1 = 250; // 100; //250
+		defaultRegion.x1 = 250 + SCREEN; // 100; //250
 		defaultRegion.y1 = 150;//  60;  //250
-		defaultRegion.x2 = 1250;//  1500; //1300
+		defaultRegion.x2 = 1250 + SCREEN;//  1500; //1300
 		defaultRegion.y2 = 800;//  950; //800
 		stat.SetMouseSpeed(0.4);
 		mouse.ChangeSpeed(0.4);
@@ -160,13 +165,13 @@ public:
 		//When not finding enemies for a while, move around a little to see if theyre offscreen
 		if (findTimeout < 20) // <---------------------- Enemy Finding Timeout Danger-Mode
 		{
-			mouse.MouseMoveArea(1540, 100, 1580, 150);
+			mouse.MouseMoveArea(1540 + SCREEN, 100, 1580 + SCREEN, 150);
 			mouse.LeftClick();
 			Sleep(500);
-			mouse.MouseMoveArea(1540, 100, 1580, 150);
+			mouse.MouseMoveArea(1540 + SCREEN, 100, 1580 + SCREEN, 150);
 			mouse.LeftClick();
 			Sleep(500);
-			mouse.MouseMoveArea(1540, 100, 1580, 150);
+			mouse.MouseMoveArea(1540 + SCREEN, 100, 1580 + SCREEN, 150);
 			mouse.LeftClick();
 			Sleep(1000);
 			timeout = 350; //replenish general timeout, itll still fail if we find nothing 20 times of moving
@@ -177,7 +182,7 @@ public:
 			printf("time to twist up the spawn~!\n");
 			//Sleep(5000);
 			Sleep(1000);
-			mouse.MouseMoveArea(1550, 110, 1570, 125);
+			mouse.MouseMoveArea(1550 + SCREEN, 110, 1570 + SCREEN, 125);
 			mouse.LeftClick();
 			Sleep(500);
 			respawnTimeout = 75;

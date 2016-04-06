@@ -2,6 +2,10 @@
 #include "InterfaceInventory.h"
 #include "InterfaceStats.h"
 
+//run after you have safespotted all 3 rogues on the southeasternmost chest
+
+
+
 class BotThievingRogueChest
 {
 private:
@@ -68,6 +72,8 @@ public:
 			{
 				autoLoot = false;
 				stat.LogoutQuick();
+				Beep(1000, 250);
+				InterfaceGeneral().pingMessage();
 				//return;
 			}
 			if (autoLoot && SleepTimer <= 0) //sleep has gone by

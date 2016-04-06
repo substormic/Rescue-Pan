@@ -3,6 +3,8 @@
 #include"InterfaceInventory.h"
 #include"InterfaceBank.h"
 
+//start by running this from the bank in draynor. It'll walk to the tree for you.
+//default zoom, camera north, all that jazz. You can toggle runWithDrop in the code.
 
 class BotWoodcuttingDraynor {
 private:

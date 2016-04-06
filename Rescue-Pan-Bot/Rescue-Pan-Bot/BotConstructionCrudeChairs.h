@@ -249,7 +249,7 @@ private:
 			gen.HandleHotkeys();
 			waitForMenu();
 			Area cb = counter ? chairBuildB : chairBuildA;
-			//select the shit chair
+			//select the chair
 			mouse.MouseMoveArea(chair);
 			mouse.RightClick();
 			Sleep(130 + (rand() % 10));
@@ -262,7 +262,7 @@ private:
 			
 			//now remove it
 			gen.DefiniteClick(chairBuildColor, 3, cb, HOVER_ACTION, HOVER_ACTION, 3, 20);
-			//yes really you dumb shit.
+			//yes really you dummy.
 			handleDialogBox(0);
 
 			counter++;

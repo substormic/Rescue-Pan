@@ -1,3 +1,11 @@
+//For hunting using bird snare traps
+//authored by Brandon Wallace and Connor Rainen
+//Level: Intermittent play	(2/5)
+//Set up 2 traps north of each other in a vertical line
+//have camera up to default zoom & map facing north
+//then start the bot.
+//This doesn't work that well.
+
 #pragma once
 #include "InterfaceGeneral.h"
 #include "InterfaceBank.h"

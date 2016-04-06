@@ -1,6 +1,13 @@
 #pragma once
 #include "InterfaceInventory.h"
 #include "InterfaceStats.h"
+//despite the name, this trains melee with goblins
+//run in mode 0 to not switch combat styles
+
+//run in mode 1 to switch between att & str if training with scim
+
+//start this near goblins, ideally in fallador area
+
 
 class BotMeleeCow
 {

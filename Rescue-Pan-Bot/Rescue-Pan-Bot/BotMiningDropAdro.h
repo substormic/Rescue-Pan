@@ -1,7 +1,8 @@
 #pragma once
 #include "InterfaceGeneral.h"
 #include "InterfaceInventory.h"
-
+//meant to be run in adrogene on the left set of 3 iron ores with map facing north and default zoom
+//use MiningTriAd, it's better.
 class BotMiningDropAdro {
 	unsigned int oreColor = 0x3B1E1500;
 	unsigned int inventoryColor = 0x61492D00;

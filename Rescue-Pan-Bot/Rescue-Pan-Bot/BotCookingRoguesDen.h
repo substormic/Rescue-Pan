@@ -6,7 +6,7 @@ Authored by Brandon Wallace and Connor Rainen.
 For running the varrock rooftop agility course with OSBuddy Pro
 
 SKILL: Cooking
-HOURLY:		Money: Variable	XP: + 85k/hr (with tuna)
+HOURLY:		Money: Variable	XP: + 85k/hr (with tuna) (150k/hr with sweetcorn)
 Requirements:
 - No minimum skill required. If lvl 1, start with shrimps!
 - Location:		Be in the rogues den, directly south of the fireplace.
@@ -14,7 +14,7 @@ Requirements:
 - Inventory:	Empty please!
 - Map:			Map normalized to OSBuddy default zoom, facing north, UP.
 
-Independence:Perfect Automation	(5/5)
+Independence: Lazy monitor		(4/5)
 
 note: this bot will need to be reset each time you run out of a food in your inventory.
 
@@ -99,7 +99,7 @@ class BotCookingRoguesDen {
 	}
 
 	bool handleCookLvlUp() {
-		if (pix.VerifyPixelColor(0xA5821A00, 1987 - 1920 + SCREEN, 923, 2)) {
+		if (pix.VerifyPixelColor(0xA5821A00, 1987 - 1920 + SCREEN, 923, 4)) {
 			printf("Level up!\n");
 			inv.MoveToItem(27);
 			mouse.LeftClick();
