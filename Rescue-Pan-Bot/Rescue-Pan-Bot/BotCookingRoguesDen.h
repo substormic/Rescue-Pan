@@ -67,9 +67,11 @@ class BotCookingRoguesDen {
 	}
 
 	bool bankPart() {
-		if (!cookOpenBank())
+		if (!cookOpenBank()) {
+			gen.NormalizeCompass(UP);
 			if (!cookOpenBank())
 				return false;
+		}
 		bank.OpenTab(7);
 		bank.DepositBackpack();
 		bank.Withdraw(3,2, 5); //todo: make this withdraw "all but one" to be safe?
@@ -83,7 +85,7 @@ class BotCookingRoguesDen {
 		while (!pix.VerifyPixelColor(dialogBoxColor, dbX, dbY, 2)) {
 			Sleep(5);
 			timeout++;
-			if (timeout > 100) {
+			if (timeout > 150) {
 				printf("Dialog box never opened\n");
 				return false;
 			}
