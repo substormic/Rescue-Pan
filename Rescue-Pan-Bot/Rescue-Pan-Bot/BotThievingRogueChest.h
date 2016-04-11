@@ -19,6 +19,8 @@ private:
 	POINT chest;
 	MSG msg;
 
+	int lootCount = 0;
+
 public: 
 	InterfaceInventory inv;
 	InterfaceStats stat;
@@ -68,18 +70,22 @@ public:
 		while (1)
 		{
 			HandleMyHotkeys();
+			
 			if (stat.MiniMapDot(DOT_PLAYER)) //only autologs if autoloot is on
 			{
 				autoLoot = false;
 				stat.LogoutQuick();
 				Beep(1000, 250);
-				InterfaceGeneral().pingMessage();
+				//InterfaceGeneral().pingMessage();
 				//return;
 			}
 			if (autoLoot && SleepTimer <= 0) //sleep has gone by
 			{
 				POINT point = mouse.GetPosition();
 				LootChest();
+				if (!(lootCount % 30)) {
+					printf("Looted %d times \n", lootCount);
+				}
 				mouse.MouseMove(point);
 				if (gamePlay)
 					mouse.LeftClick();
@@ -134,6 +140,7 @@ public:
 				Curs.y = chest.y;
 			}
 			mouse.LeftClick();
+			lootCount++;
 			lootTimer = 5;
 
 		}
