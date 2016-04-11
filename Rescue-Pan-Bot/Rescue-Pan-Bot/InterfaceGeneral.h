@@ -32,6 +32,10 @@ public:
 	//verifies the hover of something in the top-left corner is specified color
 	virtual bool VerifyTopLeftText(unsigned int color);
 
+	//Searches top left text between "beyond" and "until" for a color.
+	//searchBeyond==-1 means search from the farthest left, and searchUntil==-1 means search until we normally stop looking.
+	bool VerifyTopLeftText(unsigned int color, int searchBeyond, int searchUntil);
+
 	//checks the 3 static pixels are live
 	virtual bool VerifyOSbuddy();
 
@@ -52,6 +56,9 @@ public:
 	//Does a super safe click. Scans region for color, tries a number of times.
 	//only clicks if the color is there and if the hover and ultimately right click matches. 
 	bool DefiniteClick(unsigned int itemColor, int tolerance, Area region, unsigned int hoverColor, unsigned int menuColor, int menuOption, int maxAttempts);
+
+	//overload which allows specifying a "from" and "to" for the verifyTopLeft stage.
+	bool DefiniteClick(unsigned int itemColor, int tolerance, Area region, unsigned int hoverColor, unsigned int menuColor, int menuOption, int maxAttempts, int leftFrom, int leftTo);
 
 	//check if leveled up
 	//modes ignore certain skill levels (like hp at mode 0)

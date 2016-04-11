@@ -84,6 +84,24 @@ bool InterfaceGeneral::VerifyTopLeftText(unsigned int color)
 	return pix.SearchPixelArea(color, topLeft.x, topLeft.y, topLeft.x+180, topLeft.y+18,65);
 }
 
+//Searches top left text between "beyond" and "until" for a color.
+//searchBeyond==-1 means search from the farthest left, and searchUntil==-1 means search until we normally stop looking.
+bool InterfaceGeneral::VerifyTopLeftText(unsigned int color, int searchBeyond, int searchUntil)
+{
+	POINT topLeft;
+	topLeft.x = 2 + SCREEN;
+	topLeft.y = 33;
+	if (searchBeyond != -1) {
+		topLeft.x = searchBeyond + SCREEN;
+	}
+	int until = SCREEN + 182;
+	if (searchUntil != -1) {
+		until = searchUntil + SCREEN;
+	}
+	//uses a shade tolerance of 55. this is important cause top-left hover text is semi transparent and changes given background. 55 is good.
+	return pix.SearchPixelArea(color, topLeft.x, topLeft.y, until, topLeft.y + 18, 65);
+}
+
 bool InterfaceGeneral::VerifyOSbuddy()
 {
 	bool OSbuddy = false;
@@ -189,6 +207,47 @@ bool InterfaceGeneral::DefiniteClick(unsigned int itemColor, int tolerance, Area
 		mouse.MouseMoveArea(region);
 		Sleep(120);
 		if (InterfaceGeneral::VerifyTopLeftText(hoverColor)) {
+			mouse.RightClick();
+			Sleep(30);
+			if (InterfaceGeneral::ChooseMenuOptionColorCheck(menuOption, menuColor)) {
+				mouse.LeftClick();
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool InterfaceGeneral::DefiniteClick(unsigned int itemColor, int tolerance, Area region, unsigned int hoverColor, unsigned int menuColor, int menuOption, int maxAttempts, int leftFrom, int leftTo)
+{
+
+	int tries = 0;
+	while (tries < maxAttempts) {
+		InterfaceGeneral::HandleHotkeys();
+		tries++;
+		if (pix.SearchPixelArea(itemColor, region.x1, region.y1, region.x2, region.y2, tolerance)) {
+			POINT p = pix.SearchPixelAreaForPoint(itemColor, region.x1, region.y1, region.x2, region.y2, tolerance);
+			mouse.MouseMove(p);
+			Sleep(120);
+			if (InterfaceGeneral::VerifyTopLeftText(hoverColor,leftFrom,leftTo)) {
+				mouse.RightClick();
+				Sleep(30);
+				if (InterfaceGeneral::ChooseMenuOptionColorCheck(menuOption, menuColor)) {
+					Sleep(30);
+					mouse.LeftClick();
+					return true;
+				}
+			}
+		}
+	}
+
+	tries = 0;
+	while (tries < maxAttempts) {
+		InterfaceGeneral::HandleHotkeys();
+		tries++;
+		mouse.MouseMoveArea(region);
+		Sleep(120);
+		if (InterfaceGeneral::VerifyTopLeftText(hoverColor,leftFrom,leftTo)) {
 			mouse.RightClick();
 			Sleep(30);
 			if (InterfaceGeneral::ChooseMenuOptionColorCheck(menuOption, menuColor)) {
