@@ -125,10 +125,12 @@
     <ClInclude Include="BotCookingRoguesDen.h" />
     <ClInclude Include="BotCraftingGoldAmulet.h" />
     <ClInclude Include="BotFiremaking.h" />
+    <ClInclude Include="BotFishingBarbPro.h" />
     <ClInclude Include="BotFletching.h" />
     <ClInclude Include="BotHerbloreAttackPotion.h" />
     <ClInclude Include="BotHuntingBirdSnare.h" />
     <ClInclude Include="BotMagicCurse.h" />
+    <ClInclude Include="BotMagicSuperglass.h" />
     <ClInclude Include="BotMagicSuperheat.h" />
     <ClInclude Include="BotMagicTeleAlch.h" />
     <ClInclude Include="BotMeleeCow.h" />
@@ -136,6 +138,7 @@
     <ClInclude Include="BotMiningTriAd.h" />
     <ClInclude Include="BotPK.h" />
     <ClInclude Include="BotRangeOgre.h" />
+    <ClInclude Include="BotRunecraftingMindAltar.h" />
     <ClInclude Include="BotThievingPickpocket.h" />
     <ClInclude Include="BotThievingRogueChest.h" />
     <ClInclude Include="BotWoodcuttingDraynor.h" />

@@ -108,6 +108,15 @@
     <ClInclude Include="BotCookingRoguesDen.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="BotFishingBarbPro.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotRunecraftingMindAltar.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotMagicSuperglass.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">
