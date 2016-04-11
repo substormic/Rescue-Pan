@@ -184,7 +184,9 @@ public:
 			if (!chopTree()) {
 				return false;
 			}
-			inv.DropAllItems();
+			for (int i = 1; i < 28; i++) {
+				inv.DropItem(i);
+			}
 			logsBanked += 28;
 			printf("Ran an inventory. Cut %d logs\n", logsBanked);
 		}
@@ -215,7 +217,7 @@ public:
 		printf("Started.\n");
 		//runWithDrop();
 
-		runWithBank();
+		//runWithBank();
 		//fallback mode:
 		runWithDrop();
 
