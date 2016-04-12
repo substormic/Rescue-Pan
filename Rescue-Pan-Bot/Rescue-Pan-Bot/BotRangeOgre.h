@@ -1,13 +1,49 @@
 #pragma once
 #include "InterfaceStats.h"
 #include "InterfaceInventory.h"
+#include "InterfaceGeneral.h"
 
 class BotRangeOgre
 {
 	protected:
 		InterfaceStats stat;
 		InterfaceInventory inv;
+		PixelHandler pix;
+		InterfaceGeneral gen;
 		Mouse mouse;
+
+		bool purpItemsExist() {
+			if (pix.SearchPixelArea(0xFF00FF00, 260 + SCREEN, 250, 1440 + SCREEN, 580)) {
+				return true;
+			}
+			return false;
+		}
+
+		void attemptTelegrab() {
+
+			inv.VerifyActiveMagic();
+			inv.MoveToSpell(5, 2);
+			mouse.LeftClick();
+			POINT p = pix.SearchPixelAreaForPoint(0xFF00FF00, 260 + SCREEN, 250, 1440 + SCREEN, 580);
+			if (p.x != -1) {
+				p.y += 10;
+				p.x += 30;
+				mouse.MouseMove(p);
+				Sleep(100);
+				mouse.RightClick();
+				Sleep(1200);
+				if (gen.ChooseMenuOptionColorCheck(1, 0x00FF0000)) {
+					mouse.LeftClick();
+				}
+				else {
+					mouse.MouseMoveArea(gen.areaBox(SCREEN + 20, 20, 5, 5));
+				}
+			}
+			else {
+				return;
+			}
+
+		}
 
 public:
 	void run(int mode)
@@ -23,8 +59,13 @@ public:
 			stat.HandleHotkeys();
 
 			POINT cursor = mouse.GetPosition();
-			combat = stat.Fight(OgreNew, 260 + SCREEN, 250, 1440 + SCREEN, 460);
+			combat = stat.Fight(OgreNew, 260 + SCREEN, 250, 1440 + SCREEN, 580);
 			stat.CheckLevelUp();
+
+			if (purpItemsExist()) {
+				attemptTelegrab();
+			}
+
 			if (stat.MouseMoved == true && mode == 1)
 				mouse.MouseMoveArea(cursor.x, cursor.y,cursor.x+3, cursor.y+3);
 			if (!combat)
