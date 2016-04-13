@@ -39,7 +39,7 @@ private:
 	PixelHandler pix;
 	Mouse mouse;
 
-	Area bankCoords = gen.areaBox(2741 - 1920, 584, 20);
+	Area bankCoords = gen.areaBox(2744 - 1920, 580, 24);
 
 	unsigned int seaweedBankColor = 0x05563800;
 	unsigned int sandBankColor = 0x88693100;
@@ -58,12 +58,17 @@ private:
 	}
 
 	bool bankPart() {
-		if (!bank.OpenBank(bankCoords))
-			if (!bank.OpenBank(bankCoords)) {
-				printf("bank didn't open\n");
-				return false;
+		if (!bank.OpenBank(bankCoords,8))
+			if (!bank.OpenBank(bankCoords, 10)) {
+				gen.NormalizeCompass(UP);
+				if (!bank.OpenBank(bankCoords, 40)) {
+					printf("bank didn't open\n");
+					return false;
+				}
 			}
+
 		bank.OpenTab(7);
+		Sleep(5);
 
 		if (!bank.VerifyItem(seaweedBankColor, 5, 2))
 			return false;
@@ -93,7 +98,7 @@ private:
 		}
 		mouse.MouseMoveArea(gen.areaBox(3516 - 1920 + SCREEN, 815, 2));
 		mouse.LeftClick();
-		Sleep(1450 + (rand() % 10));
+		Sleep(1350 + (rand() % 10));
 		return true;
 	}
 

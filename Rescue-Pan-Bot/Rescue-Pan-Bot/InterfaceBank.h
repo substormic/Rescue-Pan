@@ -50,10 +50,13 @@ public:
 	void DepositBackpack();
 
 	//opens bank lol
-	bool OpenBank(Area region);
+	bool InterfaceBank::OpenBank(Area region, int timeout);
 
 	//opens bank lol
-	bool InterfaceBank::OpenBank(Area region, bool onlyNPC);
+	bool InterfaceBank::OpenBank(Area region);
+
+	//opens bank lol
+	bool InterfaceBank::OpenBank(Area region, bool onlyNPC, int timeout);
 
 	//Closes bank
 	bool CloseBank();

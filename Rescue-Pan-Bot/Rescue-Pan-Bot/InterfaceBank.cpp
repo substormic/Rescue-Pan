@@ -127,11 +127,15 @@ void InterfaceBank::DepositBackpack() {
 
 //opens bank lol
 bool InterfaceBank::OpenBank(Area region) {
-	return InterfaceBank::OpenBank(region, false);
+	return InterfaceBank::OpenBank(region, false, 200);
+}
+
+bool InterfaceBank::OpenBank(Area region, int timeout) {
+	return InterfaceBank::OpenBank(region, false, timeout);
 }
 
 //opens bank lol
-bool InterfaceBank::OpenBank(Area region, bool onlyNPC)
+bool InterfaceBank::OpenBank(Area region, bool onlyNPC, int timeout)
 {
 	while (bankTimeout < 40)
 	{
@@ -157,7 +161,7 @@ bool InterfaceBank::OpenBank(Area region, bool onlyNPC)
 			{
 				btime++;
 				Sleep(100);
-				if (btime > 200) {
+				if (btime > timeout) {
 					return false;
 				}
 			}
@@ -176,7 +180,7 @@ bool InterfaceBank::OpenBank(Area region, bool onlyNPC)
 			{
 				btime++;
 				Sleep(100);
-				if (btime > 200) {
+				if (btime > timeout) {
 					return false;
 				}
 			}
