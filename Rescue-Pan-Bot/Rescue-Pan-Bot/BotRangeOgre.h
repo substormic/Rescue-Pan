@@ -62,16 +62,15 @@ public:
 			combat = stat.Fight(OgreNew, 260 + SCREEN, 250, 1440 + SCREEN, 580);
 			stat.CheckLevelUp();
 
-			if (purpItemsExist()) {
+			/*if (purpItemsExist()) {
 				attemptTelegrab();
-			}
+			}*/
 
 			if (stat.MouseMoved == true && mode == 1)
 				mouse.MouseMoveArea(cursor.x, cursor.y,cursor.x+3, cursor.y+3);
 			if (!combat)
 			{
 				stat.Logout();
-				std::cin.ignore();
 			}
 
 

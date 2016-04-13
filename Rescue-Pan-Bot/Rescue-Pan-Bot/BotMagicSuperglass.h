@@ -55,6 +55,8 @@ private:
 		Keyboard().TypeNum(13, 2);
 		Sleep(1000);
 		bank.CloseBank();
+		inv.VerifyActiveMagic();
+		Sleep(400);
 	}
 
 	bool bankPart() {
@@ -91,14 +93,14 @@ private:
 
 	bool castSpell() {
 		inv.VerifyActiveMagic();
-		Sleep(75 + (rand() % 10));
+		Sleep(10 + (rand() % 10));
 		if (!pix.VerifyPixelColor(0xE3416E00, 3516 - 1920 + SCREEN, 815, 2)) {
 			printf("No spell");
 			return false;
 		}
 		mouse.MouseMoveArea(gen.areaBox(3516 - 1920 + SCREEN, 815, 2));
 		mouse.LeftClick();
-		Sleep(1350 + (rand() % 10));
+		Sleep(1325 + (rand() % 10));
 		return true;
 	}
 
