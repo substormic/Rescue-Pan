@@ -167,12 +167,17 @@ bool InterfaceGeneral::ChooseMenuOptionColorCheck(int optionChoice, unsigned int
 bool InterfaceGeneral::CheckLevelUp()
 {
 	bool check = false;
-	check = pix.SearchPixelArea(0x00008000, 290, 908, 466, 935, 10);
+	check = pix.SearchPixelArea(0x00008000, 290 + SCREEN, 908, 466 + SCREEN, 935, 10);
 	if (check)
 	{
 		printf("LEVELED uppppp\n");
-		mouse.MouseMoveArea(160,970,340,990);
-		mouse.LeftClick();
+		
+		for (int i = 0; i < 10; i++) {
+			mouse.MouseMoveArea(160 + SCREEN, 970, 340 + SCREEN, 990);
+			mouse.LeftClick();
+			Sleep(800);
+		}
+		Keyboard().SendEnter();
 	}
 	return check;
 }

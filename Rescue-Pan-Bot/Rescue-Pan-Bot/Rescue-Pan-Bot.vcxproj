@@ -119,6 +119,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BotAgilityCanifis.h" />
+    <ClInclude Include="BotAgilityProCanifis.h" />
     <ClInclude Include="BotAgilityVarrock.h" />
     <ClInclude Include="BotConstructionCrudeChairs.h" />
     <ClInclude Include="BotConstructionLarders.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="BotThievingPickpocket.h" />
     <ClInclude Include="BotThievingRogueChest.h" />
     <ClInclude Include="BotWoodcuttingDraynor.h" />
+    <ClInclude Include="BotWoodcuttingYewPro.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Password.h" />
     <ClInclude Include="InterfaceBank.h" />

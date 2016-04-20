@@ -60,8 +60,9 @@ private:
 	}
 
 	bool bankPart() {
-		if (!bank.OpenBank(bankCoords,8))
+		if (!bank.OpenBank(bankCoords,9))
 			if (!bank.OpenBank(bankCoords, 10)) {
+				gen.HandleAutoLogOut();
 				gen.NormalizeCompass(UP);
 				if (!bank.OpenBank(bankCoords, 40)) {
 					printf("bank didn't open\n");
@@ -70,7 +71,7 @@ private:
 			}
 
 		bank.OpenTab(7);
-		Sleep(5);
+		Sleep(40);
 
 		if (!bank.VerifyItem(seaweedBankColor, 5, 2))
 			return false;
