@@ -50,8 +50,10 @@ public:
 	{
 		mouse.ChangeSpeed(0.4);
 		bool combat = true;
+		bool failOnce = false;
 		unsigned int OgreNew = 0x917b5600;
 		unsigned int Ogre = 0xc9b59500;
+		bool alreadyBeeped = false;
 		stat.alternateColor = Ogre;
 		while (combat)
 		{
@@ -59,20 +61,31 @@ public:
 			stat.HandleHotkeys();
 
 			POINT cursor = mouse.GetPosition();
-			combat = stat.Fight(OgreNew, 260 + SCREEN, 250, 1440 + SCREEN, 580);
+			combat = stat.Fight(OgreNew, 260 + SCREEN, 250, 1440 + SCREEN, 580,0x00FF0000);
 			stat.CheckLevelUp();
 
 			/*if (purpItemsExist()) {
 				attemptTelegrab();
 			}*/
 
-			if (stat.MouseMoved == true && mode == 1)
+			if (purpItemsExist()) {
+				if (!alreadyBeeped) {
+					Beep(1000, 4000);
+					alreadyBeeped = true;
+				}
+			}
+			else {
+				alreadyBeeped = false;
+			}
+
+
+			if (mode == 1 && stat.MouseMoved == true)
 				mouse.MouseMoveArea(cursor.x, cursor.y,cursor.x+3, cursor.y+3);
 			if (!combat)
 			{
 				stat.Logout();
 			}
-
+			
 
 		}
 		return;

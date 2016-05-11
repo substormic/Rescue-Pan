@@ -14,10 +14,15 @@ class BotMeleeCow
 protected:
 	InterfaceInventory inv;
 	InterfaceStats stat;
+	InterfaceGeneral gen;
 	Mouse mouse;
 	unsigned int cake = 0xa6999800;
 	unsigned int goblin1 = 0x9c676100;
 	unsigned int goblin2 = 0x9f701900;
+	unsigned int cocatrice = 0x55541500;
+	unsigned int yak = 0x6F6A6400;
+	unsigned int yak2 = 0x140C0900;
+	unsigned int lobby = 0xAA480A00;
 	int currentStyle = 1; // 1 is attack, 2 is strength
 
 public:
@@ -27,9 +32,11 @@ public:
 	void run(int mode)
 	{
 		stat.fightme = 1;
+		stat.alternateColor = yak2;
 		while (1)
 		{
 			inv.HandleHotkeys();
+			gen.HandleAutoLogOut();
 
 			if (stat.CheckLevelUp() && mode == 1)
 			{
@@ -53,14 +60,14 @@ public:
 
 			}
 
-			if (!inv.AttemptToEatAtHp(cake, 75)) //no more food?
+			if (!inv.AttemptToEatAtHp(lobby, 50)) //no more food?
 			{
 				//out of food, exit
 				Sleep(10000); // allows fight to finish
 				inv.Logout();
 				break;
 			}
-			if (!stat.Fight(goblin2, 200 + SCREEN, 100, 1300 + SCREEN, 900))
+			if (!stat.Fight(yak, 200 + SCREEN, 100, 1300 + SCREEN, 900,0x00FF0000))
 			{
 				// Exit
 			}

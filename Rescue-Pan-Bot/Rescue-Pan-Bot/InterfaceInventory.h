@@ -20,8 +20,8 @@ public:
 	//check if magics is open
 	bool VerifyMagicOpen();
 
-	//checks Magic tab is open, if not, then opens it.
-	void VerifyActiveMagic();
+	//checks Magic tab is open, if not, then opens it. Returns true if the book needed to be opened
+	bool VerifyActiveMagic();
 
 	//check if combatstyle is open
 	bool VerifyCombatStyleOpen();
@@ -99,4 +99,7 @@ public:
 
 	//Activates house building mode
 	void ActivateBuildingMode();
+
+	//Calls servant
+	bool CallServant();
 };

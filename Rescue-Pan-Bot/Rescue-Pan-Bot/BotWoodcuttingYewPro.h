@@ -56,6 +56,7 @@ private:
 	void dropFishies() {
 		for (int i = 1; i < 28; i++) {
 			inv.DropItem(i);
+			gen.HandleHotkeys();
 		}
 	}
 
@@ -107,7 +108,8 @@ private:
 
 	bool soYouThinkYouCanBank() {
 		Area b = gen.areaBox(3072 - 1920, 239, 100);
-		if (bank.OpenBank(b,false,100)) {
+		Area b2 = gen.areaBox(2950 - 1920, 160, 30);
+		if (bank.OpenBank(b,false,130) || bank.OpenBank(b2,false,150)) {
 			//we got the bank open
 			inv.MoveToItem(1);
 			mouse.RightClick();
@@ -115,9 +117,9 @@ private:
 			mouse.LeftClick();
 			bank.CloseBank();
 			clickMiniMap();
+			printf("BANKEDDDDDDDDD\n");
 			return true;
-		}
-
+		}		
 		return false;
 
 	}

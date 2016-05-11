@@ -60,11 +60,11 @@ private:
 	}
 
 	bool bankPart() {
-		if (!bank.OpenBank(bankCoords,9))
-			if (!bank.OpenBank(bankCoords, 10)) {
+		if (!bank.OpenBank(bankCoords,15))
+			if (!bank.OpenBank(bankCoords, 20)) {
 				gen.HandleAutoLogOut();
 				gen.NormalizeCompass(UP);
-				if (!bank.OpenBank(bankCoords, 40)) {
+				if (!bank.OpenBank(bankCoords, 80)) {
 					printf("bank didn't open\n");
 					return false;
 				}
@@ -73,8 +73,11 @@ private:
 		bank.OpenTab(7);
 		Sleep(40);
 
-		if (!bank.VerifyItem(seaweedBankColor, 5, 2))
-			return false;
+		if (!bank.VerifyItem(seaweedBankColor, 5, 2)) {
+			Sleep(500);
+			if (!bank.VerifyItem(seaweedBankColor, 5, 2))
+				return false;
+		}
 		if (!bank.VerifyItem(sandBankColor, 6, 2))
 			return false;
 
@@ -93,7 +96,8 @@ private:
 	}
 
 	bool castSpell() {
-		inv.VerifyActiveMagic();
+		if (inv.VerifyActiveMagic())
+			Sleep(500);
 		Sleep(10 + (rand() % 10));
 		if (!pix.VerifyPixelColor(0xE3416E00, 3516 - 1920 + SCREEN, 815, 2)) {
 			printf("No spell");
@@ -101,7 +105,7 @@ private:
 		}
 		mouse.MouseMoveArea(gen.areaBox(3516 - 1920 + SCREEN, 815, 2));
 		mouse.LeftClick();
-		Sleep(1325 + (rand() % 10));
+		Sleep(1385 + (rand() % 10));
 		return true;
 	}
 

@@ -39,12 +39,19 @@ public:
 	//attempts to attack a found enemy. Assumes potential enemy has already been right clicked.
 	bool Attack();
 
+	//attempts to attack a found enemy. Assumes potential enemy has already been right clicked.
+	//searches for a level color (green if you're a high level) as well
+	bool Attack(unsigned int levelColor);
+
 	//does sector searching. this is in attempt to not always choose top left monster, and to avoid getting stuck on taken monsters.
 	//takes in color ofa  monster to fight, as well as teh area to look for said monster. handles all combat stuff
 	bool Fight(unsigned int color, int x1, int y1, int x2, int y2);
 	
 	//area version of the above
 	bool Fight(unsigned int color, Area region);
+
+	//does everything the other fight does, but makes sure you see the color of text like "(Lvl 13)"
+	bool Fight(unsigned int color, int x1, int y1, int x2, int y2, unsigned int levelColor);
 
 	//takes a selected area and returns a specific sector of said area.
 	//returns area of just that sector.

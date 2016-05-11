@@ -123,6 +123,12 @@
     <ClInclude Include="BotWoodcuttingYewPro.h">
       <Filter>Bots</Filter>
     </ClInclude>
+    <ClInclude Include="BotConstructionLarderGlory.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotConstructionDoor.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InterfaceBank.cpp">

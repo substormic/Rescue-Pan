@@ -12,6 +12,7 @@ protected:
 	PixelHandler pix;
 	Keyboard key;
 
+
 	int logTimeout;
 	POINT MousePos;
 	bool menu5Option = false;
@@ -49,6 +50,9 @@ public:
 
 	//Chooses a menu option only if 'HOVER_xxx' exists on desired option
 	bool ChooseMenuOptionColorCheck(int optionChoice, unsigned int color);
+
+	//Chooses a menu option only if 'HOVER_xxx' AND color2 exists on desired option
+	bool ChooseMenuOptionDoubleColorCheck(int optionChoice, unsigned int color, unsigned int color2);
 
 	//check if leveled up
 	bool CheckLevelUp();

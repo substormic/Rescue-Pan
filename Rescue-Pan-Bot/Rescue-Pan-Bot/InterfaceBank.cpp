@@ -2,6 +2,7 @@
 
 InterfaceBank::InterfaceBank()
 {
+	
 	ActiveTab._color = 0x483e3300;
 	ActiveTab._x = 2;
 	ActiveTab._y = 2; //pixels from top left where color should be 
@@ -127,7 +128,7 @@ void InterfaceBank::DepositBackpack() {
 
 //opens bank lol
 bool InterfaceBank::OpenBank(Area region) {
-	return InterfaceBank::OpenBank(region, false, 200);
+	return InterfaceBank::OpenBank(region, false, 400);
 }
 
 bool InterfaceBank::OpenBank(Area region, int timeout) {
@@ -137,6 +138,7 @@ bool InterfaceBank::OpenBank(Area region, int timeout) {
 //opens bank lol
 bool InterfaceBank::OpenBank(Area region, bool onlyNPC, int timeout)
 {
+	int bankTimeout = 0;
 	while (bankTimeout < 40)
 	{
 		bool canFindBank = pix.SearchPixelArea(0x291B0000, region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2, 50);
@@ -147,20 +149,29 @@ bool InterfaceBank::OpenBank(Area region, bool onlyNPC, int timeout)
 		else {
 			mouse.MouseMoveArea(region.x1 + SCREEN, region.y1, region.x2 + SCREEN, region.y2);
 		}
-		Sleep(200);
+		Sleep(120); //careful
 
-		if (VerifyTopLeftText(0x00DDDD00) && !onlyNPC)
+		if (VerifyTopLeftText(0x00DDDD00,2019-1920,-1) && !onlyNPC)
 		{
 			mouse.RightClick();
-			Sleep(150);
-			ChooseMenuOptionColorCheck(0, HOVER_ACTION); //todo: if this returns false, return.
+			Sleep(120); //careful
+			if (!ChooseMenuOptionColorCheck(0, HOVER_ACTION)) {
+				Sleep(100);
+				if (!ChooseMenuOptionColorCheck(0, HOVER_ACTION)) {
+					POINT pp = mouse.GetPosition();
+					pp.y -= rand() % 20;
+					mouse.MouseMove(pp);
+					bankTimeout++;
+					continue;
+				}
+			}
 			Sleep(30);
 			mouse.LeftClick();
 			int btime = 0;
 			while (!VerifyBankOpen())
 			{
 				btime++;
-				Sleep(100);
+				Sleep(50);
 				if (btime > timeout) {
 					return false;
 				}
@@ -171,15 +182,24 @@ bool InterfaceBank::OpenBank(Area region, bool onlyNPC, int timeout)
 		else if (VerifyTopLeftText(HOVER_NPC))
 		{
 			mouse.RightClick();
-			Sleep(250);
-			ChooseMenuOption(1);
+			Sleep(150); //careful
+			if (!ChooseMenuOptionColorCheck(1, HOVER_NPC)) {
+				Sleep(100);
+				if (!ChooseMenuOptionColorCheck(1, HOVER_NPC)) {
+					POINT pp = mouse.GetPosition();
+					pp.y -= rand() % 20;
+					mouse.MouseMove(pp);
+					bankTimeout++;
+					continue;
+				}
+			} 
 			Sleep(30);
 			mouse.LeftClick();
 			int btime = 0;
 			while (!VerifyBankOpen())
 			{
 				btime++;
-				Sleep(100);
+				Sleep(50);
 				if (btime > timeout) {
 					return false;
 				}
@@ -204,4 +224,46 @@ bool InterfaceBank::CloseBank()
 		return true;
 	}
 	return false;
+}
+
+
+
+bool InterfaceBank::openEdgevilleBank(int teleIndex) {
+	InterfaceInventory inv;
+	inv.VerifyActiveInventory();
+	inv.MoveToItem(teleIndex);
+	Sleep(50);
+	mouse.LeftClick();
+	Pixel a, b;
+	a.Set(0x00000000, 2518 - 1920 + SCREEN, 788);
+	b.Set(0x00, 3166 - 1920 + SCREEN, 866);
+	int timeout = 0;
+	while (!pix.VerifyPixelColor(a) && !pix.VerifyPixelColor(b)) {
+		HandleHotkeys();
+		Sleep(5);
+		timeout++;
+		if (timeout > 100) {
+			printf("Never got to house\n");
+			return false;
+		}
+	}
+	timeout = 0;
+	while (pix.VerifyPixelColor(a) && pix.VerifyPixelColor(b)) {
+		HandleHotkeys();
+		Sleep(5);
+		timeout++;
+		if (timeout > 100) {
+			printf("House never loaded\n");
+			return false;
+		}
+	}
+	DefiniteClick(0x7209a000, 2, areaBox(2455 - 1920 + SCREEN, 399, 50), HOVER_ACTION, HOVER_ACTION, 0, 20, 147, -1);
+	Sleep(6000);
+	ChangeCompassDegrees(180);
+	bool r = OpenBank(areaBox(3049 - 1920, 142, 20, 40));
+	if (!r) {
+		r |= OpenBank(areaBox(2976-1920, 135, 20));
+	}
+	NormalizeCompass(UP);
+	return r;
 }

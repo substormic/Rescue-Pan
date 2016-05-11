@@ -140,6 +140,24 @@ bool InterfaceStats::Attack()
 	return false;
 }
 
+//starts assuming an enemy is right clicked
+bool InterfaceStats::Attack(unsigned int levelColor)
+{
+	Sleep(200);
+	if (ChooseMenuOptionDoubleColorCheck(attackMenuOption, HOVER_NPC, levelColor)) //if the menu option is has npc colors
+	{
+		mouse.LeftClick();
+		if (fightme == 1) //gobbys
+			Sleep(4500); //allow for new combat to update
+		else
+			attackTimeout = 500;
+
+		return true;
+	}
+	printf("Yeh didn't click a valid monster!\n");
+	return false;
+}
+
 //attempts to fight as long as not in combat
 bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 {
@@ -269,6 +287,153 @@ bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2)
 					continue;
 				}
 				if (Attack())
+				{
+					if (sectorTimeout > 0)
+						sectorTimeout--; //no sector issues found here
+					printf("Attacked an enemy!\n");
+					MouseMoved = true;
+					return true;
+				}
+			}
+		}
+	}
+	else //in combat
+	{
+		combatTimeout = 25;
+		return true;
+	}
+	MouseMoved = false;
+	return true;
+}
+
+bool InterfaceStats::Fight(unsigned int color, int x1, int y1, int x2, int y2, unsigned int levelColor)
+{
+	MouseMoved = false;
+	Area region(x1, y1, x2, y2);
+	Area sector;
+	SetMouseSpeed(0.3);
+
+	if (attackTimeout > 0)
+	{
+		Sleep(50);
+		attackTimeout -= 50;
+		return true;
+	}
+
+	if ((sectorTimeout <= 0) || (combatTimeout < 4)) //reset avoided sectors
+	{
+		printf("RESETTING SECTORS\n");
+		avoidSector1 = -1;
+		avoidSector2 = -1;
+		sectorTimeout = 5;
+	}
+	if (combatTimeout <= 0)
+	{
+		printf("=========Somethings Gone Wrong, NO COMBAT. exiting.\n");
+		return false; //end program, cannot find combat for whatever reason
+	}
+
+	int combatStatus = VerifyCombat(1); // ===================================== SET LOOSE OR STRICT COMBAT HERE
+	if (combatStatus == 0) //Not in Combat
+	{
+		if (combatTimeout > 0)//not in combat, decrease combat timeout by one
+			combatTimeout--;
+		printf("Not in combat, lets start a fight\n");
+		for (int i = 0; i < numSectors; i++) //iterate through the sectors looking for mobs.
+		{
+			if ((i == avoidSector1) || (i == avoidSector2)) //if avoidedsector. skip this iteration
+				continue;
+			sector = GetSectorCoords(region, i);
+			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
+			{
+				if (CheckMonsterHealthBar(mouse.GetPosition()))
+				{
+					printf("This monster seems to be taken, judging by its health bar\n");
+					continue;
+				}
+				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
+				{
+					printf("What is this? Not a valid monster thats for sure\n");
+					continue;
+				}
+
+				if (Attack(levelColor))
+				{
+					if (sectorTimeout > 0)
+						sectorTimeout--; //no sector issues found here
+					printf("Attacked an enemy!\n");
+					MouseMoved = true;
+					return true;
+				}
+			}
+		}
+	}
+	else if (combatStatus == 2) //monster is taken, do the region splitting
+	{
+		sectorTimeout = 5;//replenish sectorTimeout
+		POINT TakenEnemy = mouse.GetPosition();
+		if (avoidPointer == 1)
+		{
+			avoidSector1 = GetSector(region, TakenEnemy); //block sector where taken enemy was found
+			printf("Monster taken, now avoiding (#1) sector %i\n", avoidSector1);
+			avoidPointer = 2;
+		}
+		else
+		{
+			avoidSector2 = GetSector(region, TakenEnemy); //block sector where taken enemy was found
+			printf("Monster taken, now avoiding (#2) sector %i\n", avoidSector2);
+			avoidPointer = 1;
+		}
+		for (int i = 0; i < numSectors; i++) //iterate through the sectors looking for enemies.
+		{
+			if ((i == avoidSector1) || (i == avoidSector2)) //if avoidedsector. skip this iteration
+				continue;
+			sector = GetSectorCoords(region, i);
+			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
+			{
+				if (CheckMonsterHealthBar(mouse.GetPosition()))
+				{
+					printf("This monster seems to be taken, judging by its health bar\n");
+					continue;
+				}
+				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
+				{
+					printf("What is this? Not a valid monster thats for sure\n");
+					continue;
+				}
+
+				if (Attack(levelColor))
+				{
+					printf("Attacked an enemy!\n");
+					MouseMoved = true;
+					return true;
+				}
+			}
+		}
+	}
+
+	else if (combatStatus == 3) //enemy just slain!
+	{
+		printf("One down, lets get another\n");
+		for (int i = 0; i < numSectors; i++) //iterate through the sectors looking for mobs.
+		{
+			if ((i == avoidSector1) || (i == avoidSector2)) //if avoidedsector. skip this iteration
+				continue;
+			sector = GetSectorCoords(region, i);
+			if (FindEnemy(color, sector.x1, sector.y1, sector.x2, sector.y2))
+			{
+
+				if (CheckMonsterHealthBar(mouse.GetPosition()))
+				{
+					printf("This monster seems to be taken, judging by its health bar\n");
+					continue;
+				}
+				if (alternateColor != -1 && !CheckMonster(mouse.GetPosition(), alternateColor))
+				{
+					printf("What is this? Not a valid monster thats for sure\n");
+					continue;
+				}
+				if (Attack(levelColor))
 				{
 					if (sectorTimeout > 0)
 						sectorTimeout--; //no sector issues found here

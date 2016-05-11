@@ -122,6 +122,8 @@
     <ClInclude Include="BotAgilityProCanifis.h" />
     <ClInclude Include="BotAgilityVarrock.h" />
     <ClInclude Include="BotConstructionCrudeChairs.h" />
+    <ClInclude Include="BotConstructionDoor.h" />
+    <ClInclude Include="BotConstructionLarderGlory.h" />
     <ClInclude Include="BotConstructionLarders.h" />
     <ClInclude Include="BotCookingRoguesDen.h" />
     <ClInclude Include="BotCraftingGoldAmulet.h" />

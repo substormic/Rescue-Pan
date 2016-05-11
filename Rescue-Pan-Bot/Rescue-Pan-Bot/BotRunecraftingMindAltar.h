@@ -130,6 +130,11 @@ private:
 
 public:
 	void run() {
+
+		InterfaceBank().openEdgevilleBank(1);
+		return;
+
+
 		gen.NormalizeCompass(UP);
 		while (true) {
 			gen.HandleHotkeys();

@@ -32,14 +32,16 @@ bool InterfaceInventory::VerifyMagicOpen()
 }
 
 
-//if magic not open, open it
-void InterfaceInventory::VerifyActiveMagic()
+//if magic not open, open it. Returns true if the book needed to be open.
+bool InterfaceInventory::VerifyActiveMagic()
 {
 	if (!VerifyMagicOpen())
 	{
 		mouse.MouseMoveArea(pixInv._x + 119, pixInv._y - 13, pixInv._x + 151, pixInv._y + 15); //coordinates of inventory tab
 		mouse.LeftClick();
+		return true;
 	}
+	return false;
 }
 
 //Check combat style open
@@ -237,6 +239,7 @@ bool InterfaceInventory::VerifyInventoryFull()
 {
 	bool Item = false;
 	MoveToItem(27);
+	Sleep(40 + (rand() % 20));
 	Item |= VerifyTopLeftText(HOVER_ITEM); //checks both hover and top left to see if item exists 
 	Item |= VerifyHoverText(HOVER_ITEM);
 	return Item;
@@ -320,8 +323,8 @@ bool InterfaceInventory::VerifyActiveOptions()
 		mouse.MouseMoveArea(1544 + SCREEN, 1004, 1567 + SCREEN, 1029);
 		Sleep(20);
 		mouse.LeftClick();
+		Sleep(240);
 		}
-	Sleep(50);
 	return true;
 }
 
@@ -330,7 +333,6 @@ bool InterfaceInventory::OpenHouseTab()
 {
 	int Timeout = 50;
 	VerifyActiveOptions();
-	Sleep(200);
 	mouse.MouseMoveArea(1530 + SCREEN, 967, 1560 + SCREEN, 994);
 	Sleep(40);
 	mouse.LeftClick();
@@ -354,4 +356,21 @@ void InterfaceInventory::ActivateBuildingMode()
 	mouse.MouseMoveArea(1570 + SCREEN, 789, 1577 + SCREEN, 796);
 	Sleep(40);
 	mouse.LeftClick();
+}
+
+bool InterfaceInventory::CallServant()
+{
+	if (!pix.VerifyPixelColor(0xFF981F00, 3396 - 1920 + SCREEN, 751, 1)) {
+		OpenHouseTab();
+	}
+	int timeout = 0;
+	while (!pix.VerifyPixelColor(0xFF981F00, 3396 - 1920 + SCREEN, 751, 1)) {
+		timeout++;
+		if (timeout > 2000)
+			return false;
+	}
+	mouse.MouseMoveArea(3369 -1920 + SCREEN, 953, 3511 -1920 + SCREEN, 966);
+	Sleep(40);
+	mouse.LeftClick();
+	return true;
 }

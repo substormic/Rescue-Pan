@@ -1,5 +1,6 @@
 #pragma once
 #include "InterfaceGeneral.h"
+#include "InterfaceInventory.h"
 #include <sstream> //for to_string
 #include <string.h> // for strings
 
@@ -60,6 +61,10 @@ public:
 
 	//Closes bank
 	bool CloseBank();
+
+	//opens edgeville bank by tele-ing to house.
+	bool openEdgevilleBank(int teleIndex);
+
 /*
 	//checks if bank is open to a specific tab. If not, opens thab.
 	void VerifyTabOpen(int tabNumber);

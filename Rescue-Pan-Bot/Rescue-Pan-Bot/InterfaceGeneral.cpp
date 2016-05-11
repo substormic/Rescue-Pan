@@ -163,6 +163,20 @@ bool InterfaceGeneral::ChooseMenuOptionColorCheck(int optionChoice, unsigned int
 	return true;
 }
 
+bool InterfaceGeneral::ChooseMenuOptionDoubleColorCheck(int optionChoice, unsigned int color, unsigned int color2)
+{
+	POINT option = GetMenuOptionCoords(optionChoice);
+	//uses custom deviation as to not close the menu by moving mouse too far
+	if (!pix.SearchPixelArea(color, option.x, option.y + 5, option.x + MENU_MINWIDTH + 64, option.y + MENU_OPTION - 3))
+		return false;
+	if (!pix.SearchPixelArea(color2, option.x, option.y + 5, option.x + MENU_MINWIDTH + 84, option.y + MENU_OPTION - 3))
+		return false;
+	mouse.SetDeviation(7);//smaller deviation going from menu to option
+	mouse.MouseMoveArea(option.x, option.y + 5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3); //the 3's are buffer to accouunt for error
+	mouse.SetDeviation(250); //reset deviation
+	return true;
+}
+
 //Check if maybe a level up perhaps
 bool InterfaceGeneral::CheckLevelUp()
 {
@@ -397,8 +411,8 @@ void InterfaceGeneral::NormalizeCompass(int mode)
 	{
 	case 1: key.Arrow(LEFT, key.SetDelayRandRange(50,400)); break; //Normalize and random LEFT the camera
 	case 2: key.Arrow(RIGHT, key.SetDelayRandRange(50, 400)); break; //Normalize and RIGHT the camera
-	case 3: key.Arrow(UP, 1500); break; //Normalize and UP the camera
-	case 4: key.Arrow(DOWN, 1500); break; //Normalize and DOWN the camera
+	case 3: key.Arrow(UP, 1000); break; //Normalize and UP the camera
+	case 4: key.Arrow(DOWN, 1000); break; //Normalize and DOWN the camera
 	default: break;
 	}
 
@@ -468,9 +482,15 @@ bool InterfaceGeneral::HandleAutoLogOut()
 			key.Type(pass,passwordLen);//type dat password yo
 			key.GenerateKey(VK_RETURN, false, false); //send enter
 			
+			int to = 0;
 			while (!pix.VerifyPixelColor(0xab837f00, 713 + SCREEN, 326)) //waits for the red button to appear
 			{
-				;
+				to++;
+				if (to > 10000) {
+					printf("Login timeout\n");
+					exit(1);
+				}
+				
 			}
 
 		}
@@ -579,3 +599,4 @@ bool InterfaceGeneral::ChangeCompassDegrees(int degrees)
 		printf("=========== Somethings gone wrong, Compass couldnt be set to %i degrees!", degrees);
 	return true;
 }
+

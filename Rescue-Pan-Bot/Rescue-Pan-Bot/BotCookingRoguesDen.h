@@ -51,6 +51,7 @@ class BotCookingRoguesDen {
 
 	Area benedictArea;
 	Area fireArea;
+	POINT lastValidRightClick;
 
 	bool cookOpenBank() {
 		gen.DefiniteClick(bankColor, 3, benedictArea, HOVER_NPC, HOVER_NPC, 1, 60);
@@ -118,22 +119,81 @@ class BotCookingRoguesDen {
 		return true;
 	}
 
+	bool findFireFast() {
+		int timeout = 0;
+		while (timeout < 25) {
+			timeout++;
+			if (timeout == 0 && lastValidRightClick.x != -1) {
+
+				mouse.MouseMove(lastValidRightClick);
+			}
+			else {
+				mouse.MouseMoveArea(fireArea);
+			}
+			mouse.RightClick();
+			Sleep(50 + (timeout * 10));
+			POINT p = mouse.GetPosition();
+			Area mouseCheck;
+			mouseCheck.x1 = p.x - 40;
+			mouseCheck.y1 = p.y + 15;
+			mouseCheck.x2 = p.x + 80;
+			mouseCheck.y2 = p.y + 300;
+			POINT p2 = pix.SearchPixelAreaForPoint(HOVER_ACTION, mouseCheck);
+			if (p2.x != -1) {
+				p2.y -= 5;
+				mouse.MouseMoveSLD(p2.x,p2.y);
+				Area doubleCheck = gen.areaBox(p2, 3);
+				if (!pix.VerifyPixelColor(HOVER_ACTION,mouse.GetPosition().x,mouse.GetPosition().y)){
+				//if (!pix.SearchPixelArea(HOVER_ACTION, doubleCheck)) {
+					printf("Had it and lost it\n");
+					return false;
+				}
+				else {
+					mouse.LeftClick();
+					lastValidRightClick = p;
+					return true;
+				}
+
+			}
+			else {
+				mouse.MouseMoveArea(gen.areaBox(3005-1920+SCREEN, 185, 400));
+			}
+		}
+		printf("Sorry, didn't work");
+		return false;
+	}
+	
+	bool findFireSlow() {
+		if (!gen.DefiniteClick(fireColor, 5, fireArea, HOVER_ACTION, HOVER_ACTION, 0, 110)) {
+			if (!gen.DefiniteClick(fireColor, 10, fireArea, HOVER_ACTION, HOVER_ACTION, 0, 110)) {
+				printf("Couldn't find fire\n");
+				return false;
+			}
+		}
+		return true;
+	}
+
 	bool cookPart() {
 		inv.MoveToItem(0);
 		mouse.LeftClick();
 		POINT lastItem;
 		lastItem.x = 3498 - 1920 + SCREEN;
 		lastItem.y = 985;
-		unsigned int lastItemColor = pix.GetPixelColor(lastItem.x,lastItem.y); //may need to adjust for different foods
-		if (!gen.DefiniteClick(fireColor, 5, fireArea, HOVER_ACTION, HOVER_ACTION, 0, 110)) {
-			printf("Couldn't find fire\n");
-			return false;
+		unsigned int lastItemColor = pix.GetPixelColor(lastItem.x, lastItem.y); //may need to adjust for different foods
+		
+		if (!findFireFast()) { //just going for it with an area
+			if (!findFireSlow()) { //trying to find the "fire" blue text
+				printf("Couldn't find the fire either way\n");
+				return false;
+			}
 		}
+		
 		if (!handleDialogBox())
 			return false;
 		int timeout = 0;
 		while (true)
 		{
+			gen.HandleAutoLogOut();
 			timeout++;
 			if (!handleCookLvlUp()) {
 				printf("Problem with levelup protocol\n");
@@ -167,9 +227,12 @@ public:
 		benedictArea.y2 = 583;
 
 		fireArea.x1 = 2723 - 1920 + SCREEN;
-		fireArea.y1 = 451;
+		fireArea.y1 = 461;
 		fireArea.x2 = 2776 - 1920 + SCREEN;
 		fireArea.y2 = 505;
+
+		lastValidRightClick.x = -1;
+		lastValidRightClick.y = -1;
 
 	}
 
