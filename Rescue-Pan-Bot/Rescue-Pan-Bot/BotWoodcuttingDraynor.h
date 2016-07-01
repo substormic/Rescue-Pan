@@ -102,6 +102,7 @@ public:
 			//waiting for you to fell the tree
 			while (!treeDead())
 			{
+				gen.HandleHotkeys();
 				timeoutTimer++;
 				if (inv.VerifyInventoryFull(0x7A572C00)) {
 					printf("\nInventory is full.\n");
@@ -127,6 +128,7 @@ public:
 				Sleep(200);
 				timeoutTimer++;
 				gen.HandleAutoLogOut();
+				gen.HandleHotkeys();
 				//todo: zero map up
 				if (timeoutTimer > 160) {
 					printf("Not finding the tree... trying 2 more times\n");
