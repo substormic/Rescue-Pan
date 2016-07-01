@@ -177,6 +177,7 @@ public:
 		while (inv.VerifyInventoryOpen())
 		{
 			gen.HandleAutoLogOut();
+			gen.HandleHotkeys();
 			if (!(ClickTree(treeColorFromTree, treeAreaFromTree, 0))) {
 				return false;
 			}
@@ -199,6 +200,7 @@ public:
 		while (inv.VerifyInventoryOpen())
 		{
 			gen.HandleAutoLogOut();
+			gen.HandleHotkeys();
 			if (!(ClickTree(treeColorFromBank, treeAreaFromBank, 5500))) {
 				return false;
 			}
@@ -217,7 +219,7 @@ public:
 		printf("Started.\n");
 		//runWithDrop();
 
-		//runWithBank();
+		runWithBank();
 		//fallback mode:
 		runWithDrop();
 
