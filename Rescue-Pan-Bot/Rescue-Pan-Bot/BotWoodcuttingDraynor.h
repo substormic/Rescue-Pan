@@ -202,17 +202,21 @@ public:
 			gen.HandleAutoLogOut();
 			gen.HandleHotkeys();
 			if (!(ClickTree(treeColorFromBank, treeAreaFromBank, 5500))) {
+				printf("couldn't click tree\n");
 				return false;
 			}
 			if (!chopTree()) {
+				printf("coundln't chop tree\n");
 				return false;
 			}
 			if (!bankLogs()) {
+				printf("couldn't bank\n");
 				return false;
 			}
 			logsBanked += 28;
 			printf("Ran an inventory. Banked %d logs\n", logsBanked);
 		}
+		printf("no inv open\n");
 	}
 
 	void run() {
