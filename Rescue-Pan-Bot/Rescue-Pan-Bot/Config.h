@@ -70,7 +70,7 @@ struct Pixel {
 // pixStats(0xf1f5f600,1483 + SCREEN,55), pixChat(0x4a5a6000,25 + SCREEN,877), pixInv(0xeaeafb00,1489 + SCREEN,720);
 static const Pixel pixStats(0xf6f5f100, 1495 + SCREEN, 55);
 //static const Pixel pixChat(0x605a4a00, 25 + SCREEN, 877); 
-static const Pixel pixInv(0xfbeaea00, 1500 + SCREEN, 720);
+static const Pixel pixInv(0xfbeaea00, 1501 + SCREEN, 720);
 static const Pixel compass(0x9f0c0e00, 1495 + SCREEN, 55); //color of furthermost red pixel on arm, and the pixel coords of center of compass
 static const Pixel MiniMapCenter(0xffffff00, 1572+SCREEN, 117);
 

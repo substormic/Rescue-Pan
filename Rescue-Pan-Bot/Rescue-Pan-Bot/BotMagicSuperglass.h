@@ -99,11 +99,11 @@ private:
 		if (inv.VerifyActiveMagic())
 			Sleep(500);
 		Sleep(10 + (rand() % 10));
-		if (!pix.VerifyPixelColor(0xE3416E00, 3516 - 1920 + SCREEN, 815, 2)) {
+		if (!pix.VerifyPixelColor(0xE3416E00, 3528 - 1920 + SCREEN, 815, 2)) {
 			printf("No spell");
 			return false;
 		}
-		mouse.MouseMoveArea(gen.areaBox(3516 - 1920 + SCREEN, 815, 2));
+		mouse.MouseMoveArea(gen.areaBox(3528 - 1920 + SCREEN, 815, 2));
 		mouse.LeftClick();
 		Sleep(1385 + (rand() % 10));
 		return true;
