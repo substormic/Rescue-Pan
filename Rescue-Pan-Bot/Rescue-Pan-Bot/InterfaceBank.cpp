@@ -7,13 +7,13 @@ InterfaceBank::InterfaceBank()
 	ActiveTab._x = 2;
 	ActiveTab._y = 2; //pixels from top left where color should be 
 
-	BankTab.x = 500 + SCREEN;
+	BankTab.x = 506 + SCREEN;
 	BankTab.y = 92;
 
-	BankItem.x = 510 + SCREEN;
+	BankItem.x = 516 + SCREEN;
 	BankItem.y = 130;
 
-	BankClose.x = 912 + SCREEN;
+	BankClose.x = 918 + SCREEN;
 	BankClose.y = 59;
 }
 
@@ -21,8 +21,8 @@ InterfaceBank::InterfaceBank()
 bool InterfaceBank::VerifyBankOpen()
 {
 	bool result = true;
-	result &= pix.SearchPixelArea(bankText, 650 + SCREEN, 60, 770 + SCREEN, 80, 10); // orange text in header (tab, bank of runescape, etc)
-	result &= pix.SearchPixelArea(bankText, 460 + SCREEN, 60, 480 + SCREEN, 80, 10); // orange text on bank spaces in top left of bank
+	result &= pix.SearchPixelArea(bankText, 660 + SCREEN, 60, 770 + SCREEN, 80, 10); // orange text in header (tab, bank of runescape, etc)
+	result &= pix.SearchPixelArea(bankText, 465 + SCREEN, 60, 480 + SCREEN, 80, 10); // orange text on bank spaces in top left of bank
 	return result;
 }
 
