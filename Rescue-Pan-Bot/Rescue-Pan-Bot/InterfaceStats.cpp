@@ -592,7 +592,7 @@ bool InterfaceStats::VerifyRunescapeWindow()
 {
 	bool Check = true;
 
-	Check &= pix.VerifyPixelColor(pixChat);
+	//Check &= pix.VerifyPixelColor(pixChat);
 	Check &= pix.VerifyPixelColor(pixStats);
 	Check &= pix.VerifyPixelColor(pixInv);
 
