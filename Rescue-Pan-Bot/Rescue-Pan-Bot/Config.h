@@ -135,6 +135,6 @@ static const Pixel ENTANGLE(MAGIC_ENTANGLE, 1, 8); //create a spell entangle
 const int GAME_CENTER_X = 821 + SCREEN; //center of gameplay window X coord
 const int GAME_CENTER_Y = 504 + SCREEN; //center of gameplay window Y coord
 
-static const Area MiniMap(1484 + SCREEN, 40, 1637 + SCREEN, 194);
+static const Area MiniMap(1495 + SCREEN, 40, 1637 + SCREEN, 194);
 
 #endif
