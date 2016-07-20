@@ -64,7 +64,7 @@ private:
 			if (!bank.OpenBank(bankCoords, 20)) {
 				gen.HandleAutoLogOut();
 				gen.NormalizeCompass(UP);
-				if (!bank.OpenBank(bankCoords, 80)) {
+				if (!bank.OpenBank(bankCoords, 80) && !bank.VerifyBankOpen()) {
 					printf("bank didn't open\n");
 					return false;
 				}
