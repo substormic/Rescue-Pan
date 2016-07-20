@@ -107,7 +107,7 @@ bool InterfaceGeneral::VerifyOSbuddy()
 	bool OSbuddy = false;
 
 	OSbuddy = pix.VerifyPixelColor(pixStats);
-	OSbuddy &= pix.VerifyPixelColor(pixChat);
+	//OSbuddy &= pix.VerifyPixelColor(pixChat);
 	OSbuddy &= pix.VerifyPixelColor(pixInv);
 
 	return OSbuddy;
