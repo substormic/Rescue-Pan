@@ -312,8 +312,8 @@ bool InterfaceGeneral::CheckLocation(Pixel pix1, Pixel pix2, Pixel pix3)
 //when all else fails. gtfo
 void InterfaceGeneral::Logout()
 {
-	Area doorButton(1509 + SCREEN, 1004, 1532 + SCREEN, 1033);
-	Area Logout(1459+SCREEN,942,1584+SCREEN,965);
+	Area doorButton(1521 + SCREEN, 1004, 1544 + SCREEN, 1033);
+	Area Logout(1461 + SCREEN, 942, 1584 + SCREEN, 965);
 	mouse.MouseMoveArea(doorButton);
 	Sleep(400);
 	mouse.LeftClick();
@@ -329,8 +329,8 @@ void InterfaceGeneral::LogoutQuick()
 {
 	BlockInput(true);
 	mouse.ChangeSpeed(0.3);
-	Area doorButton(1509 + SCREEN, 1004, 1532 + SCREEN, 1033);
-	Area Logout(1459 + SCREEN, 942, 1584 + SCREEN, 965);
+	Area doorButton(1521 + SCREEN, 1004, 1544 + SCREEN, 1033);
+	Area Logout(1461 + SCREEN, 942, 1584 + SCREEN, 965);
 	mouse.MouseMoveArea(doorButton);
 	Sleep(40);
 	mouse.LeftClick();
@@ -473,17 +473,17 @@ bool InterfaceGeneral::HandleAutoLogOut()
 			exit(0);
 
 		printf("======================= Auto Logout Detected ==============================\n");
-		if (pix.VerifyPixelColor(0xf1f2a000, 700 + SCREEN, 130)) //yellow sword crossguard
+		if (pix.VerifyPixelColor(0xf1f2a000, 700 + SCREEN, 130) || pix.VerifyPixelColor(0xf1f2a000, 706 + SCREEN, 130)) //yellow sword crossguard
 		{
 			printf("Logout screen sword glint\n");
-			mouse.MouseMoveArea(784+SCREEN, 302, 810+SCREEN, 307); //move login
+			mouse.MouseMoveArea(795+SCREEN, 302, 810+SCREEN, 307); //move login
 			Sleep(100);
 			mouse.LeftClick();
 			key.Type(pass,passwordLen);//type dat password yo
 			key.GenerateKey(VK_RETURN, false, false); //send enter
 			
 			int to = 0;
-			while (!pix.VerifyPixelColor(0xab837f00, 713 + SCREEN, 326)) //waits for the red button to appear
+			while (!pix.VerifyPixelColor(0xab837f00, 719 + SCREEN, 326)) //waits for the red button to appear
 			{
 				to++;
 				if (to > 10000) {
@@ -495,10 +495,10 @@ bool InterfaceGeneral::HandleAutoLogOut()
 
 		}
 
-		if (pix.VerifyPixelColor(0xab837f00, 713 + SCREEN, 326)) //red buttons border highlight
+		if (pix.VerifyPixelColor(0xab837f00, 719 + SCREEN, 326)) //red buttons border highlight
 		{
 			printf("Loggin screen red button\n");
-			mouse.MouseMoveArea(713+SCREEN,327,930+SCREEN, 400); //move to red button
+			mouse.MouseMoveArea(719+SCREEN,327,930+SCREEN, 400); //move to red button
 			Sleep(100);
 			mouse.LeftClick();
 			Sleep(3000);
