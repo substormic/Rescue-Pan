@@ -60,9 +60,10 @@ private:
 	}
 
 	bool bankPart() {
+		gen.HandleAutoLogOut();
 		if (!bank.OpenBank(bankCoords,15))
 			if (!bank.OpenBank(bankCoords, 20)) {
-				gen.HandleAutoLogOut();
+				
 				gen.NormalizeCompass(UP);
 				if (!bank.OpenBank(bankCoords, 80) && !bank.VerifyBankOpen()) {
 					printf("bank didn't open\n");
@@ -134,7 +135,7 @@ public:
 	}
 
 	void run(bool safeMode) {
-
+		int logoutCountdown = 1800;
 		if (safeMode) {
 			setX();
 			gen.NormalizeCompass(UP);
@@ -151,6 +152,16 @@ public:
 
 			invs += 1;
 			printf("Made %d inventories of glass\n", invs);
+			logoutCountdown -= 1;
+			
+			if (logoutCountdown < 0) {
+				gen.Logout();
+				Sleep(10000 + (rand() % 100));
+				gen.HandleAutoLogOut();
+				Sleep(1000);
+				logoutCountdown = 1800;
+
+			}
 		}
 
 
