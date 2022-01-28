@@ -3,7 +3,7 @@
 #include "Mouse.h"
 #include "Pixel.h"
 #include <iostream>
-
+#include <vector>
 
 class InterfaceGeneral
 {
@@ -30,6 +30,8 @@ public:
 	// !WARNING! hover text only works on items that have more than just a USE first option
 	virtual bool VerifyHoverText(unsigned int color);
 
+	bool VerifyHoverTextRL(unsigned int color);
+
 	//verifies the hover of something in the top-left corner is specified color
 	virtual bool VerifyTopLeftText(unsigned int color);
 
@@ -39,6 +41,9 @@ public:
 
 	//checks the 3 static pixels are live
 	virtual bool VerifyOSbuddy();
+
+	//checks the 3 static pixels are live
+	virtual bool VerifyRuneLite();
 
 	//given an option choice(1,2,3...etc.), it will return the top left coordinate of that options hitbox
 	//takes option choice on Zero Indexing (option 1 = optionChoice:0, option 2 = opChoice:1, etc.)
@@ -70,6 +75,47 @@ public:
 
 	//Given three pixels, checks the environment to see if those pixels are where they should be
 	bool CheckLocation(Pixel pix1, Pixel pix2, Pixel pix3);
+
+	//Given a vector of however many pixels, check that all are present on screen at locations expected at same time.
+	bool CheckExactLocation(std::vector<Pixel> Pixels);
+
+	//Given a vector of however many pixels, check that all are present on screen at rough locations expected at same time.
+	bool CheckRoughLocation(std::vector<Pixel> Pixels);
+
+	//waits until a pixel is seen
+	void WaitUntilPixel(Pixel pix);
+
+	//waits until a pixel is seen
+	void WaitUntilPixels(std::vector<Pixel> pixels);
+
+	//waits until one of pixel is seen
+	bool WaitUntilEitherPixel(Pixel pix1, Pixel pix2);
+
+	//waits until one of pixel is seen
+	bool WaitUntilEitherPixel(std::vector<Pixel> pix1, std::vector<Pixel> pix2);
+
+	//waits until one of pixel is seen
+	bool WaitUntilEitherPixelArea(unsigned int pix1, unsigned int pix2, Area Zone);
+
+	//waits until one of pixel is seen
+	bool WaitUntilEitherPixelArea(Pixel pix1, Pixel pix2, Area Zone);
+
+	//waits until one of pixel is seen
+	bool WaitUntilEitherPixelArea(unsigned int pix1, unsigned int pix2, Area Zone, int tolerance);
+
+	//waits until one of pixel is seen
+	bool WaitUntilEitherPixelArea(Pixel pix1, Pixel pix2, Area Zone, int tolerance);
+
+	//returns true for one, false for two
+	bool WaitUntilEitherPregion(Pregion one, Pregion two);
+
+	void WaitUntilPregion(Pregion region);
+
+	//finds color in region, checks if it is not -1/-1 movement. and moves/click
+	bool NavigateToPregion(Pregion reg, unsigned int tolerance = 1);
+
+	//finds color in region, checks if it is not -1/-1 movement. and moves/click
+	bool NavigateToPregionWithHover(Pregion reg, unsigned int HoverColor = HOVER_ACTION, unsigned int tolerance = 1);
 
 	//when all else fails. gtfo
 	void Logout();

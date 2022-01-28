@@ -16,6 +16,9 @@
     <Filter Include="Bots">
       <UniqueIdentifier>{f73a245f-1002-4308-b012-49d92d116cbc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RL Bots">
+      <UniqueIdentifier>{e9c86dbe-4aef-495e-9403-37fdc6dacb9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BotFiremaking.h">
@@ -87,9 +90,6 @@
     <ClInclude Include="BotConstructionCrudeChairs.h">
       <Filter>Bots</Filter>
     </ClInclude>
-    <ClInclude Include="BotMiningTriAd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BotConstructionLarders.h">
       <Filter>Bots</Filter>
     </ClInclude>
@@ -128,6 +128,21 @@
     </ClInclude>
     <ClInclude Include="BotConstructionDoor.h">
       <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotMiningTriAd.h">
+      <Filter>Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotConstructionButlerDungeonDoor.h">
+      <Filter>RL Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotAgilityCanifisRL.h">
+      <Filter>RL Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotAgilitySeersRL.h">
+      <Filter>RL Bots</Filter>
+    </ClInclude>
+    <ClInclude Include="BotWoodcuttingDraynorRL.h">
+      <Filter>RL Bots</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

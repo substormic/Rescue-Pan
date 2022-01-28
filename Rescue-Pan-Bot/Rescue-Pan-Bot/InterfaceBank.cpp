@@ -266,4 +266,35 @@ bool InterfaceBank::openEdgevilleBank(int teleIndex) {
 	}
 	NormalizeCompass(UP);
 	return r;
+
+}
+
+bool InterfaceBank::dumpInventoryRL(Pregion FindBank)
+{
+	NavigateToPregionWithHover(FindBank, 0x00d1d100);
+	waitForBankRL();
+	if (pix.VerifyRoughPixel(Pixel(0x774f2b00, 882, 828)))
+	{
+		mouse.MouseMoveRoughly(882, 828, 3);
+		Sleep(10);
+		mouse.LeftClick();
+	}
+	//wait until first inv slot empty
+	WaitUntilPixel(Pixel(0x3e352900, 1458, 765));
+	return true;
+}
+
+void InterfaceBank::waitForBankRL()
+{
+	//waits until bank is open
+	WaitUntilPixel(Pixel(0xff981f00, 670, 68));
+	return;
+}
+
+void InterfaceBank::closeBankRL()
+{
+	POINT p = pix.SearchPixelAreaForPoint(0x64574000, Area(914, 56, 931, 74));
+	mouse.MouseMoveRoughly(p,3);
+	Sleep(30);
+	mouse.LeftClick();
 }

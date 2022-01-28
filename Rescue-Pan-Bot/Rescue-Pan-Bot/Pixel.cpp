@@ -382,7 +382,13 @@ bool PixelHandler::VerifyPixelColor(Pixel pix)
 // Searches just around a certain pixel with a tolerance of 10 for a certain pixel
 bool PixelHandler::VerifyRoughPixel(Pixel pix)
 {
-	return SearchPixelArea(pix._color, pix._x - 8, pix._y - 8, pix._x + 8, pix._y + 8, 10);
+	return SearchPixelArea(pix._color, pix._x - 8, pix._y - 8, pix._x + 8, pix._y + 8, 15);
+}
+
+// Searches just around a certain pixel with a tolerance of 10 for a certain pixel
+bool PixelHandler::VerifyRoughPixel(Pixel pix, int shade = 15)
+{
+	return SearchPixelArea(pix._color, pix._x - 8, pix._y - 8, pix._x + 8, pix._y + 8, shade);
 }
 
 //USED to find pixels on screen and get informations

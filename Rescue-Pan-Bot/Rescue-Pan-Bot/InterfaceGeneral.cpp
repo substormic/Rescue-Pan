@@ -1,6 +1,7 @@
 #include "InterfaceGeneral.h"
 
 
+
 InterfaceGeneral::InterfaceGeneral() // constructor (sets hotkeys)
 {
 	//arguments Window, HK-ID, SPECIAL-KEYS, HOTKEY
@@ -74,6 +75,14 @@ bool InterfaceGeneral::VerifyHoverText(unsigned int color)
 	return result;
 }
 
+//checks top left
+bool InterfaceGeneral::VerifyHoverTextRL(unsigned int color)
+{
+	Sleep(20);
+	Area HoverArea = { 3, 23, 313, 40 };
+	return pix.SearchPixelArea(color, HoverArea,30);
+}
+
 //can trigger on "Level Color" of both monsters and players. Extremely recommend use in conjunction with verifyhovertext.
 bool InterfaceGeneral::VerifyTopLeftText(unsigned int color)
 {
@@ -113,6 +122,30 @@ bool InterfaceGeneral::VerifyOSbuddy()
 	return OSbuddy;
 }
 
+bool InterfaceGeneral::VerifyRuneLite()
+{
+	bool Runelite = false;
+
+	printf("Waiting until runelite is up.\n");
+
+	//wait until runelite is up
+	WaitUntilEitherPixel(HPRL, expHPRL);
+
+	Runelite = pix.VerifyRoughPixel(HPRL);
+	//OSbuddy &= pix.VerifyPixelColor(pixChat);
+	Runelite &= pix.VerifyRoughPixel(PrayRL);
+
+	//maybe skill tracking menu open, trying with menu expanded coordinates
+	if (!Runelite)
+	{
+		Runelite = pix.VerifyRoughPixel(expHPRL);
+		//OSbuddy &= pix.VerifyPixelColor(pixChat);
+		Runelite &= pix.VerifyRoughPixel(expPrayRL);
+	}
+
+	return Runelite;
+}
+
 //takes option choice on Zero Indexing (option 1 = optionChoice:0, option 2 = opChoice:1, etc.)
 POINT InterfaceGeneral::GetMenuOptionCoords(int optionChoice)
 {
@@ -145,7 +178,7 @@ void InterfaceGeneral::ChooseMenuOption(int optionChoice)
 	POINT option = GetMenuOptionCoords(optionChoice);
 	//uses custom deviation as to not close the menu by moving mouse too far
 	mouse.SetDeviation(15);//smaller deviation going from menu to option
-	mouse.MouseMoveArea(option.x, option.y+5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 3); //the 3's are buffer to accouunt for error
+	mouse.MouseMoveArea(option.x, option.y+5, option.x + MENU_MINWIDTH, option.y + MENU_OPTION - 5); //the 3's are buffer to accouunt for error
 	mouse.SetDeviation(250); //reset deviation
 	return;
 }
@@ -309,6 +342,261 @@ bool InterfaceGeneral::CheckLocation(Pixel pix1, Pixel pix2, Pixel pix3)
 	return result;
 }
 
+//Given a vector of however many pixels, check that all are present on screen at locations and shade expected at same time.
+bool InterfaceGeneral::CheckExactLocation(std::vector<Pixel> Pixels)
+{
+	bool result = true;
+	for (auto pixel : Pixels) {
+		result &= pix.VerifyPixelColor(pixel);
+	}
+	return result;
+}
+
+//Given a vector of however many pixels, check that all are present on screen at rough locations expected at same time.
+bool InterfaceGeneral::CheckRoughLocation(std::vector<Pixel> Pixels)
+{
+	bool result = true;
+	for (auto pixel : Pixels) {
+		result &= pix.VerifyRoughPixel(pixel);
+	}
+	if (result)
+		printf("All Pixels found.\n");
+	return result;
+}
+
+//waits until a pixel is seen
+void InterfaceGeneral::WaitUntilPixel(Pixel pixel)
+{
+	while (!pix.VerifyRoughPixel(pixel))
+	{
+		Sleep(15);
+	}
+	return;
+}
+
+//waits until a pixel is seen
+void InterfaceGeneral::WaitUntilPixels(std::vector<Pixel> pixels)
+{
+	while (!CheckRoughLocation(pixels))
+	{
+		Sleep(15);
+	}
+	return;
+}
+
+//waits until either pixel is seen - pix1 = true, pix2 = false
+bool InterfaceGeneral::WaitUntilEitherPixel(Pixel pix1, Pixel pix2)
+{
+	while (!pix.VerifyRoughPixel(pix1))
+	{
+		if (!pix.VerifyRoughPixel(pix2))
+		{
+			Sleep(15);
+			continue;
+		}
+		return false;
+	}
+	return true;
+}
+
+//waits until all sets of either pixel is seen. Runs indefinitely until all pixels met for set 1 or 2. True for pix1, False for pix2.
+bool InterfaceGeneral::WaitUntilEitherPixel(std::vector<Pixel> pix1, std::vector<Pixel> pix2)
+{
+	while (true)
+	{
+		bool result = true;
+		for (auto i : pix1)
+		{
+			result &= pix.VerifyRoughPixel(i);
+		}
+		if (result)
+			return true;
+
+		//reset and check second set of pixels.
+		result = true;
+		for (auto i : pix2)
+		{
+			result &= pix.VerifyRoughPixel(i);
+		}
+		if (result)
+			return false;
+	}
+}
+
+//Sleeps until either pixel is seen, returns true for 1st pixel, false for second pixel
+bool InterfaceGeneral::WaitUntilEitherPixelArea(unsigned int pix1, unsigned int pix2, Area zone)
+{
+	while (!pix.SearchPixelArea(pix1, zone))
+	{
+		if (!pix.SearchPixelArea(pix2, zone))
+		{
+			Sleep(15);
+			continue;
+		}
+		return false;
+	}
+	return true;
+}
+
+//Sleeps until either pixel is seen, returns true for 1st pixel, false for second pixel
+bool InterfaceGeneral::WaitUntilEitherPixelArea(unsigned int pix1, unsigned int pix2, Area zone, int tolerance)
+{
+	while (!pix.SearchPixelArea(pix1, zone, tolerance))
+	{
+		if (!pix.SearchPixelArea(pix2, zone, tolerance))
+		{
+			Sleep(15);
+			continue;
+		}
+		return false;
+	}
+	return true;
+}
+
+
+//Sleeps until either pixel is seen, returns true for 1st pixel, false for second pixel
+bool InterfaceGeneral::WaitUntilEitherPixelArea(Pixel pix1, Pixel pix2, Area zone)
+{
+	while (!pix.SearchPixelArea(pix1._color, zone))
+	{
+		if (!pix.SearchPixelArea(pix2._color, zone))
+		{
+			Sleep(15);
+			continue;
+		}
+		return false;
+	}
+	return true;
+}
+
+//Sleeps until either pixel is seen, returns true for 1st pixel, false for second pixel
+bool InterfaceGeneral::WaitUntilEitherPixelArea(Pixel pix1, Pixel pix2, Area zone, int tolerance)
+{
+	while (!pix.SearchPixelArea(pix1._color, zone, tolerance))
+	{
+		if (!pix.SearchPixelArea(pix2._color, zone, tolerance))
+		{
+			Sleep(15);
+			continue;
+		}
+		return false;
+	}
+	return true;
+}
+
+//Sleeps until either pixel is seen, returns true for 1st pixel, false for second pixel
+bool InterfaceGeneral::WaitUntilEitherPregion(Pregion one, Pregion two)
+{
+	while (!pix.SearchPixelArea(one.pix._color, one.area))
+	{
+		if (!pix.SearchPixelArea(two.pix._color, two.area))
+		{
+			Sleep(15);
+			continue;
+		}
+		return false;
+	}
+	return true;
+}
+
+//waits until a pixel is seen
+void InterfaceGeneral::WaitUntilPregion(Pregion pregion)
+{
+	while (!pix.SearchPixelArea(pregion.pix._color, pregion.area))
+	{
+		Sleep(15);
+	}
+	return;
+}
+
+bool InterfaceGeneral::NavigateToPregion(Pregion reg, unsigned int tolerance)
+{
+	//first attempt to navigate to roughly the pixel, if a valid pixel was given
+	if (!(reg.pix._x <= 0) && !(reg.pix._y <= 0))
+	{
+		if (pix.VerifyPixelColor(reg.pix))
+		{
+			POINT exact;
+			exact.x = reg.pix._x; exact.y = reg.pix._y;
+			mouse.MouseMoveRoughly(exact, tolerance);
+			Sleep(20);
+			mouse.LeftClick();
+			return true;
+		}
+	}
+
+	POINT p = pix.SearchPixelAreaForPoint(reg.pix._color, reg.area);
+	//check that p is valid point
+	if (p.x != -1 && p.y != -1)
+	{
+		mouse.MouseMoveRoughly(p, tolerance);
+		Sleep(20);
+		mouse.LeftClick();
+		return true;
+	}
+
+	return false;
+}
+
+
+//Defaults to blue action hover text
+bool InterfaceGeneral::NavigateToPregionWithHover(Pregion reg, unsigned int hover, unsigned int tolerance)
+{
+	//in case where a valid pixel is given check first that pixel
+	//first attempt to navigate to roughly the pixel, if a valid pixel was given
+	if (!(reg.pix._x <= 0) && !(reg.pix._y <= 0))
+	{
+		printf( "Exact pixel given. ");
+		if (pix.VerifyPixelColor(reg.pix))
+		{
+			POINT exact;
+			exact.x = reg.pix._x; exact.y = reg.pix._y;
+
+			//try three times
+			for (auto i = 0; i< 3; i++)
+			{
+				mouse.MouseMoveRoughly(exact, tolerance);
+				Sleep(500);
+				if (VerifyHoverTextRL(hover))
+				{
+					printf(" Exact pixel - Hover text found.");
+					mouse.LeftClick();
+					return true;
+				}
+			}
+
+		}
+	}
+
+
+	printf(" Searching for nav pixel.\n");
+	POINT p = pix.SearchPixelAreaForPoint(reg.pix._color, reg.area);
+	//Use back up color if first one failed
+	if (p.x == -1 && p.y == -1 && reg.altColor != 0xFFFFFFFF)
+	{
+		printf(" Using backup color. ");
+		p = pix.SearchPixelAreaForPoint(reg.altColor, reg.area);
+	}
+	if (p.x != -1 && p.y != -1)
+	{
+		//try three times
+		for (auto i = 0; i < 3; i++)
+		{
+			printf(" Attempt %d. ", i);
+			mouse.MouseMoveRoughly(p, tolerance);
+			Sleep(500);
+			if (VerifyHoverTextRL(hover))
+			{
+				printf(" Pixel Search - Hover text found.");
+				mouse.LeftClick();
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 //when all else fails. gtfo
 void InterfaceGeneral::Logout()
 {
@@ -464,7 +752,7 @@ bool InterfaceGeneral::HandleAutoLogOut()
 {
 	const int passwordLen = sizeof(password);
 	char pass[passwordLen];
-	strncpy_s(pass, password, passwordLen);
+	//strncpy_s(pass, password, passwordLen);
 
 	if (!CheckIfInGame()) //confirmed logout
 	{

@@ -128,7 +128,7 @@ public:
 		char numBuffer[20];
 		sprintf_s(numBuffer, "%ld", number);
 		Type(numBuffer, 20);
-		SendEnter();
+		Sleep(15);
 	}
 
 	//overload which types a number of a given lenght and sends enter. Speeds up the process.

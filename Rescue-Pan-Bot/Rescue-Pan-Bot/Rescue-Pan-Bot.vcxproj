@@ -21,32 +21,32 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B8937799-5313-45F0-A265-1C62B72A7FC9}</ProjectGuid>
     <RootNamespace>RescuePanBot</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -119,8 +119,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BotAgilityCanifis.h" />
+    <ClInclude Include="BotAgilityCanifisRL.h" />
     <ClInclude Include="BotAgilityProCanifis.h" />
+    <ClInclude Include="BotAgilitySeersRL.h" />
     <ClInclude Include="BotAgilityVarrock.h" />
+    <ClInclude Include="BotConstructionButlerDungeonDoor.h" />
     <ClInclude Include="BotConstructionCrudeChairs.h" />
     <ClInclude Include="BotConstructionDoor.h" />
     <ClInclude Include="BotConstructionLarderGlory.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="BotThievingPickpocket.h" />
     <ClInclude Include="BotThievingRogueChest.h" />
     <ClInclude Include="BotWoodcuttingDraynor.h" />
+    <ClInclude Include="BotWoodcuttingDraynorRL.h" />
     <ClInclude Include="BotWoodcuttingYewPro.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="Password.h" />

@@ -24,6 +24,14 @@ public:
 	//same as above, just takes in a point
 	bool MouseMove(POINT coord);
 
+
+	//same as above, just takes in a point
+	bool MouseMoveRoughly(POINT coord, int variance);
+
+	//same as above, just takes in a point
+	bool MouseMoveRoughly(int x, int y, int variance);
+
+
 	//STRAIGHT LINE DISTANCE mouse move - recieves pixel coordinates. change mouse position to those coords
 	bool MouseMoveSLD(int x, int y);
 

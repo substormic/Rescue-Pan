@@ -5,9 +5,13 @@
 #include "BotMagicCurse.h"
 #include "BotMagicSuperheat.h"
 #include "BotRangeOgre.h"
+#include "BotConstructionButlerDungeonDoor.h"
+#include "BotAgilityCanifisRL.h"
 #include "BotMeleeCow.h"
 #include "BotPK.h"
 #include "BotAgilityCanifis.h"
+#include "BotAgilitySeersRL.h"
+#include "BotWoodcuttingDraynorRL.h"
 #include "InterfaceStats.h"
 #include "BotWoodcuttingDraynor.h"
 #include "BotMiningDropAdro.h"
@@ -58,7 +62,11 @@ int main()
 	//BotThievingPickpocket me;
 	//BotThievingRogueChest me;
 	//BotMeleeCow me;
-	BotRangeOgre me;
+	// 
+	//BotSeersRL me;
+	BotWCDraynorRL me;
+	//BotCanifisRL me;
+	//BotConstructionDungeonDoor me;
 	//BotPK me;
 	//BotAgilityCanifis me;
 	//BotWoodcuttingDraynor me;
@@ -68,18 +76,12 @@ int main()
 
 	//me.run(me.Paladin1, me.Paladin1, me.cake);
 	//me.run(me.AdroKnight1,me.AdroKnight2,me.PineapplePizza);
-	//me.run();
+	me.run();
 	//me.run();
 	//me.runIron();
-	me.run(0);
+	//me.run(0);
 
 	std::cin.ignore();
 	return 0;
 }
 
-
-
-/*
-
-
-*/

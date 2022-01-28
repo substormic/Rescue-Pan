@@ -65,6 +65,14 @@ public:
 	//opens edgeville bank by tele-ing to house.
 	bool openEdgevilleBank(int teleIndex);
 
+	//RL section
+	//uses findBank to find and open the bank. waits for it to be open, dumps inv. 
+	bool dumpInventoryRL(Pregion findBank);
+
+	void waitForBankRL();
+
+	void closeBankRL();
+
 /*
 	//checks if bank is open to a specific tab. If not, opens thab.
 	void VerifyTabOpen(int tabNumber);

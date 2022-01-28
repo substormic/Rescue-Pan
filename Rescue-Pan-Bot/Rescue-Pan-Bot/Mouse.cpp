@@ -66,6 +66,22 @@ bool Mouse::MouseMove(POINT coord)
 	return true;
 }
 
+
+//Deviates PATH Randomly!! mouse move - recieves pixel coordinates. change mouse position to those coords: DEVIATION CHOOSING
+bool Mouse::MouseMoveRoughly(POINT coord, int variance)
+{
+	MouseMoveArea(coord.x-variance, coord.y-variance, coord.x + variance, coord.y + variance);
+	return true;
+}
+
+//Deviates PATH Randomly!! mouse move - recieves pixel coordinates. change mouse position to those coords: DEVIATION CHOOSING
+bool Mouse::MouseMoveRoughly(int x, int y, int variance)
+{
+	MouseMoveArea(x - variance, y - variance, x + variance, y + variance);
+	return true;
+}
+
+
 //STRAIGHT LINE DISTANCE mouse move - recieves pixel coordinates. change mouse position to those coords
 bool Mouse::MouseMoveSLD(int x, int y)
 {

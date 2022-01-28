@@ -66,7 +66,68 @@ struct Pixel {
 		_y = y;
 		_color = color;
 	}
-}; // ============= MAKE SURE THESE ARE VALID ===========
+}; 
+
+struct Pregion { //pixel region
+
+	Pixel pix;
+	Area area;
+	unsigned int altColor;
+
+	Pregion()
+	{
+		pix = Pixel(0,0,0);
+		area = Area(0,0,0,0);
+		altColor = 0xFFFFFFFF;
+	}
+	Pregion(Pixel p, Area a)
+	{
+		area.x1 = a.x1;
+		area.x2 = a.x2;
+		area.y1 = a.y1;
+		area.y2 = a.y2;
+		pix._color = p._color;
+		pix._x = p._x;
+		pix._y = p._y;
+		altColor = 0xFFFFFFFF;
+	}
+	Pregion(Pixel p, Area a, unsigned int alt)
+	{
+		area.x1 = a.x1;
+		area.x2 = a.x2;
+		area.y1 = a.y1;
+		area.y2 = a.y2;
+		pix._color = p._color;
+		pix._x = p._x;
+		pix._y = p._y;
+		altColor = alt;
+	}
+	Pregion(unsigned int color, Area a)
+	{
+		area.x1 = a.x1;
+		area.x2 = a.x2;
+		area.y1 = a.y1;
+		area.y2 = a.y2;
+		pix._color = color;
+		pix._x = 0;
+		pix._y = 0;
+		altColor = 0xFFFFFFFF;
+	}
+	Pregion(unsigned int color, Area a, unsigned int alt)
+	{
+		area.x1 = a.x1;
+		area.x2 = a.x2;
+		area.y1 = a.y1;
+		area.y2 = a.y2;
+		pix._color = color;
+		pix._x = 0;
+		pix._y = 0;
+		altColor = alt;
+	}
+};
+
+
+// ============= MAKE SURE THESE ARE VALID ===========
 // pixStats(0xf1f5f600,1483 + SCREEN,55), pixChat(0x4a5a6000,25 + SCREEN,877), pixInv(0xeaeafb00,1489 + SCREEN,720);
 static const Pixel pixStats(0xf6f5f100, 1495 + SCREEN, 55);
 //static const Pixel pixChat(0x605a4a00, 25 + SCREEN, 877); 
@@ -74,6 +135,11 @@ static const Pixel pixInv(0xfbeaea00, 1501 + SCREEN, 720);
 static const Pixel compass(0x9f0c0e00, 1495 + SCREEN, 55); //color of furthermost red pixel on arm, and the pixel coords of center of compass
 static const Pixel MiniMapCenter(0xffffff00, 1572+SCREEN, 117);
 
+// Runelite Hp and Rayer pixels  with and without expanded menu
+static const Pixel HPRL(0x9c070400, 1705, 78);
+static const Pixel PrayRL(0x44326600, 1705,113);
+static const Pixel expHPRL(0x9c070400, 1463, 78);
+static const Pixel expPrayRL(0x44326600, 1463, 113);
 
 //Create STATS pixel to verify window (uses center white pixel on compass)
 //Create INVENTORY pixel to verify inv. (uses center whtie pixel on quests icon)
@@ -86,6 +152,7 @@ static const Pixel MiniMapCenter(0xffffff00, 1572+SCREEN, 117);
 #define HOVER_ITEM 0xff904000 //item hover text color - ORANGE
 #define HOVER_ACTION  0x00ffff00//action hover text color - BLUE
 #define HOVER_MAGIC 0x00ff0000//Magic Spell hover text color - GREEN
+#define HOVER_AGILITY 0x00c1c100//agility hover optino
 
 #define MENU_HEADER 20//pixel height of "choose option"
 #define MENU_OPTION 15//pixel height of each option

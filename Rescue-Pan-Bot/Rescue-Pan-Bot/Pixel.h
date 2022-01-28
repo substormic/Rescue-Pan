@@ -66,6 +66,10 @@ public:
 	// its large because the runescape world shifts over time
 	bool VerifyRoughPixel(Pixel pix);
 
+	// Searches a decent pixel area around a certain pixel with a tolerance of 10 for a certain pixel
+    // its large because the runescape world shifts over time, allows control over the amount of shades for rough pixel check
+	bool VerifyRoughPixel(Pixel pix, int Shade);
+
 	//prints out color and (x,y) of mouse pointer. infinite while loop CTRL + C to leave.
 	unsigned int DEBUG();
 
